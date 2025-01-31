@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -9,6 +11,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
@@ -140,5 +143,24 @@ compose.desktop {
             packageName = "org.example.cross.card"
             packageVersion = "1.0.0"
         }
+    }
+}
+
+buildkonfig {
+    packageName = "org.example.cross.card"
+
+    defaultConfigs {
+        val localProperties = gradleLocalProperties(
+            projectRootDir = rootDir,
+            providers = providers
+        )
+        val supabaseKey = localProperties.getProperty("supabaseKey")
+        val supabaseUrl = localProperties.getProperty("supabaseUrl")
+
+        require(supabaseKey.isNotEmpty())
+        require(supabaseUrl.isNotEmpty())
+
+        buildConfigField(STRING, "supabaseKey", supabaseKey)
+        buildConfigField(STRING, "supabaseUrl", supabaseUrl)
     }
 }

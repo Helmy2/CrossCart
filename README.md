@@ -103,6 +103,19 @@ clean architecture, real-time sync, and cross-platform development.
 
 ## Run the application
 
+### Add configuration
+
+1. **Create `local.properties`:** In the root of your project, create a file named
+   `local.properties`.
+2. **Add Supabase Credentials:** Add your Supabase URL and anonymous key to `local.properties`:
+   ```properties
+   SUPABASE_URL=your_actual_supabase_url
+   SUPABASE_ANON_KEY=your_actual_supabase_anon_key
+   ```
+3. **Run the buildkonfig plugin:** Run the buildkonfig plugin to generate the `BuildConfig.kt` file:
+
+- run `./gradlew generateBuildKonfig`
+
 ### Android
 
 To run the application on android device/emulator:

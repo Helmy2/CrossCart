@@ -13,18 +13,23 @@ clean architecture, real-time sync, and cross-platform development.
 ---
 
 ### Core Functionality
-*   **Platform Support:** iOS, Android, Web, and Desktop (from initial release).
-*   **Modern Architecture:** Built with Jetpack Compose for UI, leveraging Kotlin Multiplatform for shared logic, ensuring a consistent experience across platforms.
-*   **Data Persistence:** Utilizes SQLDelight for local data storage, enabling offline functionality and guest user features.
-*   **Real-time Synchronization:** Integrates with Supabase Realtime for live updates of data across devices, providing a dynamic and interactive experience.
+
+- **Platform Support:** iOS, Android, Web, and Desktop (from initial release).
+- **Modern Architecture:** Built with Jetpack Compose for UI, leveraging Kotlin Multiplatform for
+  shared logic, ensuring a consistent experience across platforms.
+- **Data Persistence:** Utilizes SQLDelight for local data storage, enabling offline functionality
+  and guest user features.
+- **Real-time Synchronization:** Integrates with Supabase Realtime for live updates of data across
+  devices, providing a dynamic and interactive experience.
 
 ### UI/UX
 
-*   **Theme:**
-  - [ ] Dark/Light mode switching.
-*   **Responsive Design:** UI adapts seamlessly to different screen sizes (mobile, tablet, desktop, web).
-*   **Navigation:** Intuitive navigation between screens using Jetpack Compose Navigation.
-*   **Animations:** Smooth and engaging UI transitions and animations.
+- **Theme:**
+  - [x] Dark/Light mode switching.
+- **Responsive Design:** UI adapts seamlessly to different screen sizes (mobile, tablet, desktop,
+  web).
+- **Navigation:** Intuitive navigation between screens using Jetpack Compose Navigation.
+- **Animations:** Smooth and engaging UI transitions and animations.
 
 ### Authentication
 
@@ -37,7 +42,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [ ] Profile picture upload and display.
 - [ ] Real-time profile synchronization via Supabase Realtime.
 - [ ] Guest profile persistence using SQLDelight.
-- [ ]**Desktop/Web Support:**  UI and functionality optimized for desktop and web browsers.
+- [ ] **Desktop/Web Support:**  UI and functionality optimized for desktop and web browsers.
 
 ### Product Catalog
 
@@ -47,7 +52,8 @@ clean architecture, real-time sync, and cross-platform development.
 - [ ] Sorting options (newest, price, popularity).
 - [ ] Detailed product view with image gallery (using Coil for image loading).
 - [ ] Zoom functionality for product images.
-- [ ]  **Desktop/Web Support:** Enhanced product browsing experience with keyboard navigation and larger image displays.
+- [ ] **Desktop/Web Support:** Enhanced product browsing experience with keyboard navigation and
+  larger image displays.
 
 ### Shopping Cart
 
@@ -64,7 +70,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [ ] Secure payment processing integration (Stripe).
 - [ ] Order confirmation with detailed summary.
 - [ ] Order history tracking.
-- [ ]  **Desktop/Web Support:** Streamlined checkout process for larger screens.
+- [ ] **Desktop/Web Support:** Streamlined checkout process for larger screens.
 
 ### Order Management
 
@@ -72,7 +78,8 @@ clean architecture, real-time sync, and cross-platform development.
 - [ ] Guest order persistence using SQLDelight.
 - [ ] Order cancellation (with applicable conditions).
 - [ ] Detailed order view with product information and tracking.
-- [ ]  **Desktop/Web Support:**  Comprehensive order management features, including printing or downloading order details.
+- [ ] **Desktop/Web Support:**  Comprehensive order management features, including printing or
+  downloading order details.
 
 
 ### Future Enhancements

@@ -1,0 +1,54 @@
+package org.example.cross.card.di
+
+import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.auth.Auth
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.compose.auth.ComposeAuth
+import io.github.jan.supabase.compose.auth.composeAuth
+import io.github.jan.supabase.createSupabaseClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import org.example.cross.card.BuildKonfig
+import org.example.cross.card.auth.data.exception.AuthExceptionMapper
+import org.example.cross.card.auth.data.repository.AuthRepoImpl
+import org.example.cross.card.auth.domain.repository.AuthRepo
+import org.example.cross.card.auth.domain.usecase.CurrentUserFlowUseCase
+import org.example.cross.card.auth.domain.usecase.LoginUseCase
+import org.example.cross.card.auth.domain.usecase.LogoutUseCase
+import org.example.cross.card.auth.domain.usecase.RegisterUseCase
+import org.example.cross.card.auth.domain.usecase.ResetPasswordUseCase
+import org.example.cross.card.auth.domain.usecase.SignInAnonymouslyUseCase
+import org.koin.dsl.module
+
+val authModule = module {
+    single<SupabaseClient> {
+        val supabase = createSupabaseClient(
+            supabaseKey = BuildKonfig.supabaseKey,
+            supabaseUrl = BuildKonfig.supabaseUrl
+        ) {
+            install(Auth)
+            install(ComposeAuth)
+        }
+        supabase
+    }
+
+    single { get<SupabaseClient>().auth }
+    single { get<SupabaseClient>().composeAuth }
+
+    single<AuthRepo> {
+        AuthRepoImpl(
+            auth = get(),
+            exceptionMapper = AuthExceptionMapper(),
+            dispatcher = Dispatchers.IO
+        )
+    }
+
+    factory { CurrentUserFlowUseCase(get()) }
+    factory { LogoutUseCase(get()) }
+    factory { LoginUseCase(get()) }
+    factory { RegisterUseCase(get()) }
+    factory { SignInAnonymouslyUseCase(get()) }
+    factory { ResetPasswordUseCase(get()) }
+}
+
+

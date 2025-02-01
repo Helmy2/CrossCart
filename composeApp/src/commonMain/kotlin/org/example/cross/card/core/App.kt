@@ -85,7 +85,7 @@ fun MainScaffold(
         snackbarHost = { SnackbarHost(snackbarManager.snackbarHostState) },
     ) {
         AppNavHost(
-            startDestination = Destination.Main,
+            startDestination = Destination.Auth,
         )
     }
 }

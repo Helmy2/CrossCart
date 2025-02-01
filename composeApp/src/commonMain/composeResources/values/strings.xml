@@ -1,0 +1,45 @@
+<resources>
+    <string name="cyclone">Cyclone</string>
+    <string name="open_github">Open github</string>
+    <string name="run">Run</string>
+    <string name="stop">Stop</string>
+    <string name="theme">Theme</string>
+
+    <string name="continue_as_guest">Continue as Guest</string>
+
+    <string name="login">Log In</string>
+    <string name="register">Sign Up</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="back_to_login">Back to Log In</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_to_your_account">Log in to your account</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="no_account">Don't have an account?</string>
+    <string name="enter_email_reset_password">Enter your email to reset your password</string>
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_invalid_password">Invalid password</string>
+    <string name="error_password_empty">Password is required</string>
+    <string name="error_password_weak">Password must be at least 8 characters and contain an uppercase letter and a special character.</string>
+    <string name="error_name_required">Name is required</string>
+
+    <string name="password_requirement_length">At least 8 characters</string>
+    <string name="password_requirement_uppercase">Contains an uppercase letter</string>
+    <string name="password_requirement_special">Contains a special character</string>
+    <string name="requirement_met">Requirement met</string>
+    <string name="requirement_not_met">Requirement not met</string>
+
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+
+    <string name="create_account_success">Check your email to confirm your account</string>
+    <string name="reset_password_success">Check your email to reset your password</string>
+    <string name="logged_out_success">Logged out successfully</string>
+
+</resources>

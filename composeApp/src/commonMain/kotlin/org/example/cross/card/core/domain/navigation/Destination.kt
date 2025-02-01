@@ -9,7 +9,16 @@ sealed class Destination {
     data object Onboarding : Destination()
 
     @Serializable
-    data object Auth : Destination()
+    data object Auth : Destination() {
+        @Serializable
+        data object Login : Destination()
+
+        @Serializable
+        data object Register : Destination()
+
+        @Serializable
+        data object RestPassword : Destination()
+    }
 
     @Serializable
     data object Main : Destination() {

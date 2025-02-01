@@ -7,7 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
+import org.example.cross.card.auth.presentation.authRoute
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.koin.compose.koinInject
@@ -34,10 +36,10 @@ fun AppNavHost(
             }
         }
 
-        composable<Destination.Auth> {
-            Box(Modifier.fillMaxSize()) {
-                Text("auth")
-            }
+        navigation<Destination.Auth>(
+            startDestination = Destination.Auth.Login
+        ) {
+            authRoute()
         }
 
         composable<Destination.Onboarding> {

@@ -1,8 +1,10 @@
 package org.example.cross.card.core.presentation
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -12,11 +14,20 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
 
 val LightColorScheme: ColorScheme = lightColorScheme()
 val DarkColorScheme: ColorScheme = darkColorScheme()
 
 internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
+
+val Shapes = Shapes(
+    extraSmall = RoundedCornerShape(8.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(8.dp),
+    large = RoundedCornerShape(16.dp),
+    extraLarge = RoundedCornerShape(16.dp)
+)
 
 @Composable
 fun CrossCartTheme(
@@ -29,11 +40,15 @@ fun CrossCartTheme(
     ) {
         val isDark by isDarkState
         SystemAppearance(!isDark)
-        MaterialTheme(colorScheme = getDynamicColorScheme(
-            isDark,
-            DarkColorScheme,
-            LightColorScheme,
-        ), content = { Surface(content = content) })
+        MaterialTheme(
+            colorScheme = getDynamicColorScheme(
+                isDark,
+                DarkColorScheme,
+                LightColorScheme,
+            ),
+            shapes = Shapes,
+            content = { Surface(content = content) },
+        )
     }
 }
 

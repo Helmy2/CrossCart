@@ -11,6 +11,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.example.cross.card.auth.domain.entity.User
 import org.example.cross.card.auth.domain.repository.AuthRepo
+import org.example.cross.card.auth.domain.util.DISPLAY_NAME_KEY
 import org.example.cross.card.auth.domain.util.toDomainUser
 import org.example.cross.card.core.domain.exceptions.ExceptionMapper
 
@@ -72,7 +73,7 @@ class AuthRepoImpl(
                 this.password = password
 
                 data = buildJsonObject {
-                    put("display_name", name)
+                    put(DISPLAY_NAME_KEY, name)
                 }
                 this.data
             }
@@ -108,7 +109,7 @@ class AuthRepoImpl(
         try {
             auth.updateUser {
                 data {
-                    put("display_name", name)
+                    put(DISPLAY_NAME_KEY, name)
                 }
             }
             Result.success(Unit)

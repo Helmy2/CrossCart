@@ -24,7 +24,7 @@ import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.presentation.CrossCartTheme
-import org.example.cross.card.core.presentation.LocalThemeIsDark
+import org.example.cross.card.core.presentation.local.LocalThemeIsDark
 import org.example.cross.card.core.presentation.navigation.AppNavHost
 import org.example.cross.card.di.appModule
 import org.jetbrains.compose.resources.vectorResource

@@ -1,7 +1,5 @@
 package org.example.cross.card.auth.presentation.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -21,32 +19,30 @@ fun AuthTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = { Text(label) },
-            keyboardOptions = keyboardOptions,
-            singleLine = true,
-            isError = error != null,
-            modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),
-                unfocusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),
-            ),
-            supportingText = when {
-                error != null -> {
-                    {
-                        Text(
-                            text = stringResource(error),
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                    }
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(label) },
+        keyboardOptions = keyboardOptions,
+        singleLine = true,
+        isError = error != null,
+        modifier = modifier,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),
+        ),
+        supportingText = when {
+            error != null -> {
+                {
+                    Text(
+                        text = stringResource(error),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
-
-                else -> null
             }
-        )
-    }
+
+            else -> null
+        }
+    )
 }

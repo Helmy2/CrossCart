@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -37,6 +38,7 @@ import org.example.cross.card.auth.presentation.components.AuthPasswordField
 import org.example.cross.card.auth.presentation.components.AuthTextButton
 import org.example.cross.card.auth.presentation.components.AuthTextField
 import org.example.cross.card.auth.presentation.components.PasswordStrengthIndicator
+import org.example.cross.card.core.presentation.components.AdaptivePane
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -45,91 +47,95 @@ fun RegisterScreen(
 ) {
     val focus = LocalFocusManager.current
 
-    Column(
-        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)
+    AdaptivePane(
+        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)
             .imePadding(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AuthHeader(
-            imageFront = Res.drawable.ic_create_front,
-            imageBack = Res.drawable.ic_create_back,
-            title = Res.string.create_account,
-            body = Res.string.no_account,
-            modifier = Modifier.size(200.dp),
-        )
-
-        AuthTextField(
-            value = state.name,
-            label = stringResource(Res.string.name),
-            error = state.nameError,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            onValueChange = { onEvent(RegisterEvent.NameChanged(it)) },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        AuthTextField(
-            value = state.email,
-            label = stringResource(Res.string.email),
-            error = state.emailError,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
-            ),
-            onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        AuthPasswordField(value = state.password,
-            error = state.passwordError,
-            isVisible = state.isPasswordVisible,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
-            ),
-            onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
-            onVisibilityToggle = { onEvent(RegisterEvent.TogglePasswordVisibility) },
-            modifier = Modifier.fillMaxWidth(),
-            supportingText = {
-                AnimatedContent(state.passwordError != null) {
-                    if (it) {
-                        Text(
-                            text = if (state.passwordError != null) stringResource(state.passwordError) else "",
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                    } else {
-                        AnimatedVisibility(
-                            state.passwordStrength != PasswordStrength.STRONG && state.password.isNotEmpty()
-                        ) {
-                            PasswordStrengthIndicator(
-                                strength = state.passwordStrength,
-                                requirements = state.passwordRequirements,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-                    }
-                }
-            })
-
-        AuthButton(
-            isLoading = state.isLoading,
-            text = stringResource(Res.string.register),
-            onClick = {
-                focus.clearFocus()
-                onEvent(RegisterEvent.Register)
-            },
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-
-        AuthTextButton(
-            onClick = { onEvent(RegisterEvent.NavigateToLogin) },
-            modifier = Modifier,
-            content = {
-                Text(
-                    stringResource(Res.string.already_have_account),
-                    style = MaterialTheme.typography.bodyMedium
+        firstPane = {
+            AuthHeader(
+                imageFront = Res.drawable.ic_create_front,
+                imageBack = Res.drawable.ic_create_back,
+                title = Res.string.create_account,
+                body = Res.string.no_account,
+                modifier = Modifier.size(300.dp).padding(16.dp),
+            )
+        },
+        secondPane = {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.sizeIn(maxWidth = 600.dp)
+            ) {
+                AuthTextField(
+                    value = state.name,
+                    label = stringResource(Res.string.name),
+                    error = state.nameError,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    onValueChange = { onEvent(RegisterEvent.NameChanged(it)) },
+                    modifier = Modifier.fillMaxWidth()
                 )
-            },
-        )
-    }
+
+                AuthTextField(
+                    value = state.email,
+                    label = stringResource(Res.string.email),
+                    error = state.emailError,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+                    ),
+                    onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                AuthPasswordField(value = state.password,
+                    error = state.passwordError,
+                    isVisible = state.isPasswordVisible,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
+                    ),
+                    onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
+                    onVisibilityToggle = { onEvent(RegisterEvent.TogglePasswordVisibility) },
+                    modifier = Modifier.fillMaxWidth(),
+                    supportingText = {
+                        AnimatedContent(state.passwordError != null) {
+                            if (it) {
+                                Text(
+                                    text = if (state.passwordError != null) stringResource(state.passwordError) else "",
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.labelSmall,
+                                )
+                            } else {
+                                AnimatedVisibility(
+                                    state.passwordStrength != PasswordStrength.STRONG && state.password.isNotEmpty()
+                                ) {
+                                    PasswordStrengthIndicator(
+                                        strength = state.passwordStrength,
+                                        requirements = state.passwordRequirements,
+                                    )
+                                }
+                            }
+                        }
+                    })
+
+                AuthButton(
+                    isLoading = state.isLoading,
+                    text = stringResource(Res.string.register),
+                    onClick = {
+                        focus.clearFocus()
+                        onEvent(RegisterEvent.Register)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+
+                AuthTextButton(
+                    onClick = { onEvent(RegisterEvent.NavigateToLogin) },
+                    content = {
+                        Text(
+                            stringResource(Res.string.already_have_account),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    },
+                )
+            }
+        }
+    )
 }

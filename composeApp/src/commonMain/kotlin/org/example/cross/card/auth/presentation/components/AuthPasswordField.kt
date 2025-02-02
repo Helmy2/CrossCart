@@ -64,7 +64,7 @@ fun AuthPasswordField(
         else PasswordVisualTransformation(),
         singleLine = true,
         isError = error != null,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),
             unfocusedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = .2f),

@@ -72,6 +72,7 @@ kotlin {
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
             implementation(libs.supabase.auth)
+            implementation(libs.supabase.postgrest)
             implementation(libs.supabase.compose.auth)
         }
 

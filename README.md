@@ -32,7 +32,7 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Authentication
 
-- [ ] Email/Password login.
+- [x] Email/Password login.
 - [ ] Google OAuth integration.
 - [ ] Secure token management.
 

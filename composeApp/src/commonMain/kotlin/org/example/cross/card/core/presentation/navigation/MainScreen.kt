@@ -36,7 +36,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
     ) {
         MainNavHost(
             navController = navController,
-            startDestination = Destination.Main.Home,
+            startDestination = Destination.Main.Products,
         )
     }
 }

@@ -32,6 +32,11 @@ class AuthRepoImpl(
         emit(Result.failure(exceptionMapper.map(e)))
     }
 
+    override fun isUserLongedIn(): Boolean {
+        return auth.currentUserOrNull() != null
+    }
+
+
     override suspend fun signInAnonymously(): Result<Unit> = withContext(dispatcher) {
         try {
             auth.signInAnonymously()

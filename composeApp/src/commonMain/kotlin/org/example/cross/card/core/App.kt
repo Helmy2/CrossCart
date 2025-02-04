@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import crosscart.composeapp.generated.resources.ic_light_mode
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
 import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.local.LocalThemeIsDark
 import org.example.cross.card.core.presentation.navigation.AppNavHost
@@ -47,9 +50,17 @@ fun App() {
         koinInject<Navigator>(parameters = { parametersOf(navController) })
         koinInject<SnackbarManager>(parameters = { parametersOf(snackbarHostState) })
 
+        val isUserLongedInUseCase = koinInject<IsUserLongedInUseCase>()
+
+        var startDestination by remember { mutableStateOf<Destination>(Destination.Main) }
+
+        LaunchedEffect(Unit) {
+            startDestination = if (isUserLongedInUseCase()) Destination.Main else Destination.Auth
+        }
+
         CrossCartTheme {
             Box(modifier = Modifier.systemBarsPadding().fillMaxSize()) {
-                MainScaffold()
+                MainScaffold(startDestination)
                 ThemeSwitch(modifier = Modifier.padding(end = 16.dp).align(Alignment.TopEnd))
             }
         }
@@ -77,7 +88,8 @@ fun ThemeSwitch(modifier: Modifier = Modifier) {
 
 @Composable
 fun MainScaffold(
-    modifier: Modifier = Modifier
+    startDestination: Destination,
+    modifier: Modifier = Modifier,
 ) {
     val snackbarManager = koinInject<SnackbarManager>()
     Scaffold(
@@ -85,7 +97,7 @@ fun MainScaffold(
         snackbarHost = { SnackbarHost(snackbarManager.snackbarHostState) },
     ) {
         AppNavHost(
-            startDestination = Destination.Auth,
+            startDestination = startDestination,
         )
     }
 }

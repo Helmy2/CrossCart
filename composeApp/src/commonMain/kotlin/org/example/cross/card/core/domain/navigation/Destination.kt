@@ -23,7 +23,13 @@ sealed class Destination {
     @Serializable
     data object Main : Destination() {
         @Serializable
-        data object Home : Destination()
+        data object Products : Destination() {
+            @Serializable
+            data object Home : Destination()
+
+            @Serializable
+            data object Details : Destination()
+        }
 
         @Serializable
         data object Profile : Destination()

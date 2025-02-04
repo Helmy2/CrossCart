@@ -6,6 +6,8 @@ import org.example.cross.card.auth.domain.entity.User
 interface AuthRepo {
     val currentUser: Flow<Result<User?>>
 
+    fun isUserLongedIn(): Boolean
+
     suspend fun signInAnonymously(): Result<Unit>
     suspend fun signOut(): Result<Unit>
     suspend fun signInWithEmailAndPassword(

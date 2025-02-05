@@ -10,12 +10,14 @@ import org.example.cross.card.product.data.model.CategoryResponse
 import org.example.cross.card.product.data.model.ImageResponse
 import org.example.cross.card.product.data.model.ProductDetailsResponse
 import org.example.cross.card.product.data.model.ProductResponse
+import org.example.cross.card.product.data.model.ThumbnailResponse
 import org.example.cross.card.product.data.model.toDomain
 import org.example.cross.card.product.data.util.SupabaseConfig.CATEGORY_TABLE
 import org.example.cross.card.product.data.util.SupabaseConfig.IMAGE_TABLE
 import org.example.cross.card.product.data.util.SupabaseConfig.PRODUCT_COLUMNS
 import org.example.cross.card.product.data.util.SupabaseConfig.PRODUCT_DETAILS_COLUMNS
 import org.example.cross.card.product.data.util.SupabaseConfig.PRODUCT_TABLE
+import org.example.cross.card.product.data.util.SupabaseConfig.THUMBNAIL_TABLE
 import org.example.cross.card.product.domain.entity.Category
 import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.domain.entity.ProductDetails
@@ -33,7 +35,7 @@ class ProductRepoImpl(
                 columns = columns,
             ).decodeList<ProductResponse>()
                 .map {
-                    it.toDomain(getProductImages(it.id).getOrNull()?.firstOrNull())
+                    it.toDomain(getProductThumbnails(it.id).getOrNull())
                 }
         }
     }
@@ -48,7 +50,7 @@ class ProductRepoImpl(
                 ) {
                     filter { ProductResponse::categoryId eq categoryId }
                 }.decodeList<ProductResponse>().map {
-                    it.toDomain(getProductImages(it.id).getOrNull()?.firstOrNull())
+                    it.toDomain(getProductThumbnails(it.id).getOrNull())
                 }
             }
         }
@@ -80,6 +82,17 @@ class ProductRepoImpl(
                         ImageResponse::productId eq productId
                     }
                 }.decodeList<ImageResponse>()
+            }
+        }
+
+    private suspend fun getProductThumbnails(productId: String): Result<ThumbnailResponse?> =
+        withContext(dispatcher) {
+            runCatching {
+                supabase.from(THUMBNAIL_TABLE).select {
+                    filter {
+                        ThumbnailResponse::productId eq productId
+                    }
+                }.decodeSingleOrNull<ThumbnailResponse>()
             }
         }
 

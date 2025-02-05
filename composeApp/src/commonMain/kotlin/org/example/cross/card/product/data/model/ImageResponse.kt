@@ -12,5 +12,14 @@ data class ImageResponse(
     @SerialName("is_main") val isMain: Boolean?
 )
 
+@Serializable
+data class ThumbnailResponse(
+    @SerialName("product_id") val productId: String?,
+    @SerialName("url") val imageUrl: String?,
+)
+
 fun ImageResponse?.toDomain(): Image =
     if (this?.imageUrl == null) Image.None else Image.Url(imageUrl, isMain ?: false)
+
+fun ThumbnailResponse?.toDomain(): Image =
+    if (this?.imageUrl == null) Image.None else Image.Url(imageUrl, true)

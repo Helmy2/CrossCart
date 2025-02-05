@@ -9,7 +9,7 @@ import org.example.cross.card.product.presentation.home.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.productRoute() {
-    composable<Destination.Main.Products.Home> {
+    composable<Destination.Main.Products> {
         val viewModel: HomeViewModel = koinViewModel()
         val state = viewModel.state.collectAsStateWithLifecycle()
         HomeScreen(

@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.product.presentation.productRoute
 
@@ -23,11 +22,9 @@ fun MainNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        navigation<Destination.Main.Products>(
-            startDestination = Destination.Main.Products.Home
-        ) {
-            productRoute()
-        }
+
+        productRoute()
+
         composable<Destination.Main.Profile> {
             Box(Modifier.fillMaxSize()) {
                 Text("Profile")

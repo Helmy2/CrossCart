@@ -37,6 +37,7 @@ import kotlin.math.roundToInt
 @Composable
 fun CategoryRow(
     category: CategoryWithProducts,
+    onClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -50,7 +51,7 @@ fun CategoryRow(
             items(category.products, key = { it.id }) {
                 ProductItem(
                     it,
-                    onClick = {},
+                    onClick = { onClick(it) },
                     Modifier.height(300.dp).aspectRatio(.7f).padding(8.dp)
                 )
             }

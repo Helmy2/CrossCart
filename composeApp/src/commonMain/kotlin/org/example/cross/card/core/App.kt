@@ -61,7 +61,7 @@ fun App() {
         CrossCartTheme {
             Box(modifier = Modifier.systemBarsPadding().fillMaxSize()) {
                 MainScaffold(startDestination)
-                ThemeSwitch(modifier = Modifier.padding(end = 16.dp).align(Alignment.TopEnd))
+                ThemeSwitch(modifier = Modifier.padding(16.dp).align(Alignment.TopEnd))
             }
         }
     }

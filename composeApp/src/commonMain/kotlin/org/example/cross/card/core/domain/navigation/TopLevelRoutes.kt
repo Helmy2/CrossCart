@@ -10,7 +10,7 @@ data class TopLevelRoute(val name: String, val route: Destination, val icon: Ima
 
 object TopLevelRoutes {
     val routes = listOf(
-        TopLevelRoute("Ho6me", Destination.Main.Products, Icons.Default.Home),
+        TopLevelRoute("Home", Destination.Main.Products, Icons.Default.Home),
         TopLevelRoute("Profile", Destination.Main.Profile, Icons.Default.AccountCircle),
     )
 }

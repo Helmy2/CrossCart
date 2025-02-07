@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.presentation.components.CategoryRow
 
 
@@ -16,6 +17,7 @@ import org.example.cross.card.product.presentation.components.CategoryRow
 fun HomeScreen(
     state: HomeState,
     onEvent: (HomeEvent) -> Unit,
+    onProductClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -23,7 +25,7 @@ fun HomeScreen(
             .imePadding()
     ) {
         state.categories.forEach {
-            CategoryRow(it)
+            CategoryRow(it, onClick = onProductClick)
         }
     }
 }

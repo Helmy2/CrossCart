@@ -8,8 +8,7 @@ import org.example.cross.card.product.domain.entity.Image
 data class ImageResponse(
     val id: String,
     @SerialName("product_id") val productId: String?,
-    @SerialName("image_url") val imageUrl: String?,
-    @SerialName("is_main") val isMain: Boolean?
+    @SerialName("url") val imageUrl: String?,
 )
 
 @Serializable
@@ -19,7 +18,7 @@ data class ThumbnailResponse(
 )
 
 fun ImageResponse?.toDomain(): Image =
-    if (this?.imageUrl == null) Image.None else Image.Url(imageUrl, isMain ?: false)
+    if (this?.imageUrl == null) Image.None else Image.Url(imageUrl, false)
 
 fun ThumbnailResponse?.toDomain(): Image =
     if (this?.imageUrl == null) Image.None else Image.Url(imageUrl, true)

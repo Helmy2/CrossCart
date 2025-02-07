@@ -8,5 +8,6 @@ object SupabaseConfig {
 
     const val PRODUCT_COLUMNS = "id, title, price,rating, discount_percentage, category_id"
     const val PRODUCT_DETAILS_COLUMNS =
-        "id, title, price, discount_percentage, description, brand, model, categories(id, name, image)"
+        "id, title, price, discount_percentage, description,rating, brand, stock, warranty_information," +
+                "shipping_information, availability_status, return_policy,minimum_order_quantity, categories(id, name)"
 }

@@ -5,10 +5,15 @@ data class ProductDetails(
     val title: String,
     val price: Double,
     val discount: Double,
-    val popular: Boolean,
     val description: String,
     val brand: String,
-    val model: String,
+    val rating: Double,
+    val stock: Int,
+    val warranty: String,
+    val shipping: String,
+    val availability: String,
+    val returnPolicy: String,
+    val minimumOrder: Int,
     val category: Category,
     val images: List<Image>
 )

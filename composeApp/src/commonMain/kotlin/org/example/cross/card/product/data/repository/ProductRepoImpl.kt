@@ -40,6 +40,21 @@ class ProductRepoImpl(
         }
     }
 
+    override suspend fun getProductsByName(query: String): Result<List<Product>> =
+        withContext(dispatcher) {
+            runCatching {
+                val columns = Columns.raw(PRODUCT_COLUMNS)
+                supabase.from(PRODUCT_TABLE).select(
+                    columns = columns,
+                ) {
+                    filter { ProductResponse::title ilike "%$query%" }
+                }.decodeList<ProductResponse>().map {
+                    it.toDomain(getProductThumbnails(it.id).getOrNull())
+                }
+            }
+        }
+
+
     override suspend fun filterProductsByCategory(categoryId: String): Result<List<Product>> =
         withContext(dispatcher) {
             runCatching {

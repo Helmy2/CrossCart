@@ -6,6 +6,7 @@ import org.example.cross.card.product.domain.entity.ProductDetails
 
 interface ProductRepo {
     suspend fun getAllProducts(): Result<List<Product>>
+    suspend fun getProductsByName(query: String): Result<List<Product>>
     suspend fun filterProductsByCategory(categoryId: String): Result<List<Product>>
     suspend fun getProductById(productId: String): Result<ProductDetails?>
     suspend fun getAllCategories(): Result<List<Category>>

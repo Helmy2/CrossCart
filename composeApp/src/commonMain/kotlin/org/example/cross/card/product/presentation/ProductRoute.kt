@@ -27,7 +27,7 @@ fun NavGraphBuilder.productRoute() {
                 val state = viewModel.state.collectAsStateWithLifecycle()
                 HomeScreen(
                     state = state.value,
-                    onEvent = viewModel::handleEvent,
+                    onEvent = viewModel::onEvent,
                     onProductClick = {
                         scaffoldNavigator.navigateTo(
                             ListDetailPaneScaffoldRole.Detail,

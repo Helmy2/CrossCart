@@ -45,8 +45,8 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Product Catalog
 
-- [ ] Grid/List view options with lazy loading for optimal performance.
-- [ ] Powerful search functionality.
+- [x] Grid/List view options with lazy loading for optimal performance.
+- [x] Powerful search functionality.
 - [ ] Filtering by price, category, and ratings.
 - [ ] Sorting options (newest, price, popularity).
 - [ ] Detailed product view with image gallery (using Coil for image loading).

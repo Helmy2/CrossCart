@@ -44,33 +44,48 @@ fun ProductDetails(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            if (product.images.size == 1) {
+                Card {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            model = product.images.first().url,
+                            imageLoader = imageLoader(context),
+                        ),
+                        contentDescription = "Product Image",
+                        modifier = Modifier.fillMaxWidth()
+                            .height(300.dp)
+                            .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+            } else {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(product.images) { image ->
+                        Card {
+                            Image(
+                                painter = rememberAsyncImagePainter(
+                                    model = image.url,
+                                    imageLoader = imageLoader(context),
+                                ),
+                                contentDescription = "Product Image",
+                                modifier = Modifier.size(300.dp)
+                                    .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+                }
+            }
+
             Text(
                 text = product.title,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
             )
-
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(product.images) { image ->
-                    Card {
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model = image.url,
-                                imageLoader = imageLoader(context),
-                            ),
-                            contentDescription = "Product Image",
-                            modifier = Modifier.size(300.dp)
-                                .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
-            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -145,13 +160,6 @@ fun ProductDetailsShimmer(modifier: Modifier = Modifier) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-                .shimmerEffect()
-        )
-
 
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -168,6 +176,12 @@ fun ProductDetailsShimmer(modifier: Modifier = Modifier) {
             }
         }
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(30.dp)
+                .shimmerEffect()
+        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),

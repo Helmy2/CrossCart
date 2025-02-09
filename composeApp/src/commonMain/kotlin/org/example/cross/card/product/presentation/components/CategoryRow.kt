@@ -41,7 +41,10 @@ fun CategoryRow(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(category.category.name)
+        Text(
+            category.category.name,
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+        )
         LazyRow {
             items(if (category.products.isEmpty()) 5 else 0) {
                 Card(Modifier.height(300.dp).aspectRatio(.7f).padding(8.dp)) {

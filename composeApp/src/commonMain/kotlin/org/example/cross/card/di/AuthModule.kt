@@ -14,7 +14,9 @@ import org.example.cross.card.auth.domain.usecase.LogoutUseCase
 import org.example.cross.card.auth.domain.usecase.RegisterUseCase
 import org.example.cross.card.auth.domain.usecase.ResetPasswordUseCase
 import org.example.cross.card.auth.domain.usecase.SignInAnonymouslyUseCase
+import org.example.cross.card.auth.domain.usecase.UpdateNameUseCase
 import org.example.cross.card.auth.presentation.login.LoginViewModel
+import org.example.cross.card.auth.presentation.profile.ProfileViewModel
 import org.example.cross.card.auth.presentation.register.RegisterViewModel
 import org.example.cross.card.auth.presentation.resetPassword.ResetPasswordViewModel
 import org.koin.core.module.dsl.viewModel
@@ -39,10 +41,12 @@ val authModule = module {
     factory { RegisterUseCase(get()) }
     factory { SignInAnonymouslyUseCase(get()) }
     factory { ResetPasswordUseCase(get()) }
+    factory { UpdateNameUseCase(get()) }
 
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { ResetPasswordViewModel(get(), get(), get()) }
+    viewModel { ProfileViewModel(get(), get(), get(), get(), get()) }
 }
 
 

@@ -1,9 +1,8 @@
 package org.example.cross.card.product.presentation.details
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -32,12 +31,14 @@ fun DetailScreen(
 
     Box(
         modifier = modifier
-            .fillMaxSize()
+            .systemBarsPadding()
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
-            .imePadding()
     ) {
-        ProductDetails(state.product, loading = state.isLoading)
+        ProductDetails(
+            state.product,
+            loading = state.isLoading,
+        )
 
         IconButton(
             onClick = onBackClick,

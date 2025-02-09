@@ -8,6 +8,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.example.cross.card.auth.presentation.login.LoginScreen
 import org.example.cross.card.auth.presentation.login.LoginViewModel
+import org.example.cross.card.auth.presentation.profile.ProfileScreen
+import org.example.cross.card.auth.presentation.profile.ProfileViewModel
 import org.example.cross.card.auth.presentation.register.RegisterScreen
 import org.example.cross.card.auth.presentation.register.RegisterViewModel
 import org.example.cross.card.auth.presentation.resetPassword.ResetPasswordViewModel
@@ -38,6 +40,18 @@ fun NavGraphBuilder.authRoute() {
         val viewModel: ResetPasswordViewModel = koinViewModel()
         val state by viewModel.state.collectAsStateWithLifecycle()
         RestPasswordScreen(
+            state = state,
+            onEvent = viewModel::handleEvent,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+fun NavGraphBuilder.profileRoute() {
+    composable<Destination.Main.Profile> {
+        val viewModel: ProfileViewModel = koinViewModel()
+        val state by viewModel.state.collectAsStateWithLifecycle()
+        ProfileScreen(
             state = state,
             onEvent = viewModel::handleEvent,
             modifier = Modifier.fillMaxSize()

@@ -1,9 +1,10 @@
 package org.example.cross.card.core.domain.usecase
 
+import kotlinx.coroutines.flow.first
 import org.example.cross.card.auth.domain.repository.AuthRepo
 
 class IsUserLongedInUseCase(private val repo: AuthRepo) {
-    operator fun invoke(): Boolean {
-        return repo.isUserLongedIn()
+    suspend operator fun invoke(): Boolean {
+        return repo.isUserLongedIn().first()
     }
 }

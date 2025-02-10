@@ -10,4 +10,7 @@ interface ProductRepo {
     suspend fun filterProductsByCategory(categoryId: String): Result<List<Product>>
     suspend fun getProductById(productId: String): Result<ProductDetails?>
     suspend fun getAllCategories(): Result<List<Category>>
+    suspend fun addToFavorites(productId: String): Result<Unit>
+    suspend fun removeFromFavorites(productId: String): Result<Unit>
+    suspend fun getFavorites(): Result<List<Product>>
 }

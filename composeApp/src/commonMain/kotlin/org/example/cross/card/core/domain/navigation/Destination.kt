@@ -26,6 +26,9 @@ sealed class Destination {
         data object Products : Destination()
 
         @Serializable
+        data object Favorites : Destination()
+
+        @Serializable
         data object Profile : Destination()
     }
 

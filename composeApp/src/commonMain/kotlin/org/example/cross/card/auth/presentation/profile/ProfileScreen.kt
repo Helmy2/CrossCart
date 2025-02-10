@@ -52,7 +52,6 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            ThemeSwitch(modifier = Modifier.padding(horizontal = 16.dp).align(Alignment.End))
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,6 +92,18 @@ fun ProfileScreen(
                         )
                     }
                 }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Theme",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                ThemeSwitch(modifier = Modifier.padding(horizontal = 16.dp))
             }
             Button(
                 onClick = { onEvent(ProfileEvent.Logout) },

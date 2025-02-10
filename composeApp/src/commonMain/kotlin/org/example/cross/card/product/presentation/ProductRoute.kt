@@ -10,6 +10,8 @@ import androidx.navigation.compose.composable
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.product.presentation.details.DetailScreen
 import org.example.cross.card.product.presentation.details.DetailViewModel
+import org.example.cross.card.product.presentation.favorite.FavoriteScreen
+import org.example.cross.card.product.presentation.favorite.FavoriteViewModel
 import org.example.cross.card.product.presentation.home.HomeScreen
 import org.example.cross.card.product.presentation.home.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -26,6 +28,43 @@ fun NavGraphBuilder.productRoute() {
                 val viewModel: HomeViewModel = koinViewModel()
                 val state = viewModel.state.collectAsStateWithLifecycle()
                 HomeScreen(
+                    state = state.value,
+                    onEvent = viewModel::onEvent,
+                    onProductClick = {
+                        scaffoldNavigator.navigateTo(
+                            ListDetailPaneScaffoldRole.Detail,
+                            it.id
+                        )
+                    }
+                )
+            },
+            detailPane = {
+                val viewModel: DetailViewModel = koinViewModel()
+                val state = viewModel.state.collectAsStateWithLifecycle()
+                scaffoldNavigator.currentDestination?.content?.let {
+                    DetailScreen(
+                        state = state.value,
+                        onEvent = viewModel::handleEvent,
+                        productId = it,
+                        onBackClick = {
+                            scaffoldNavigator.navigateBack()
+                        }
+                    )
+                }
+            }
+        )
+    }
+
+    composable<Destination.Main.Favorites> {
+
+        val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<String>()
+        ListDetailPaneScaffold(
+            directive = scaffoldNavigator.scaffoldDirective,
+            value = scaffoldNavigator.scaffoldValue,
+            listPane = {
+                val viewModel: FavoriteViewModel = koinViewModel()
+                val state = viewModel.state.collectAsStateWithLifecycle()
+                FavoriteScreen(
                     state = state.value,
                     onEvent = viewModel::onEvent,
                     onProductClick = {

@@ -2,9 +2,12 @@ package org.example.cross.card.auth.data.repository
 
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.auth.providers.builtin.Email
+import io.github.jan.supabase.auth.status.SessionStatus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.buildJsonObject
@@ -32,8 +35,16 @@ class AuthRepoImpl(
         emit(Result.failure(exceptionMapper.map(e)))
     }
 
-    override fun isUserLongedIn(): Boolean {
-        return auth.currentUserOrNull() != null
+    override fun isUserLongedIn(): Flow<Boolean> {
+        return channelFlow {
+            auth.sessionStatus.collectLatest {
+                when (it) {
+                    is SessionStatus.Authenticated -> trySend(true)
+                    is SessionStatus.NotAuthenticated -> trySend(false)
+                    else -> {}
+                }
+            }
+        }
     }
 
 

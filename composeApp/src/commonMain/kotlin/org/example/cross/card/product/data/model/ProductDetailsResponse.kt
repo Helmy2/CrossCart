@@ -20,7 +20,6 @@ data class ProductDetailsResponse(
     @SerialName("shipping_information") val shipping: String?,
     @SerialName("availability_status") val availability: String?,
     @SerialName("return_policy") val returnPolicy: String?,
-    @SerialName("minimum_order_quantity") val minimumOrder: Int?,
     @SerialName("categories") val category: CategoryResponse
 )
 
@@ -42,6 +41,5 @@ fun ProductDetailsResponse.toDomain(
     shipping = shipping ?: "Empty",
     availability = availability ?: "Empty",
     returnPolicy = returnPolicy ?: "Empty",
-    minimumOrder = minimumOrder ?: 0,
     isFavorite = isFavorite
 )

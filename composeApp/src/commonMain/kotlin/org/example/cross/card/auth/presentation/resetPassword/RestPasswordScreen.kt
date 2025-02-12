@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
@@ -45,8 +44,7 @@ fun RestPasswordScreen(
     val focus = LocalFocusManager.current
 
     AdaptivePane(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)
-            .imePadding(),
+        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         firstPane = {
             AuthHeader(
                 imageFront = Res.drawable.ic_forgot_password_front,

@@ -13,7 +13,6 @@ data class ProductDetails(
     val shipping: String,
     val availability: String,
     val returnPolicy: String,
-    val minimumOrder: Int,
     val isFavorite: Boolean,
     val category: Category,
     val images: List<Image>,

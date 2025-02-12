@@ -2,7 +2,6 @@ package org.example.cross.card.product.presentation.favorite
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
@@ -19,7 +18,6 @@ fun FavoriteScreen(
 ) {
     Column(
         modifier
-            .imePadding()
             .animateContentSize()
             .semantics { isTraversalGroup = true },
     ) {

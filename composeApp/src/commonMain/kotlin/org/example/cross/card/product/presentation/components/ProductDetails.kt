@@ -134,7 +134,9 @@ fun ProductDetails(
                 Text(text = "Stock: ${product.stock}")
             }
 
-            Column {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            ) {
                 Text(
                     text = "Description",
                     style = MaterialTheme.typography.titleMedium,
@@ -158,8 +160,6 @@ fun ProductDetails(
                 Text(text = "Return Policy: ${product.returnPolicy}")
 
                 Spacer(modifier = Modifier.height(8.dp))
-
-                Text(text = "Minimum Order: ${product.minimumOrder}")
             }
         }
     }
@@ -169,141 +169,87 @@ fun ProductDetails(
 fun ProductDetailsShimmer(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
 
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .shimmerEffect()
+        )
+
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(3) {
-                Card {
-                    Box(
-                        modifier = Modifier
-                            .size(300.dp)
-                            .shimmerEffect()
-                    )
-                }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .shimmerEffect()
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(width = 100.dp, height = 24.dp)
+                        .shimmerEffect()
+                )
+                Box(
+                    modifier = Modifier
+                        .size(width = 80.dp, height = 20.dp)
+                        .shimmerEffect()
+                )
             }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-                .shimmerEffect()
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(width = 100.dp, height = 24.dp)
-                    .shimmerEffect()
-            )
-            Box(
-                modifier = Modifier
-                    .size(width = 80.dp, height = 20.dp)
-                    .shimmerEffect()
-            )
-        }
 
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(width = 80.dp, height = 20.dp)
-                    .shimmerEffect()
-            )
-            Box(
-                modifier = Modifier
-                    .size(width = 80.dp, height = 20.dp)
-                    .shimmerEffect()
-            )
-        }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(width = 80.dp, height = 20.dp)
+                        .shimmerEffect()
+                )
+                Box(
+                    modifier = Modifier
+                        .size(width = 80.dp, height = 20.dp)
+                        .shimmerEffect()
+                )
+            }
 
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(width = 80.dp, height = 20.dp)
+                        .shimmerEffect()
+                )
+                Box(
+                    modifier = Modifier
+                        .size(width = 80.dp, height = 20.dp)
+                        .shimmerEffect()
+                )
+            }
+
+
             Box(
                 modifier = Modifier
-                    .size(width = 80.dp, height = 20.dp)
-                    .shimmerEffect()
-            )
-            Box(
-                modifier = Modifier
-                    .size(width = 80.dp, height = 20.dp)
+                    .fillMaxWidth()
+                    .height(300.dp)
                     .shimmerEffect()
             )
         }
-
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(24.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(24.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-                .shimmerEffect()
-        )
     }
 }

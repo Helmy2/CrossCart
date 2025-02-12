@@ -27,11 +27,11 @@ fun Modifier.shimmerEffect(): Modifier = composed {
         label = "shimmer"
     )
 
-    background(
+    clip(MaterialTheme.shapes.medium).background(
         Brush.linearGradient(
             colors = colors,
             start = Offset.Zero,
             end = Offset(x = shimmerAnimation.value, y = shimmerAnimation.value * 2)
         )
-    ).clip(MaterialTheme.shapes.medium)
+    )
 }

@@ -3,7 +3,6 @@ package org.example.cross.card.product.presentation.home
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,7 +32,6 @@ fun HomeScreen(
 ) {
     Column(
         modifier
-            .imePadding()
             .animateContentSize()
             .semantics { isTraversalGroup = true },
     ) {

@@ -1,7 +1,6 @@
 package org.example.cross.card.product.presentation.details
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -12,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.example.cross.card.core.presentation.components.BackHandler
 import org.example.cross.card.product.presentation.components.ProductDetails
 
 @Composable
@@ -23,13 +23,16 @@ fun DetailScreen(
     modifier: Modifier = Modifier
 ) {
 
+    BackHandler {
+        onBackClick()
+    }
+
     LaunchedEffect(productId) {
         onEvent(DetailEvent.LoadProduct(productId))
     }
 
     Box(
         modifier = modifier
-            .systemBarsPadding()
             .verticalScroll(rememberScrollState())
     ) {
         ProductDetails(

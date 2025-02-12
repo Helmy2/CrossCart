@@ -13,17 +13,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -51,18 +48,22 @@ fun ProductDetails(
         ) {
             Box {
                 if (product.images.size == 1) {
-                    Card {
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model = product.images.first().url,
-                                imageLoader = imageLoader(context),
-                            ),
-                            contentDescription = "Product Image",
-                            modifier = Modifier.fillMaxWidth()
-                                .height(300.dp)
-                                .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
-                        )
-                    }
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            model = product.images.first().url,
+                            imageLoader = imageLoader(context),
+                        ),
+                        contentDescription = "Product Image",
+                        modifier = Modifier.fillMaxWidth()
+                            .height(300.dp)
+                            .clip(
+                                MaterialTheme.shapes.large.copy(
+                                    topEnd = CornerSize(0),
+                                    topStart = CornerSize(0)
+                                )
+                            )
+                            .background(MaterialTheme.colorScheme.secondary.copy(0.5f))
+                    )
                 } else {
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -86,7 +87,7 @@ fun ProductDetails(
                 FavoriteButton(
                     isFavorite = product.isFavorite,
                     onClick = onFavoriteClick,
-                    modifier = Modifier.align(Alignment.BottomEnd)
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
                 )
             }
 
@@ -95,12 +96,13 @@ fun ProductDetails(
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Price: $${product.price}",
@@ -117,7 +119,7 @@ fun ProductDetails(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(text = "Brand: ${product.brand}")
@@ -125,7 +127,7 @@ fun ProductDetails(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(text = "Rating: ${product.rating}")
@@ -141,7 +143,9 @@ fun ProductDetails(
                 Text(text = product.description)
             }
 
-            Column {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+            ) {
                 Text(
                     text = "Additional Information",
                     style = MaterialTheme.typography.titleMedium,
@@ -158,18 +162,6 @@ fun ProductDetails(
                 Text(text = "Minimum Order: ${product.minimumOrder}")
             }
         }
-    }
-}
-
-@Composable
-fun FavoriteButton(isFavorite: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    IconButton(onClick, modifier) {
-        Icon(
-            imageVector = Icons.Default.Favorite,
-            contentDescription = "Favorite",
-            tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.size(48.dp)
-        )
     }
 }
 

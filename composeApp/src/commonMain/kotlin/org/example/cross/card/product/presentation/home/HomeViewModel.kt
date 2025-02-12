@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
@@ -33,14 +35,16 @@ class HomeViewModel(
     }
 
     private fun updateExpandedSearch(expanded: Boolean) {
-        _state.value = _state.value.copy(expandedSearch = expanded)
+        _state.update { it.copy(expandedSearch = expanded) }
     }
 
     private fun refresh() {
         viewModelScope.launch {
-            getCategoriesWithProductsUseCase().collect { result ->
+            getCategoriesWithProductsUseCase().collectLatest { result ->
                 result.fold(
-                    onSuccess = { _state.value = _state.value.copy(categories = it) },
+                    onSuccess = { categories ->
+                        _state.update { it.copy(categories = categories, loading = false) }
+                    },
                     onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) }
                 )
             }
@@ -49,24 +53,24 @@ class HomeViewModel(
 
     private fun updateQuery(query: String) {
         viewModelScope.launch {
-            _state.value = _state.value.copy(query = query)
+            _state.update { it.copy(query = query) }
             search(query)
         }
     }
 
     private fun search(query: String) {
         viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true)
+            _state.update { it.copy(loading = true) }
             val result = getProductsByNameUseCase(query)
             result.fold(
-                onSuccess = {
-                    _state.value = _state.value.copy(searchProducts = it)
+                onSuccess = { products ->
+                    _state.update { it.copy(searchProducts = products) }
                 },
                 onFailure = {
                     snackbarManager.showSnackbar(it.message.orEmpty())
                 }
             )
-            _state.value = _state.value.copy(isLoading = false)
+            _state.update { it.copy(loading = false) }
         }
     }
 }

@@ -7,7 +7,7 @@ data class HomeState(
     val query: String = "",
     val searchProducts: List<Product> = emptyList(),
     val categories: List<CategoryWithProducts> = emptyList(),
-    val isLoading: Boolean = false,
+    val loading: Boolean = true,
     val expandedSearch: Boolean = false,
 )
 

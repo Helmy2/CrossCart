@@ -2,10 +2,16 @@ package org.example.cross.card.product.data.repository
 
 
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.annotations.SupabaseExperimental
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.filter.FilterOperation
+import io.github.jan.supabase.postgrest.query.filter.FilterOperator
+import io.github.jan.supabase.realtime.selectAsFlow
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -79,8 +85,7 @@ class ProductRepoImpl(
     override suspend fun getProductById(productId: String): Result<ProductDetails?> =
         withContext(dispatcher) {
             runCatching {
-                val favorites = getFavorites().getOrThrow()
-                val isFavorite = favorites.any { it.id == productId }
+                val isFavorite = isProductFavorite(productId).getOrThrow()
 
                 val images = getProductImages(productId).getOrNull().orEmpty()
 
@@ -124,18 +129,44 @@ class ProductRepoImpl(
         }
     }
 
-    override suspend fun getFavorites(): Result<List<Product>> = withContext(dispatcher) {
-        runCatching {
-            val columns = Columns.raw(FAVOURITE_COLUMNS)
-            supabase.from(FAVOURITE_TABLE).select(columns) {
-                filter {
-                    FavoriteResponse::userId eq supabase.auth.currentUserOrNull()?.id
+    @OptIn(SupabaseExperimental::class)
+    override suspend fun getFavorites(): Flow<Result<List<Product>>> = withContext(dispatcher) {
+        val userId = supabase.auth.currentUserOrNull()?.id
+            ?: throw IllegalStateException("User is not logged in")
+
+        supabase.from(FAVOURITE_TABLE).selectAsFlow(
+            FavoriteResponse::productId, filter = FilterOperation(
+                "user_id", FilterOperator.EQ, userId
+            )
+        ).map {
+            runCatching {
+                val columns = Columns.raw(PRODUCT_COLUMNS)
+                supabase.from(PRODUCT_TABLE).select(
+                    columns = columns,
+                ) {
+                    filter {
+                        ProductResponse::id isIn it.map { it.productId }
+                    }
+                }.decodeList<ProductResponse>().map {
+                    it.toDomain(getProductThumbnails(it.id).getOrNull())
                 }
-            }.decodeList<FavoriteResponse>().map {
-                it.product.toDomain(getProductThumbnails(it.product.id).getOrNull())
             }
         }
     }
+
+    private suspend fun isProductFavorite(productId: String): Result<Boolean> =
+        withContext(dispatcher) {
+            runCatching {
+                val columns = Columns.raw(FAVOURITE_COLUMNS)
+                supabase.from(FAVOURITE_TABLE).select(columns) {
+                    filter {
+                        FavoriteResponse::userId eq supabase.auth.currentUserOrNull()?.id
+                        FavoriteResponse::productId eq productId
+                    }
+                }.decodeList<FavoriteResponse>().isNotEmpty()
+            }
+        }
+
 
     override suspend fun removeFromFavorites(productId: String): Result<Unit> =
         withContext(dispatcher) {

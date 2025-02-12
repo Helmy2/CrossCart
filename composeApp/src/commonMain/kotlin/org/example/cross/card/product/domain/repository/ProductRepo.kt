@@ -1,5 +1,6 @@
 package org.example.cross.card.product.domain.repository
 
+import kotlinx.coroutines.flow.Flow
 import org.example.cross.card.product.domain.entity.Category
 import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.domain.entity.ProductDetails
@@ -12,5 +13,5 @@ interface ProductRepo {
     suspend fun getAllCategories(): Result<List<Category>>
     suspend fun addToFavorites(productId: String): Result<Unit>
     suspend fun removeFromFavorites(productId: String): Result<Unit>
-    suspend fun getFavorites(): Result<List<Product>>
+    suspend fun getFavorites(): Flow<Result<List<Product>>>
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -18,21 +19,16 @@ class FavoriteViewModel(
 
     private val _state = MutableStateFlow(FavoriteState())
     val state: StateFlow<FavoriteState> = _state.onStart {
-        refresh()
+        load()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FavoriteState())
 
-    fun onEvent(event: FavoriteEvent) {
-        when (event) {
-            is FavoriteEvent.Refresh -> refresh()
-        }
-    }
-
-
-    private fun refresh() {
+    private fun load() {
         viewModelScope.launch {
-            getFavoritesUseCase().apply {
-                fold(
-                    onSuccess = { _state.value = _state.value.copy(products = it) },
+            getFavoritesUseCase().collectLatest { result ->
+                result.fold(
+                    onSuccess = {
+                        _state.value = _state.value.copy(products = it, loading = false)
+                    },
                     onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) }
                 )
             }

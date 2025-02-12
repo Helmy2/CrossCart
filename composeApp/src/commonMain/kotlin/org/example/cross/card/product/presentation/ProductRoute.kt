@@ -66,7 +66,6 @@ fun NavGraphBuilder.productRoute() {
                 val state = viewModel.state.collectAsStateWithLifecycle()
                 FavoriteScreen(
                     state = state.value,
-                    onEvent = viewModel::onEvent,
                     onProductClick = {
                         scaffoldNavigator.navigateTo(
                             ListDetailPaneScaffoldRole.Detail,

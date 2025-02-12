@@ -14,11 +14,9 @@ import org.example.cross.card.product.presentation.components.ProductGrid
 @Composable
 fun FavoriteScreen(
     state: FavoriteState,
-    onEvent: (FavoriteEvent) -> Unit,
     onProductClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Column(
         modifier
             .imePadding()
@@ -28,7 +26,7 @@ fun FavoriteScreen(
         ProductGrid(
             products = state.products,
             onProductClick = onProductClick,
-            loading = state.isLoading
+            loading = state.loading
         )
     }
 }

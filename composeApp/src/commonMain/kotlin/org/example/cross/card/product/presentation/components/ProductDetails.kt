@@ -89,6 +89,7 @@ fun ProductDetails(
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
             }
+
             Text(
                 text = product.title,
                 style = MaterialTheme.typography.headlineMedium,

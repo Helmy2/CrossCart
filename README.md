@@ -49,7 +49,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Grid/List view options with lazy loading for optimal performance.
 - [x] Favorite functionality.
 - [x] Powerful search functionality.
-- [ ] Real-time favorite synchronization via Supabase Realtime.
+- [x] Real-time favorite synchronization via Supabase Realtime.
 - [ ] Filtering by price, category, and ratings.
 - [ ] Sorting options (newest, price, popularity).
 - [ ] Detailed product view with image gallery (using Coil for image loading).

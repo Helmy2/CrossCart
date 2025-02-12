@@ -12,13 +12,14 @@ data class ProductResponse(
     val rating: Double?,
     @SerialName("discount_percentage")
     val discountPercentage: Double?,
-    @SerialName("category_id") val categoryId: String?
+    @SerialName("category_id") val categoryId: String
 )
 
 fun ProductResponse.toDomain(
     image: ThumbnailResponse?
 ) = Product(
     id = id,
+    categoryId = categoryId,
     title = title ?: "Empty",
     price = price ?: 0.0,
     rating = rating ?: 0.0,

@@ -4,10 +4,6 @@ import org.example.cross.card.product.domain.entity.Product
 
 data class FavoriteState(
     val products: List<Product> = emptyList(),
-    val isLoading: Boolean = false,
+    val loading: Boolean = true,
 )
-
-sealed class FavoriteEvent {
-    data object Refresh : FavoriteEvent()
-}
 

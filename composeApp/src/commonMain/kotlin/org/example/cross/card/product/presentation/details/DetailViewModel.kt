@@ -49,7 +49,7 @@ class DetailViewModel(
             _state.value = _state.value.copy(isLoading = true)
             val result = getProductByIdUseCase(productId)
             result.fold(onSuccess = { _state.value = _state.value.copy(product = it) },
-                onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) })
+                onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) })
             _state.value = _state.value.copy(isLoading = false)
         }
     }

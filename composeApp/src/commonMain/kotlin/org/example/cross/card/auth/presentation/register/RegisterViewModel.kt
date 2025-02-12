@@ -80,7 +80,7 @@ class RegisterViewModel(
             )
             handleAuthResult(result) {
                 navigateToLogin()
-                snackbarManager.showSnackbar(getString(Res.string.create_account_success))
+                snackbarManager.showErrorSnackbar(getString(Res.string.create_account_success))
             }
         }
     }
@@ -89,7 +89,7 @@ class RegisterViewModel(
         _state.update { it.copy(isLoading = false) }
         result.fold(
             onSuccess = { onSuccess() },
-            onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) },
+            onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) },
         )
     }
 

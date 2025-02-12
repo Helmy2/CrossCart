@@ -49,10 +49,10 @@ class ProfileViewModel(
             val result = updateNameUseCase(state.value.name)
             result.fold(
                 onSuccess = {
-                    snackbarManager.showSnackbar("Name updated successfully")
+                    snackbarManager.showErrorSnackbar("Name updated successfully")
                 },
                 onFailure = {
-                    snackbarManager.showSnackbar(it.message.orEmpty())
+                    snackbarManager.showErrorSnackbar(it.message.orEmpty())
                 }
             )
         }
@@ -82,7 +82,7 @@ class ProfileViewModel(
                     navigator.navigateAsStart(Destination.Auth)
                 },
                 onFailure = {
-                    snackbarManager.showSnackbar(it.message.orEmpty())
+                    snackbarManager.showErrorSnackbar(it.message.orEmpty())
                 }
             )
         }

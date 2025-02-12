@@ -45,7 +45,7 @@ class HomeViewModel(
                     onSuccess = { categories ->
                         _state.update { it.copy(categories = categories, loading = false) }
                     },
-                    onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) }
+                    onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) }
                 )
             }
         }
@@ -67,7 +67,7 @@ class HomeViewModel(
                     _state.update { it.copy(searchProducts = products) }
                 },
                 onFailure = {
-                    snackbarManager.showSnackbar(it.message.orEmpty())
+                    snackbarManager.showErrorSnackbar(it.message.orEmpty())
                 }
             )
             _state.update { it.copy(loading = false) }

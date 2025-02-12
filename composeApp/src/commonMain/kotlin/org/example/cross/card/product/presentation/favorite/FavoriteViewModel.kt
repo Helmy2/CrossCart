@@ -29,7 +29,7 @@ class FavoriteViewModel(
                     onSuccess = {
                         _state.value = _state.value.copy(products = it, loading = false)
                     },
-                    onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) }
+                    onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) }
                 )
             }
         }

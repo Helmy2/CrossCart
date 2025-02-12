@@ -52,7 +52,7 @@ class ResetPasswordViewModel(
             val result = resetPasswordUseCase(state.value.email)
             handleAuthResult(result) {
                 navigateToLogin()
-                snackbarManager.showSnackbar(getString(Res.string.reset_password_success))
+                snackbarManager.showErrorSnackbar(getString(Res.string.reset_password_success))
             }
         }
     }
@@ -61,7 +61,7 @@ class ResetPasswordViewModel(
         _state.update { it.copy(isLoading = false) }
         result.fold(
             onSuccess = { onSuccess() },
-            onFailure = { snackbarManager.showSnackbar(it.message.orEmpty()) },
+            onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) },
         )
     }
 }

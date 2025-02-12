@@ -7,15 +7,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
@@ -34,8 +30,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import org.example.cross.card.auth.presentation.components.AuthTextField
+import org.example.cross.card.auth.presentation.components.UpdateNameDialog
 import org.example.cross.card.core.presentation.components.ThemeSwitch
 
 
@@ -45,16 +40,14 @@ fun ProfileScreen(
     onEvent: (ProfileEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.systemBarsPadding().verticalScroll(rememberScrollState())) {
+    Box(modifier = modifier.verticalScroll(rememberScrollState())) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -127,59 +120,6 @@ fun ProfileScreen(
                 onConfirm = { onEvent(ProfileEvent.ConfirmUpdate) },
                 onDismiss = { onEvent(ProfileEvent.UpdateDialog(false)) },
             )
-        }
-    }
-}
-
-@Composable
-fun UpdateNameDialog(
-    name: String,
-    onValueChange: (String) -> Unit,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Dialog(
-        onDismissRequest = onDismiss,
-    ) {
-        Card(modifier) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Update Name",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                AuthTextField(
-                    value = name,
-                    label = "Name",
-                    error = null,
-                    keyboardOptions = KeyboardOptions.Default,
-                    onValueChange = onValueChange,
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Button(
-                        onClick = onDismiss,
-                    ) {
-                        Text(text = "Cancel")
-                    }
-                    Button(
-                        onClick = onConfirm,
-                    ) {
-                        Text(text = "Update")
-                    }
-                }
-            }
         }
     }
 }

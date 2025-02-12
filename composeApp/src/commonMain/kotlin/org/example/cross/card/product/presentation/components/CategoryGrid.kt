@@ -27,7 +27,7 @@ fun CategoryGrid(
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(minSize = 200.dp),
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 8.dp)
     ) {
         if (loading) {
             items(5) {
@@ -46,14 +46,14 @@ fun CategoryGrid(
                 ) {
                     Text(
                         categories.category.name,
-                        modifier = Modifier.padding(8.dp),
+                        modifier = Modifier.padding(horizontal = 8.dp),
                         style = MaterialTheme.typography.titleLarge,
                     )
                 }
                 items(if (categories.products.isEmpty()) 5 else 0) {
                     Card(
-                        Modifier.height(300.dp)
-                            .padding(8.dp)
+                        Modifier
+                            .height(300.dp).padding(8.dp)
                     ) {
                         Box(Modifier.fillMaxSize().shimmerEffect())
                     }

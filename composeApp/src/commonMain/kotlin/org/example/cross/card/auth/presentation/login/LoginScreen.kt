@@ -2,7 +2,6 @@ package org.example.cross.card.auth.presentation.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -50,7 +49,7 @@ fun LoginScreen(
 ) {
     val focus = LocalFocusManager.current
     AdaptivePane(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        modifier.verticalScroll(rememberScrollState()).padding(16.dp),
         firstPane = {
             AuthHeader(
                 imageFront = Res.drawable.ic_welcome_front,
@@ -87,6 +86,10 @@ fun LoginScreen(
                     ),
                     onValueChange = { onEvent(LoginEvent.PasswordChanged(it)) },
                     onVisibilityToggle = { onEvent(LoginEvent.TogglePasswordVisibility) },
+                    onDone = {
+                        focus.clearFocus()
+                        onEvent(LoginEvent.Login)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     supportingText = if (state.passwordError != null) {
                         {

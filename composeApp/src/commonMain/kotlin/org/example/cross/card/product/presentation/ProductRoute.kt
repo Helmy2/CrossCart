@@ -1,9 +1,11 @@
 package org.example.cross.card.product.presentation
 
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -35,7 +37,8 @@ fun NavGraphBuilder.productRoute() {
                             ListDetailPaneScaffoldRole.Detail,
                             it.id
                         )
-                    }
+                    },
+                    modifier = Modifier.systemBarsPadding()
                 )
             },
             detailPane = {
@@ -48,7 +51,7 @@ fun NavGraphBuilder.productRoute() {
                         productId = it,
                         onBackClick = {
                             scaffoldNavigator.navigateBack()
-                        }
+                        },
                     )
                 }
             }
@@ -71,7 +74,8 @@ fun NavGraphBuilder.productRoute() {
                             ListDetailPaneScaffoldRole.Detail,
                             it.id
                         )
-                    }
+                    },
+                    modifier = Modifier.systemBarsPadding()
                 )
             },
             detailPane = {

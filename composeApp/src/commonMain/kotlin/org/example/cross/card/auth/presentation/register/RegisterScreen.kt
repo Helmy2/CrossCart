@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -47,7 +46,7 @@ fun RegisterScreen(
     val focus = LocalFocusManager.current
 
     AdaptivePane(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        modifier.verticalScroll(rememberScrollState()).padding(16.dp),
         firstPane = {
             AuthHeader(
                 imageFront = Res.drawable.ic_create_front,
@@ -91,6 +90,10 @@ fun RegisterScreen(
                     ),
                     onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
                     onVisibilityToggle = { onEvent(RegisterEvent.TogglePasswordVisibility) },
+                    onDone = {
+                        focus.clearFocus()
+                        onEvent(RegisterEvent.Register)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     supportingText = {
                         AnimatedContent(state.passwordError != null) {

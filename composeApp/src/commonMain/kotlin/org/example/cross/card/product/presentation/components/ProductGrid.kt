@@ -27,7 +27,7 @@ fun ProductGrid(
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(minSize = 200.dp),
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 8.dp)
     ) {
         if (loading) {
             items(5) {

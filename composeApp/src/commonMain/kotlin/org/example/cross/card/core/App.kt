@@ -1,6 +1,5 @@
 package org.example.cross.card.core
 
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -10,7 +9,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
@@ -55,11 +53,9 @@ fun App() {
 @Composable
 fun MainScaffold(
     startDestination: Destination,
-    modifier: Modifier = Modifier,
 ) {
     val snackbarManager = koinInject<SnackbarManager>()
     Scaffold(
-        modifier = modifier.systemBarsPadding(),
         snackbarHost = { SnackbarHost(snackbarManager.snackbarHostState) },
     ) {
         AppNavHost(

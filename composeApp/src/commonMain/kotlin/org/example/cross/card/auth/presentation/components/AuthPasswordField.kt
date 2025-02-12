@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -53,6 +54,7 @@ fun AuthPasswordField(
     keyboardOptions: KeyboardOptions,
     onValueChange: (String) -> Unit,
     onVisibilityToggle: () -> Unit,
+    onDone: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
@@ -60,6 +62,11 @@ fun AuthPasswordField(
         onValueChange = onValueChange,
         placeholder = { Text(stringResource(Res.string.password)) },
         keyboardOptions = keyboardOptions,
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onDone()
+            }
+        ),
         visualTransformation = if (isVisible) VisualTransformation.None
         else PasswordVisualTransformation(),
         singleLine = true,

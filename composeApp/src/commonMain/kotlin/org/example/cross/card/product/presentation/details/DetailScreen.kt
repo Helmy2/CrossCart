@@ -1,6 +1,7 @@
 package org.example.cross.card.product.presentation.details
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -45,7 +46,7 @@ fun DetailScreen(
 
         IconButton(
             onClick = onBackClick,
-            modifier = Modifier.align(Alignment.TopStart)
+            modifier = Modifier.align(Alignment.TopStart).statusBarsPadding()
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBackIosNew,

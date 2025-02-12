@@ -1,6 +1,7 @@
 package org.example.cross.card.auth.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -24,7 +25,7 @@ fun NavGraphBuilder.authRoute() {
         LoginScreen(
             state = state,
             onEvent = viewModel::handleEvent,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().systemBarsPadding()
         )
     }
     composable<Destination.Auth.Register> {
@@ -33,7 +34,7 @@ fun NavGraphBuilder.authRoute() {
         RegisterScreen(
             state = state,
             onEvent = viewModel::handleEvent,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().systemBarsPadding()
         )
     }
     composable<Destination.Auth.RestPassword> {
@@ -42,7 +43,7 @@ fun NavGraphBuilder.authRoute() {
         RestPasswordScreen(
             state = state,
             onEvent = viewModel::handleEvent,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().systemBarsPadding()
         )
     }
 }
@@ -54,7 +55,7 @@ fun NavGraphBuilder.profileRoute() {
         ProfileScreen(
             state = state,
             onEvent = viewModel::handleEvent,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().systemBarsPadding()
         )
     }
 }

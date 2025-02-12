@@ -32,6 +32,6 @@ val productModule = module {
     factory { RemoveFromFavoriteUseCase(get()) }
 
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { DetailViewModel(get(), get()) }
+    viewModel { DetailViewModel(get(), get(), get(), get()) }
     viewModel { FavoriteViewModel(get(), get()) }
 }

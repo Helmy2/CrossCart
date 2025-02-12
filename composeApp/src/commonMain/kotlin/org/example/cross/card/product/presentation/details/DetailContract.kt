@@ -9,4 +9,5 @@ data class DetailState(
 
 sealed class DetailEvent {
     data class LoadProduct(val productId: String) : DetailEvent()
+    data object ToggleFavorite : DetailEvent()
 }

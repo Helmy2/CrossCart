@@ -14,6 +14,7 @@ data class ProductDetails(
     val availability: String,
     val returnPolicy: String,
     val minimumOrder: Int,
+    val isFavorite: Boolean,
     val category: Category,
-    val images: List<Image>
+    val images: List<Image>,
 )

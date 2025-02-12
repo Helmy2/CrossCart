@@ -33,11 +33,12 @@ clean architecture, real-time sync, and cross-platform development.
 ### Authentication
 
 - [x] Email/Password login.
+- [x] Rest Password.
 - [ ] Google OAuth integration.
-- [ ] Secure token management.
 
 ### Profile Management
 
+- [x] Update profile name.
 - [ ] Profile picture upload and display.
 - [ ] Real-time profile synchronization via Supabase Realtime.
 - [ ] Guest profile persistence using SQLDelight.
@@ -46,7 +47,9 @@ clean architecture, real-time sync, and cross-platform development.
 ### Product Catalog
 
 - [x] Grid/List view options with lazy loading for optimal performance.
+- [x] Favorite functionality.
 - [x] Powerful search functionality.
+- [ ] Real-time favorite synchronization via Supabase Realtime.
 - [ ] Filtering by price, category, and ratings.
 - [ ] Sorting options (newest, price, popularity).
 - [ ] Detailed product view with image gallery (using Coil for image loading).
@@ -82,7 +85,6 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Future Enhancements
 
-- [ ]  **Wishlist:**  Allow users to save products for later. Support for desktop layouts.
 - [ ]  **Reviews and Ratings:** Implement a system for users to review and rate products.
 - [ ]  **Promotional Offers:** Integrate support for discounts and promotions.
 - [ ]  **Push Notifications:** Send notifications for order updates, and promotions (mobile

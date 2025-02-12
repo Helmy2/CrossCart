@@ -25,7 +25,8 @@ data class ProductDetailsResponse(
 )
 
 fun ProductDetailsResponse.toDomain(
-    list: List<ImageResponse>
+    imageUrls: List<ImageResponse>,
+    isFavorite: Boolean,
 ) = ProductDetails(
     id = id,
     title = title ?: "Empty",
@@ -34,12 +35,13 @@ fun ProductDetailsResponse.toDomain(
     description = description ?: "Empty",
     brand = brand ?: "Empty",
     category = category.toDomain(),
-    images = list.map { it.toDomain() },
+    images = imageUrls.map { it.toDomain() },
     rating = rating ?: 0.0,
     stock = stock ?: 0,
     warranty = warranty ?: "Empty",
     shipping = shipping ?: "Empty",
     availability = availability ?: "Empty",
     returnPolicy = returnPolicy ?: "Empty",
-    minimumOrder = minimumOrder ?: 0
+    minimumOrder = minimumOrder ?: 0,
+    isFavorite = isFavorite
 )

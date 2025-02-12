@@ -38,6 +38,9 @@ fun DetailScreen(
         ProductDetails(
             state.product,
             loading = state.isLoading,
+            onFavoriteClick = {
+                onEvent(DetailEvent.ToggleFavorite)
+            }
         )
 
         IconButton(

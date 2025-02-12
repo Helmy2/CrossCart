@@ -13,13 +13,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,7 +37,8 @@ import org.example.cross.card.product.domain.entity.ProductDetails
 fun ProductDetails(
     product: ProductDetails?,
     loading: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onFavoriteClick: () -> Unit
 ) {
     val context = LocalPlatformContext.current
 
@@ -44,42 +49,46 @@ fun ProductDetails(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            if (product.images.size == 1) {
-                Card {
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            model = product.images.first().url,
-                            imageLoader = imageLoader(context),
-                        ),
-                        contentDescription = "Product Image",
+            Box {
+                if (product.images.size == 1) {
+                    Card {
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = product.images.first().url,
+                                imageLoader = imageLoader(context),
+                            ),
+                            contentDescription = "Product Image",
+                            modifier = Modifier.fillMaxWidth()
+                                .height(300.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
+                        )
+                    }
+                } else {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier.fillMaxWidth()
-                            .height(300.dp)
-                            .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-            } else {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    items(product.images) { image ->
-                        Card {
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    model = image.url,
-                                    imageLoader = imageLoader(context),
-                                ),
-                                contentDescription = "Product Image",
-                                modifier = Modifier.size(300.dp)
-                                    .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
-                                contentScale = ContentScale.Crop
-                            )
+                    ) {
+                        items(product.images) { image ->
+                            Card {
+                                Image(
+                                    painter = rememberAsyncImagePainter(
+                                        model = image.url,
+                                        imageLoader = imageLoader(context),
+                                    ),
+                                    contentDescription = "Product Image",
+                                    modifier = Modifier.size(300.dp)
+                                        .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
+                                )
+                            }
                         }
                     }
                 }
+                FavoriteButton(
+                    isFavorite = product.isFavorite,
+                    onClick = onFavoriteClick,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
             }
-
             Text(
                 text = product.title,
                 style = MaterialTheme.typography.headlineMedium,
@@ -145,10 +154,21 @@ fun ProductDetails(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Minimum Order
                 Text(text = "Minimum Order: ${product.minimumOrder}")
             }
         }
+    }
+}
+
+@Composable
+fun FavoriteButton(isFavorite: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    IconButton(onClick, modifier) {
+        Icon(
+            imageVector = Icons.Default.Favorite,
+            contentDescription = "Favorite",
+            tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(48.dp)
+        )
     }
 }
 

@@ -40,8 +40,8 @@ class ProductRepoImpl(
             supabase.from(PRODUCT_TABLE).select(
                 columns = columns,
             ).decodeList<ProductResponse>().map {
-                    it.toDomain(getProductThumbnails(it.id).getOrNull())
-                }
+                it.toDomain(getProductThumbnails(it.id).getOrNull())
+            }
         }
     }
 
@@ -79,17 +79,17 @@ class ProductRepoImpl(
     override suspend fun getProductById(productId: String): Result<ProductDetails?> =
         withContext(dispatcher) {
             runCatching {
-                val columns = Columns.raw(PRODUCT_DETAILS_COLUMNS)
+                val favorites = getFavorites().getOrThrow()
+                val isFavorite = favorites.any { it.id == productId }
 
-                supabase.from(PRODUCT_TABLE).select(
-                    columns = columns
-                ) {
-                    filter {
-                        ProductDetailsResponse::id eq productId
-                    }
-                }.decodeSingleOrNull<ProductDetailsResponse>()?.let {
-                    it.toDomain(getProductImages(it.id).getOrNull().orEmpty())
-                }
+                val images = getProductImages(productId).getOrNull().orEmpty()
+
+                val columns = Columns.raw(PRODUCT_DETAILS_COLUMNS)
+                supabase.from(PRODUCT_TABLE).select(columns = columns) {
+                    filter { ProductDetailsResponse::id eq productId }
+                }.decodeSingleOrNull<ProductDetailsResponse>()?.toDomain(
+                    imageUrls = images, isFavorite = isFavorite
+                )
             }
         }
 
@@ -152,17 +152,16 @@ class ProductRepoImpl(
             }
         }
 
-    override suspend fun addToFavorites(productId: String): Result<Unit> =
-        withContext(dispatcher) {
-            runCatching {
-                supabase.auth.currentUserOrNull()?.id?.let { userId ->
-                    supabase.from(FAVOURITE_TABLE).insert(buildJsonObject {
-                        put("user_id", userId)
-                        put("product_id", productId)
-                    })
-                }
-                Unit
+    override suspend fun addToFavorites(productId: String): Result<Unit> = withContext(dispatcher) {
+        runCatching {
+            supabase.auth.currentUserOrNull()?.id?.let { userId ->
+                supabase.from(FAVOURITE_TABLE).insert(buildJsonObject {
+                    put("user_id", userId)
+                    put("product_id", productId)
+                })
             }
+            Unit
         }
+    }
 }
 

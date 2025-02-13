@@ -21,24 +21,20 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 fun NavGraphBuilder.productRoute() {
     composable<Destination.Main.Products> {
-
         val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<String>()
-        ListDetailPaneScaffold(
-            directive = scaffoldNavigator.scaffoldDirective,
+        ListDetailPaneScaffold(directive = scaffoldNavigator.scaffoldDirective,
             value = scaffoldNavigator.scaffoldValue,
             listPane = {
                 val viewModel: HomeViewModel = koinViewModel()
                 val state = viewModel.state.collectAsStateWithLifecycle()
                 HomeScreen(
-                    state = state.value,
-                    onEvent = viewModel::onEvent,
+                    state = state.value, onEvent = viewModel::onEvent,
                     onProductClick = {
                         scaffoldNavigator.navigateTo(
-                            ListDetailPaneScaffoldRole.Detail,
-                            it.id
+                            ListDetailPaneScaffoldRole.Detail, it.id
                         )
                     },
-                    modifier = Modifier.systemBarsPadding()
+                    modifier = Modifier.systemBarsPadding(),
                 )
             },
             detailPane = {
@@ -54,15 +50,12 @@ fun NavGraphBuilder.productRoute() {
                         },
                     )
                 }
-            }
-        )
+            })
     }
 
     composable<Destination.Main.Favorites> {
-
         val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<String>()
-        ListDetailPaneScaffold(
-            directive = scaffoldNavigator.scaffoldDirective,
+        ListDetailPaneScaffold(directive = scaffoldNavigator.scaffoldDirective,
             value = scaffoldNavigator.scaffoldValue,
             listPane = {
                 val viewModel: FavoriteViewModel = koinViewModel()
@@ -71,11 +64,10 @@ fun NavGraphBuilder.productRoute() {
                     state = state.value,
                     onProductClick = {
                         scaffoldNavigator.navigateTo(
-                            ListDetailPaneScaffoldRole.Detail,
-                            it.id
+                            ListDetailPaneScaffoldRole.Detail, it.id
                         )
                     },
-                    modifier = Modifier.systemBarsPadding()
+                    modifier = Modifier.systemBarsPadding(),
                 )
             },
             detailPane = {
@@ -88,10 +80,9 @@ fun NavGraphBuilder.productRoute() {
                         productId = it,
                         onBackClick = {
                             scaffoldNavigator.navigateBack()
-                        }
+                        },
                     )
                 }
-            }
-        )
+            })
     }
 }

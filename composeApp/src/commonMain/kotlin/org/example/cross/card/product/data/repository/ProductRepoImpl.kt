@@ -31,8 +31,10 @@ import org.example.cross.card.product.data.util.SupabaseConfig.PRODUCT_DETAILS_C
 import org.example.cross.card.product.data.util.SupabaseConfig.PRODUCT_TABLE
 import org.example.cross.card.product.data.util.SupabaseConfig.THUMBNAIL_TABLE
 import org.example.cross.card.product.domain.entity.Category
+import org.example.cross.card.product.domain.entity.OrderBy
 import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.domain.entity.ProductDetails
+import org.example.cross.card.product.domain.entity.toSupabaseOrder
 import org.example.cross.card.product.domain.repository.ProductRepo
 
 
@@ -51,14 +53,42 @@ class ProductRepoImpl(
         }
     }
 
-    override suspend fun getProductsByName(query: String): Result<List<Product>> =
+    override suspend fun getProductsByName(
+        query: String,
+        rating: Float?,
+        fromPrice: Float?,
+        toPrice: Float?,
+        orderBy: OrderBy
+    ): Result<List<Product>> =
         withContext(dispatcher) {
             runCatching {
                 val columns = Columns.raw(PRODUCT_COLUMNS)
                 supabase.from(PRODUCT_TABLE).select(
                     columns = columns,
                 ) {
-                    filter { ProductResponse::title ilike "%$query%" }
+                    filter {
+                        ProductResponse::title ilike "%$query%"
+
+                        rating?.let { ProductResponse::rating gte it }
+                        fromPrice?.let { ProductResponse::price gte it }
+                        toPrice?.let { ProductResponse::price lte it }
+                    }
+                    when (orderBy) {
+                        is OrderBy.Name -> order(
+                            ProductResponse::rating.name,
+                            order = orderBy.order.toSupabaseOrder()
+                        )
+
+                        is OrderBy.Price -> order(
+                            ProductResponse::price.name,
+                            order = orderBy.order.toSupabaseOrder()
+                        )
+
+                        is OrderBy.Rating -> order(
+                            ProductResponse::rating.name,
+                            order = orderBy.order.toSupabaseOrder()
+                        )
+                    }
                 }.decodeList<ProductResponse>().map {
                     it.toDomain(getProductThumbnails(it.id).getOrNull())
                 }

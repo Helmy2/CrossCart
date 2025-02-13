@@ -41,7 +41,6 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Update profile name.
 - [ ] Profile picture upload and display.
 - [ ] Real-time profile synchronization via Supabase Realtime.
-- [ ] Guest profile persistence using SQLDelight.
 - [ ] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Product Catalog
@@ -51,8 +50,8 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Powerful search functionality.
 - [x] Real-time favorite synchronization via Supabase Realtime.
 - [ ] Filtering by price, category, and ratings.
-- [ ] Sorting options (newest, price, popularity).
-- [ ] Detailed product view with image gallery (using Coil for image loading).
+- [ ] Sorting options (newest, price, rating).
+- [x] Detailed product view with image gallery (using Coil for image loading).
 - [ ] Zoom functionality for product images.
 - [ ] **Desktop Support:** Enhanced product browsing experience with keyboard navigation and
   larger image displays.

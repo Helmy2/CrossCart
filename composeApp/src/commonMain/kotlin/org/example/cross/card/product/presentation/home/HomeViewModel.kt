@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.product.domain.entity.OrderBy
 import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
 import org.example.cross.card.product.domain.usecase.GetProductsByNameUseCase
 
@@ -29,9 +30,25 @@ class HomeViewModel(
         when (event) {
             is HomeEvent.Refresh -> refresh()
             is HomeEvent.UpdateQuery -> updateQuery(event.query)
-            is HomeEvent.SearchProducts -> search(event.query)
+            is HomeEvent.SearchProducts -> search()
             is HomeEvent.UpdateExpandedSearch -> updateExpandedSearch(event.expanded)
+            is HomeEvent.UpdateFilter -> updateFilter(event.filter)
+            is HomeEvent.UpdateOrderBy -> updateOrderBy(event.orderBy)
+            is HomeEvent.UpdateFilterDialog -> updateFilterDialog(event.show)
         }
+    }
+
+    private fun updateFilterDialog(show: Boolean) {
+        _state.update { it.copy(showFilterDialog = show) }
+
+    }
+
+    private fun updateOrderBy(orderBy: OrderBy) {
+        _state.update { it.copy(orderBy = orderBy) }
+    }
+
+    private fun updateFilter(filter: Filter) {
+        _state.update { it.copy(filter = filter) }
     }
 
     private fun updateExpandedSearch(expanded: Boolean) {
@@ -54,14 +71,20 @@ class HomeViewModel(
     private fun updateQuery(query: String) {
         viewModelScope.launch {
             _state.update { it.copy(query = query) }
-            search(query)
+            search()
         }
     }
 
-    private fun search(query: String) {
+    private fun search() {
         viewModelScope.launch {
             _state.update { it.copy(loading = true) }
-            val result = getProductsByNameUseCase(query)
+            val result = getProductsByNameUseCase(
+                query = state.value.query,
+                rating = _state.value.filter.rating,
+                fromPrice = _state.value.filter.fromPrice,
+                toPrice = _state.value.filter.toPrice,
+                orderBy = _state.value.orderBy
+            )
             result.fold(
                 onSuccess = { products ->
                     _state.update { it.copy(searchProducts = products) }

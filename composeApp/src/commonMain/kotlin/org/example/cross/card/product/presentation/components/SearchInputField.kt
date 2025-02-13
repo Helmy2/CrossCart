@@ -1,9 +1,11 @@
 package org.example.cross.card.product.presentation.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +23,7 @@ fun SearchInputField(
     onSearch: (String) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
+    onFilterClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     SearchBarDefaults.InputField(
@@ -48,5 +51,15 @@ fun SearchInputField(
                 }
             }
         },
+        trailingIcon = {
+            AnimatedVisibility(expanded) {
+                IconButton(onClick = onFilterClick) {
+                    Icon(
+                        Icons.Default.Tune,
+                        contentDescription = "Filter Icon"
+                    )
+                }
+            }
+        }
     )
 }

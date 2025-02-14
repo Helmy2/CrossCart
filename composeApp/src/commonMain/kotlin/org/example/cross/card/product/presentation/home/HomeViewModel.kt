@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.product.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.OrderBy
 import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
 import org.example.cross.card.product.domain.usecase.GetProductsByNameUseCase
@@ -58,14 +59,34 @@ class HomeViewModel(
     private fun refresh() {
         viewModelScope.launch {
             getCategoriesWithProductsUseCase().collectLatest { result ->
-                result.fold(
-                    onSuccess = { categories ->
-                        _state.update { it.copy(categories = categories, loading = false) }
-                    },
-                    onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) }
-                )
+                result.fold(onSuccess = { categories ->
+                    _state.update { it.copy(categories = categories, loading = false) }
+                    updatePriceRange(categories)
+                    updateRatingRange(categories)
+                }, onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) })
             }
         }
+    }
+
+    private fun updateRatingRange(categories: List<CategoryWithProducts>) {
+        val minRating =
+            categories.flatMap { it.products }.minOfOrNull { it.rating }?.toFloat() ?: 0f
+        updateFilter(
+            state.value.filter.copy(
+                rating = minRating
+            )
+        )
+    }
+
+    private fun updatePriceRange(categories: List<CategoryWithProducts>) {
+        val minPrice = categories.flatMap { it.products }.minOfOrNull { it.price }?.toFloat() ?: 0f
+        val maxPrice =
+            categories.flatMap { it.products }.maxOfOrNull { it.price }?.toFloat() ?: 1000f
+        updateFilter(
+            state.value.filter.copy(
+                defaultPrice = minPrice..maxPrice, price = minPrice..maxPrice
+            )
+        )
     }
 
     private fun updateQuery(query: String) {
@@ -81,18 +102,15 @@ class HomeViewModel(
             val result = getProductsByNameUseCase(
                 query = state.value.query,
                 rating = _state.value.filter.rating,
-                fromPrice = _state.value.filter.fromPrice,
-                toPrice = _state.value.filter.toPrice,
+                fromPrice = _state.value.filter.price.start,
+                toPrice = _state.value.filter.price.endInclusive,
                 orderBy = _state.value.orderBy
             )
-            result.fold(
-                onSuccess = { products ->
-                    _state.update { it.copy(searchProducts = products) }
-                },
-                onFailure = {
-                    snackbarManager.showErrorSnackbar(it.message.orEmpty())
-                }
-            )
+            result.fold(onSuccess = { products ->
+                _state.update { it.copy(searchProducts = products) }
+            }, onFailure = {
+                snackbarManager.showErrorSnackbar(it.message.orEmpty())
+            })
             _state.update { it.copy(loading = false) }
         }
     }

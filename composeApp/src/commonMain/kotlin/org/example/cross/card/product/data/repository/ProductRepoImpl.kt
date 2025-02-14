@@ -54,46 +54,39 @@ class ProductRepoImpl(
     }
 
     override suspend fun getProductsByName(
-        query: String,
-        rating: Float?,
-        fromPrice: Float?,
-        toPrice: Float?,
-        orderBy: OrderBy
-    ): Result<List<Product>> =
-        withContext(dispatcher) {
-            runCatching {
-                val columns = Columns.raw(PRODUCT_COLUMNS)
-                supabase.from(PRODUCT_TABLE).select(
-                    columns = columns,
-                ) {
-                    filter {
+        query: String, rating: Float?, fromPrice: Float?, toPrice: Float?, orderBy: OrderBy
+    ): Result<List<Product>> = withContext(dispatcher) {
+        runCatching {
+            val columns = Columns.raw(PRODUCT_COLUMNS)
+            supabase.from(PRODUCT_TABLE).select(
+                columns = columns,
+            ) {
+                filter {
+                    and {
                         ProductResponse::title ilike "%$query%"
-
                         rating?.let { ProductResponse::rating gte it }
                         fromPrice?.let { ProductResponse::price gte it }
                         toPrice?.let { ProductResponse::price lte it }
                     }
-                    when (orderBy) {
-                        is OrderBy.Name -> order(
-                            ProductResponse::rating.name,
-                            order = orderBy.order.toSupabaseOrder()
-                        )
-
-                        is OrderBy.Price -> order(
-                            ProductResponse::price.name,
-                            order = orderBy.order.toSupabaseOrder()
-                        )
-
-                        is OrderBy.Rating -> order(
-                            ProductResponse::rating.name,
-                            order = orderBy.order.toSupabaseOrder()
-                        )
-                    }
-                }.decodeList<ProductResponse>().map {
-                    it.toDomain(getProductThumbnails(it.id).getOrNull())
                 }
+                when (orderBy) {
+                    is OrderBy.Name -> order(
+                        ProductResponse::rating.name, order = orderBy.order.toSupabaseOrder()
+                    )
+
+                    is OrderBy.Price -> order(
+                        ProductResponse::price.name, order = orderBy.order.toSupabaseOrder()
+                    )
+
+                    is OrderBy.Rating -> order(
+                        ProductResponse::rating.name, order = orderBy.order.toSupabaseOrder()
+                    )
+                }
+            }.decodeList<ProductResponse>().map {
+                it.toDomain(getProductThumbnails(it.id).getOrNull())
             }
         }
+    }
 
 
     override suspend fun filterProductsByCategory(categoryId: String): Result<List<Product>> =

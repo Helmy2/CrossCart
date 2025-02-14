@@ -27,6 +27,6 @@ sealed class HomeEvent {
 
 data class Filter(
     val rating: Float? = null,
-    val fromPrice: Float? = null,
-    val toPrice: Float? = null,
+    val price: ClosedFloatingPointRange<Float> = 0f..1000f,
+    val defaultPrice: ClosedFloatingPointRange<Float> = 0f..1000f
 )

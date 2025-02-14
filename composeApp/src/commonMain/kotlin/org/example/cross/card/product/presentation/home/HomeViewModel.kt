@@ -70,7 +70,7 @@ class HomeViewModel(
 
     private fun updateRatingRange(categories: List<CategoryWithProducts>) {
         val minRating =
-            categories.flatMap { it.products }.minOfOrNull { it.rating }?.toFloat() ?: 0f
+            categories.flatMap { it.products }.minOfOrNull { it.rating } ?: 0f
         updateFilter(
             state.value.filter.copy(
                 rating = minRating
@@ -79,9 +79,9 @@ class HomeViewModel(
     }
 
     private fun updatePriceRange(categories: List<CategoryWithProducts>) {
-        val minPrice = categories.flatMap { it.products }.minOfOrNull { it.price }?.toFloat() ?: 0f
+        val minPrice = categories.flatMap { it.products }.minOfOrNull { it.price } ?: 0f
         val maxPrice =
-            categories.flatMap { it.products }.maxOfOrNull { it.price }?.toFloat() ?: 1000f
+            categories.flatMap { it.products }.maxOfOrNull { it.price } ?: 1000f
         updateFilter(
             state.value.filter.copy(
                 defaultPrice = minPrice..maxPrice, price = minPrice..maxPrice

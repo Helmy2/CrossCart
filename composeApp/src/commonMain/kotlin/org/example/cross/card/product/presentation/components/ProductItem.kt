@@ -79,7 +79,7 @@ fun ProductItem(
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        "%.1f".format(product.rating),
+                        product.rating.format(1),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -97,7 +97,7 @@ fun ProductItem(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    "${"%.1f".format(product.discountPercentage)}%Off",
+                    "${(product.discountPercentage.format(1))}%Off",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium
                 )

@@ -24,7 +24,7 @@ fun FilterSection(filter: Filter, onFilterChange: (Filter) -> Unit, modifier: Mo
         ) {
             Text(text = "From rating")
             Text(
-                text = "%.2f".format(filter.rating ?: 0f),
+                text = (filter.rating ?: 0f).format(),
             )
             Slider(
                 value = filter.rating ?: 0f,
@@ -40,14 +40,14 @@ fun FilterSection(filter: Filter, onFilterChange: (Filter) -> Unit, modifier: Mo
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(text = "Price")
-            Text(text = "%.2f$".format(filter.price.start))
+            Text(text = (filter.price.start).format())
             RangeSlider(
                 value = filter.price,
                 onValueChange = { onFilterChange(filter.copy(price = it)) },
                 valueRange = filter.defaultPrice,
                 modifier = Modifier.weight(1f)
             )
-            Text(text = "%.2f$".format(filter.price.endInclusive))
+            Text(text = filter.price.endInclusive.format())
         }
     }
 }

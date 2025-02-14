@@ -8,10 +8,10 @@ import org.example.cross.card.product.domain.entity.Product
 data class ProductResponse(
     val id: String,
     val title: String?,
-    val price: Double?,
-    val rating: Double?,
+    val price: Float?,
+    val rating: Float?,
     @SerialName("discount_percentage")
-    val discountPercentage: Double?,
+    val discountPercentage: Float?,
     @SerialName("category_id") val categoryId: String
 )
 
@@ -21,8 +21,8 @@ fun ProductResponse.toDomain(
     id = id,
     categoryId = categoryId,
     title = title ?: "Empty",
-    price = price ?: 0.0,
-    rating = rating ?: 0.0,
-    discountPercentage = discountPercentage ?: 0.0,
+    price = price ?: 0f,
+    rating = rating ?: 0f,
+    discountPercentage = discountPercentage ?: 0f,
     image = image.toDomain()
 )

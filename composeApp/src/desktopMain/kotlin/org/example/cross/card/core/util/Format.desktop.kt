@@ -1,5 +1,5 @@
 package org.example.cross.card.core.util
 
-actual fun String.format(value: Any): String {
-    return String.format(this, value)
+actual fun Float.format(numberOfDecimalPlaces: Int): String {
+    return String.format("%.${numberOfDecimalPlaces}f", this)
 }

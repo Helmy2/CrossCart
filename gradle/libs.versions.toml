@@ -6,6 +6,7 @@ android-targetSdk = "35"
 androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
 compose-multiplatform = "1.7.3"
+filekitCompose = "0.8.8"
 kotlin = "2.1.0"
 kotlinx-coroutines = "1.10.1"
 ktor = "3.0.3"
@@ -48,7 +49,10 @@ material3-window-size = { module = "org.jetbrains.compose.material3:material3-wi
 supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt", version.ref = "supabase" }
 supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase" }
 supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase" }
+supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase" }
 supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase" }
+
+filekit-compose = { module = "io.github.vinceglb:filekit-compose", version.ref = "filekitCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -71,10 +71,14 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
+
             implementation(libs.supabase.auth)
             implementation(libs.supabase.postgrest)
             implementation(libs.supabase.realtime)
+            implementation(libs.supabase.storage)
             implementation(libs.supabase.compose.auth)
+
+            implementation(libs.filekit.compose)
         }
 
         desktopMain.dependencies {
@@ -128,6 +132,9 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.example.cross.card"
             packageVersion = "1.0.0"
+            linux {
+                modules("jdk.security.auth")
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.realtime.Realtime
+import io.github.jan.supabase.storage.Storage
 import org.example.cross.card.BuildKonfig
 import org.koin.dsl.module
 
@@ -19,6 +20,7 @@ val supabaseModule = module {
             install(ComposeAuth)
             install(Postgrest)
             install(Realtime)
+            install(Storage)
         }
         supabase
     }

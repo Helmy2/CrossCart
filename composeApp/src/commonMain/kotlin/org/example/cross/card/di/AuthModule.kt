@@ -3,6 +3,7 @@ package org.example.cross.card.di
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.compose.auth.composeAuth
+import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.example.cross.card.auth.data.exception.AuthExceptionMapper
@@ -15,6 +16,7 @@ import org.example.cross.card.auth.domain.usecase.RegisterUseCase
 import org.example.cross.card.auth.domain.usecase.ResetPasswordUseCase
 import org.example.cross.card.auth.domain.usecase.SignInAnonymouslyUseCase
 import org.example.cross.card.auth.domain.usecase.UpdateNameUseCase
+import org.example.cross.card.auth.domain.usecase.UpdateProfilePictureUseCase
 import org.example.cross.card.auth.presentation.login.LoginViewModel
 import org.example.cross.card.auth.presentation.profile.ProfileViewModel
 import org.example.cross.card.auth.presentation.register.RegisterViewModel
@@ -26,10 +28,12 @@ import org.koin.dsl.module
 val authModule = module {
     single { get<SupabaseClient>().auth }
     single { get<SupabaseClient>().composeAuth }
+    single { get<SupabaseClient>().storage }
 
     single<AuthRepo> {
         AuthRepoImpl(
             auth = get(),
+            storage = get(),
             exceptionMapper = AuthExceptionMapper(),
             dispatcher = Dispatchers.IO
         )
@@ -42,11 +46,12 @@ val authModule = module {
     factory { SignInAnonymouslyUseCase(get()) }
     factory { ResetPasswordUseCase(get()) }
     factory { UpdateNameUseCase(get()) }
+    factory { UpdateProfilePictureUseCase(get()) }
 
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { ResetPasswordViewModel(get(), get(), get()) }
-    viewModel { ProfileViewModel(get(), get(), get(), get(), get()) }
+    viewModel { ProfileViewModel(get(), get(), get(), get(), get(), get()) }
 }
 
 

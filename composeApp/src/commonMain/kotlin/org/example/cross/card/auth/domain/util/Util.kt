@@ -11,6 +11,7 @@ import org.example.cross.card.auth.domain.entity.Requirement
 const val ANONYMOUS_USER_NAME = "Anonymous"
 const val ANONYMOUS_USER_EMAIL = ""
 const val DISPLAY_NAME_KEY = "display_name"
+const val PROFILE_PICTURE_KEY = "profile_picture"
 
 
 fun isValidEmail(email: String): Boolean {

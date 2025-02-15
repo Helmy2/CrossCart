@@ -3,6 +3,9 @@ package org.example.cross.card.auth.data.repository
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.auth.status.SessionStatus
+import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.UploadStatus
+import io.github.jan.supabase.storage.uploadAsFlow
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -15,11 +18,13 @@ import kotlinx.serialization.json.put
 import org.example.cross.card.auth.domain.entity.User
 import org.example.cross.card.auth.domain.repository.AuthRepo
 import org.example.cross.card.auth.domain.util.DISPLAY_NAME_KEY
+import org.example.cross.card.auth.domain.util.PROFILE_PICTURE_KEY
 import org.example.cross.card.auth.domain.util.toDomainUser
 import org.example.cross.card.core.domain.exceptions.ExceptionMapper
 
 class AuthRepoImpl(
     private val auth: Auth,
+    private val storage: Storage,
     private val exceptionMapper: ExceptionMapper,
     private val dispatcher: CoroutineDispatcher,
 ) : AuthRepo {
@@ -115,6 +120,43 @@ class AuthRepoImpl(
                 this.password = password
             }
 
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(exceptionMapper.map(e))
+        }
+    }
+
+    override fun updateProfilePicture(
+        readBytes: ByteArray,
+        type: String
+    ): Flow<Result<Float>> {
+        val bucket = storage.from("user_images")
+        val currentUser =
+            auth.currentUserOrNull()?.id ?: throw IllegalStateException("No user logged in")
+        return bucket.uploadAsFlow("$currentUser.$type", readBytes).map {
+            when (it) {
+                is UploadStatus.Progress -> {
+                    Result.success(it.totalBytesSend.toFloat() / it.contentLength * 100)
+                }
+
+                is UploadStatus.Success -> {
+                    val url = bucket.publicUrl("$currentUser.$type")
+                    updateProfilePicture(url)
+                    Result.success(100f)
+                }
+            }
+        }.catch {
+            emit(Result.failure(exceptionMapper.map(it)))
+        }
+    }
+
+    private suspend fun updateProfilePicture(url: String): Result<Unit> = withContext(dispatcher) {
+        try {
+            auth.updateUser {
+                data {
+                    put(PROFILE_PICTURE_KEY, url)
+                }
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(exceptionMapper.map(e))

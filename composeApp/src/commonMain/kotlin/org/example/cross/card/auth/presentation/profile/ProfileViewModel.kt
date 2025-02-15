@@ -2,9 +2,11 @@ package org.example.cross.card.auth.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.vinceglb.filekit.core.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -12,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.auth.domain.usecase.CurrentUserFlowUseCase
 import org.example.cross.card.auth.domain.usecase.LogoutUseCase
 import org.example.cross.card.auth.domain.usecase.UpdateNameUseCase
+import org.example.cross.card.auth.domain.usecase.UpdateProfilePictureUseCase
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
@@ -20,6 +23,7 @@ class ProfileViewModel(
     private val currentUserFlowUseCase: CurrentUserFlowUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val updateNameUseCase: UpdateNameUseCase,
+    private val updateProfilePictureUseCase: UpdateProfilePictureUseCase,
     private val snackbarManager: SnackbarManager,
     private val navigator: Navigator
 ) : ViewModel() {
@@ -32,20 +36,38 @@ class ProfileViewModel(
     fun handleEvent(event: ProfileEvent) {
         when (event) {
             is ProfileEvent.Logout -> logout()
-            is ProfileEvent.UpdateDialog -> updateDialog(event.show)
+            is ProfileEvent.EditeNameDialog -> updateEditeNameDialog(event.show)
             is ProfileEvent.UpdateName -> updateName(event.name)
-            is ProfileEvent.ConfirmUpdate -> confirmUpdate()
-            is ProfileEvent.EditProfile -> editProfile()
+            is ProfileEvent.ConfirmUpdateName -> confirmUpdate()
+            is ProfileEvent.ConfirmUpdateProfilePicture -> confirmUpdateProfilePicture(event.file)
+            is ProfileEvent.EditeProfilePictureDialog -> updateEditeProfilePictureDialog(event.show)
         }
     }
 
-    private fun editProfile() {
-        _state.update { it.copy(showDialog = true) }
+    private fun confirmUpdateProfilePicture(file: PlatformFile) {
+        viewModelScope.launch {
+            updateEditeProfilePictureDialog(false)
+            updateProfilePictureUseCase(file).collectLatest {
+                it.fold(
+                    onSuccess = {
+                        snackbarManager.showErrorSnackbar("Profile picture updated successfully")
+                    },
+                    onFailure = {
+                        snackbarManager.showErrorSnackbar(it.message.orEmpty())
+                    }
+                )
+            }
+        }
     }
+
+    private fun updateEditeProfilePictureDialog(show: Boolean) {
+        _state.update { it.copy(showEditProfilePictureDialog = show) }
+    }
+
 
     private fun confirmUpdate() {
         viewModelScope.launch {
-            updateDialog(false)
+            updateEditeNameDialog(false)
             val result = updateNameUseCase(state.value.name)
             result.fold(
                 onSuccess = {
@@ -62,8 +84,8 @@ class ProfileViewModel(
         _state.update { it.copy(name = name) }
     }
 
-    private fun updateDialog(show: Boolean) {
-        _state.update { it.copy(showDialog = show) }
+    private fun updateEditeNameDialog(show: Boolean) {
+        _state.update { it.copy(showEditNameDialog = show) }
     }
 
     private fun loadUser() {

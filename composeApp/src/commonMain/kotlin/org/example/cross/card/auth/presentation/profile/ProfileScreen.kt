@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,10 +14,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.core.PickerMode
 import io.github.vinceglb.filekit.core.PickerType
@@ -64,13 +68,31 @@ fun ProfileScreen(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    AsyncImage(
-                        model = state.user?.profilePicture,
-                        contentDescription = "Profile Picture",
-                        imageLoader = imageLoader(),
-                        modifier = Modifier.size(50.dp).padding(4.dp).clip(CircleShape),
-                        contentScale = ContentScale.Crop,
-                    )
+
+                    Box(
+                        modifier = Modifier.size(100.dp)
+                    ) {
+                        SubcomposeAsyncImage(
+                            model = state.user?.profilePicture,
+                            contentDescription = "Profile Picture",
+                            imageLoader = imageLoader(),
+                            modifier = Modifier.fillMaxSize().padding(8.dp).clip(CircleShape),
+                            error = {
+                                Icon(
+                                    imageVector = Icons.Default.AccountCircle,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(50.dp).padding(4.dp)
+                                )
+                            },
+                            loading = {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            },
+                            contentScale = ContentScale.Crop,
+                        )
+                    }
+
                     Column {
                         Text(
                             text = state.user?.name ?: "Anonymous",
@@ -78,7 +100,7 @@ fun ProfileScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = state.user?.email ?: "Unknown",
+                            text = if (state.user?.email.isNullOrEmpty()) "Unknown" else state.user?.email!!,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -148,6 +170,13 @@ fun ProfileScreen(
                 onDismiss = { onEvent(ProfileEvent.EditeProfilePictureDialog(false)) },
                 modifier = Modifier.padding(16.dp)
             )
+        }
+
+        AnimatedVisibility(
+            state.profilePictureLoading,
+            modifier = Modifier.align(Alignment.Center)
+        ) {
+            CircularProgressIndicator()
         }
     }
 }

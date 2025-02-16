@@ -47,10 +47,15 @@ class ProfileViewModel(
     private fun confirmUpdateProfilePicture(file: PlatformFile) {
         viewModelScope.launch {
             updateEditeProfilePictureDialog(false)
-            updateProfilePictureUseCase(file).collectLatest {
-                it.fold(
-                    onSuccess = {
-                        snackbarManager.showErrorSnackbar("Profile picture updated successfully")
+            updateProfilePictureUseCase(file).collect { result ->
+                result.fold(
+                    onSuccess = { uploadProgress ->
+                        if (uploadProgress < 100f) {
+                            _state.update { it.copy(profilePictureLoading = true) }
+                        } else {
+                            _state.update { it.copy(profilePictureLoading = false) }
+                            snackbarManager.showErrorSnackbar("Profile picture updated successfully")
+                        }
                     },
                     onFailure = {
                         snackbarManager.showErrorSnackbar(it.message.orEmpty())
@@ -90,7 +95,7 @@ class ProfileViewModel(
 
     private fun loadUser() {
         viewModelScope.launch {
-            currentUserFlowUseCase().collect { result ->
+            currentUserFlowUseCase().collectLatest { result ->
                 _state.update { it.copy(user = result.getOrNull()) }
             }
         }

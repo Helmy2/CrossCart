@@ -26,7 +26,7 @@ interface AuthRepo {
 
     suspend fun updateDisplayName(name: String): Result<Unit>
 
-    fun updateProfilePicture(readBytes: ByteArray, type: String): Flow<Result<Float>>
+    suspend fun updateProfilePicture(readBytes: ByteArray, type: String): Flow<Result<Float>>
 
     suspend fun resetPassword(email: String): Result<Unit>
 }

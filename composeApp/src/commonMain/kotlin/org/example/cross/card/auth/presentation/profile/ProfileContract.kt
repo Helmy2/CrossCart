@@ -7,7 +7,8 @@ data class ProfileState(
     val user: User? = null,
     val showEditNameDialog: Boolean = false,
     val showEditProfilePictureDialog: Boolean = false,
-    val name: String = ""
+    val name: String = "",
+    val profilePictureLoading: Boolean = false
 )
 
 sealed class ProfileEvent {

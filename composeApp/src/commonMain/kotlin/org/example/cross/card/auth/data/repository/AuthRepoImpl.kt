@@ -5,7 +5,7 @@ import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.auth.status.SessionStatus
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.UploadStatus
-import io.github.jan.supabase.storage.uploadAsFlow
+import io.github.jan.supabase.storage.updateAsFlow
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.example.cross.card.auth.domain.entity.User
@@ -126,21 +127,27 @@ class AuthRepoImpl(
         }
     }
 
-    override fun updateProfilePicture(
+    override suspend fun updateProfilePicture(
         readBytes: ByteArray,
         type: String
     ): Flow<Result<Float>> {
         val bucket = storage.from("user_images")
-        val currentUser =
-            auth.currentUserOrNull()?.id ?: throw IllegalStateException("No user logged in")
-        return bucket.uploadAsFlow("$currentUser.$type", readBytes).map {
+        val currentUser = auth.currentUserOrNull()?.toDomainUser()
+        val imageUri = currentUser?.profilePicture
+
+        if (imageUri != null) {
+            bucket.delete(imageUri)
+        }
+        val randomFileName = "${Clock.System.now().toEpochMilliseconds()}.jpg"
+
+        return bucket.updateAsFlow(randomFileName, readBytes).map {
             when (it) {
                 is UploadStatus.Progress -> {
                     Result.success(it.totalBytesSend.toFloat() / it.contentLength * 100)
                 }
 
                 is UploadStatus.Success -> {
-                    val url = bucket.publicUrl("$currentUser.$type")
+                    val url = bucket.publicUrl(randomFileName)
                     updateProfilePicture(url)
                     Result.success(100f)
                 }

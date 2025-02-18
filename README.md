@@ -32,9 +32,12 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Authentication
 
+- [x] Guest user authentication.
 - [x] Email/Password login.
 - [x] Rest Password.
-- [x] Google OAuth integration.
+- [x] Google login for desktop with OAuth.
+- [x] Google login for android with Credential Manager.
+- [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Profile Management
 
@@ -51,7 +54,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Filtering by price, and ratings.
 - [x] Sorting options (name, price, rating).
 - [x] Detailed product view with image gallery (using Coil for image loading).
-- [ ] Zoom functionality for product images.
+- [x] Zoom functionality for product images.
 - [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Shopping Cart

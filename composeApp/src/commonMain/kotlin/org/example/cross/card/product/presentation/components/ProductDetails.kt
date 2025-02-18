@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
@@ -48,12 +50,7 @@ fun ProductDetails(
         ) {
             Box {
                 if (product.images.size == 1) {
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            model = product.images.first().url,
-                            imageLoader = imageLoader(context),
-                        ),
-                        contentDescription = "Product Image",
+                    ZoomableContent(
                         modifier = Modifier.fillMaxWidth()
                             .height(300.dp)
                             .clip(
@@ -63,7 +60,16 @@ fun ProductDetails(
                                 )
                             )
                             .background(MaterialTheme.colorScheme.secondary.copy(0.5f))
-                    )
+                    ) {
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = product.images.first().url,
+                                imageLoader = imageLoader(context),
+                            ),
+                            contentDescription = "Product Image",
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 } else {
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -71,15 +77,19 @@ fun ProductDetails(
                     ) {
                         items(product.images) { image ->
                             Card {
-                                Image(
-                                    painter = rememberAsyncImagePainter(
-                                        model = image.url,
-                                        imageLoader = imageLoader(context),
-                                    ),
-                                    contentDescription = "Product Image",
-                                    modifier = Modifier.size(300.dp)
-                                        .background(MaterialTheme.colorScheme.secondary.copy(0.5f)),
-                                )
+                                ZoomableContent(
+                                    modifier = Modifier.height(300.dp).width(250.dp)
+                                        .background(MaterialTheme.colorScheme.secondary.copy(0.5f))
+                                ) {
+                                    Image(
+                                        painter = rememberAsyncImagePainter(
+                                            model = image.url,
+                                            imageLoader = imageLoader(context),
+                                        ),
+                                        contentDescription = "Product Image",
+                                        modifier = Modifier.fillMaxSize(),
+                                    )
+                                }
                             }
                         }
                     }

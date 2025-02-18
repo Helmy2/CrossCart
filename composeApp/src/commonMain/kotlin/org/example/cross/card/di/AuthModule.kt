@@ -10,6 +10,7 @@ import org.example.cross.card.auth.data.exception.AuthExceptionMapper
 import org.example.cross.card.auth.data.repository.AuthRepoImpl
 import org.example.cross.card.auth.domain.repository.AuthRepo
 import org.example.cross.card.auth.domain.usecase.CurrentUserFlowUseCase
+import org.example.cross.card.auth.domain.usecase.IsUserLongedInFlowUseCase
 import org.example.cross.card.auth.domain.usecase.LoginUseCase
 import org.example.cross.card.auth.domain.usecase.LogoutUseCase
 import org.example.cross.card.auth.domain.usecase.RegisterUseCase
@@ -47,8 +48,9 @@ val authModule = module {
     factory { ResetPasswordUseCase(get()) }
     factory { UpdateNameUseCase(get()) }
     factory { UpdateProfilePictureUseCase(get()) }
+    factory { IsUserLongedInFlowUseCase(get()) }
 
-    viewModel { LoginViewModel(get(), get(), get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get(), get(), get()) }
     viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { ResetPasswordViewModel(get(), get(), get()) }
     viewModel { ProfileViewModel(get(), get(), get(), get(), get(), get()) }

@@ -3,6 +3,7 @@ package org.example.cross.card.di
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.compose.auth.ComposeAuth
+import io.github.jan.supabase.compose.auth.googleNativeLogin
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.realtime.Realtime
@@ -12,7 +13,7 @@ import org.koin.dsl.module
 
 val supabaseModule = module {
     single<SupabaseClient> {
-        val supabase = createSupabaseClient(
+        createSupabaseClient(
             supabaseKey = BuildKonfig.supabaseKey,
             supabaseUrl = BuildKonfig.supabaseUrl
         ) {
@@ -21,7 +22,9 @@ val supabaseModule = module {
             install(Postgrest)
             install(Realtime)
             install(Storage)
+            install(ComposeAuth) {
+                googleNativeLogin(serverClientId = BuildKonfig.serverClientId)
+            }
         }
-        supabase
     }
 }

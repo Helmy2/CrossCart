@@ -8,6 +8,7 @@
     <string name="continue_as_guest">Continue as Guest</string>
 
     <string name="login">Log In</string>
+    <string name="loginWithGoogle">Log In with Google</string>
     <string name="register">Sign Up</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password">Reset Password</string>

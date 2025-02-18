@@ -5,7 +5,7 @@ import org.jetbrains.compose.resources.StringResource
 data class LoginState(
     val email: String = "",
     val password: String = "",
-    val isLoading: Boolean = false,
+    val loading: Boolean = false,
     val emailError: StringResource? = null,
     val passwordError: StringResource? = null,
     val isPasswordVisible: Boolean = false,
@@ -14,6 +14,7 @@ data class LoginState(
 sealed class LoginEvent {
     data class EmailChanged(val email: String) : LoginEvent()
     data class PasswordChanged(val password: String) : LoginEvent()
+    data class GoogleLogin(val result: Result<Unit>) : LoginEvent()
     data object TogglePasswordVisibility : LoginEvent()
     data object SignInAnonymously : LoginEvent()
     data object Login : LoginEvent()

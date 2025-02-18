@@ -6,9 +6,14 @@ import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.error_invalid_email
 import crosscart.composeapp.generated.resources.error_invalid_password
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.cross.card.auth.domain.usecase.IsUserLongedInFlowUseCase
 import org.example.cross.card.auth.domain.usecase.LoginUseCase
 import org.example.cross.card.auth.domain.usecase.SignInAnonymouslyUseCase
 import org.example.cross.card.auth.domain.util.isValidEmail
@@ -19,12 +24,15 @@ import org.example.cross.card.core.domain.snackbar.SnackbarManager
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
     private val signInAnonymouslyUseCase: SignInAnonymouslyUseCase,
+    private val isUserLongedInFlowUseCase: IsUserLongedInFlowUseCase,
     private val snackbarManager: SnackbarManager,
     private val navigator: Navigator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
-    val state: StateFlow<LoginState> = _state
+    val state: StateFlow<LoginState> = _state.onStart {
+        observeCurrentUser()
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LoginState())
 
     fun handleEvent(event: LoginEvent) {
         when (event) {
@@ -35,6 +43,26 @@ class LoginViewModel(
             LoginEvent.Login -> login()
             LoginEvent.NavigateToRegister -> navigateToRegister()
             LoginEvent.NavigateToRestPassword -> navigateToRestPassword()
+            is LoginEvent.GoogleLogin -> googleLogin(event.result)
+        }
+    }
+
+    // Observe current user for the desktop login with google
+    private fun observeCurrentUser() {
+        viewModelScope.launch {
+            isUserLongedInFlowUseCase().collectLatest {
+                if (it) {
+                    navigator.navigate(Destination.Main)
+                }
+            }
+        }
+    }
+
+    private fun googleLogin(result: Result<Unit>) {
+        viewModelScope.launch {
+            handleAuthResult(result) {
+                navigator.navigate(Destination.Main)
+            }
         }
     }
 
@@ -62,7 +90,7 @@ class LoginViewModel(
         if (!validateLoginInputs()) return
 
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
+            _state.update { it.copy(loading = true) }
             val result = loginUseCase(state.value.email, state.value.password)
             handleAuthResult(result) {
                 navigator.navigate(Destination.Main)
@@ -73,7 +101,7 @@ class LoginViewModel(
 
     private fun signInAnonymously() {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
+            _state.update { it.copy(loading = true) }
             val result = signInAnonymouslyUseCase()
             handleAuthResult(result) {
                 navigator.navigate(Destination.Main)
@@ -82,7 +110,7 @@ class LoginViewModel(
     }
 
     private suspend fun handleAuthResult(result: Result<Unit>, onSuccess: suspend () -> Unit) {
-        _state.update { it.copy(isLoading = false) }
+        _state.update { it.copy(loading = false) }
         result.fold(
             onSuccess = { onSuccess() },
             onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) },

@@ -36,6 +36,7 @@ import org.example.cross.card.auth.presentation.components.AuthHeader
 import org.example.cross.card.auth.presentation.components.AuthPasswordField
 import org.example.cross.card.auth.presentation.components.AuthTextButton
 import org.example.cross.card.auth.presentation.components.AuthTextField
+import org.example.cross.card.auth.presentation.components.GoogleLoginButton
 import org.example.cross.card.core.presentation.components.AdaptivePane
 import org.example.cross.card.core.presentation.components.IconLabelRow
 import org.jetbrains.compose.resources.stringResource
@@ -116,12 +117,18 @@ fun LoginScreen(
                 )
 
                 AuthButton(
-                    isLoading = state.isLoading,
+                    isLoading = state.loading,
                     text = stringResource(Res.string.login),
                     onClick = {
                         focus.clearFocus()
                         onEvent(LoginEvent.Login)
                     },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+                GoogleLoginButton(
+                    loading = state.loading,
+                    onAuthResult = { onEvent(LoginEvent.GoogleLogin(it)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
 

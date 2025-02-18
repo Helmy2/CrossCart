@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.auth.presentation.components.UpdateNameDialog
 import org.example.cross.card.core.presentation.components.ThemeSwitch
 import org.example.cross.card.core.presentation.components.imageLoader
+import org.example.cross.card.core.presentation.components.shimmerEffect
 
 
 @Composable
@@ -70,7 +71,7 @@ fun ProfileScreen(
                 ) {
 
                     Box(
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier.size(80.dp)
                     ) {
                         SubcomposeAsyncImage(
                             model = state.user?.profilePicture,
@@ -85,9 +86,7 @@ fun ProfileScreen(
                                 )
                             },
                             loading = {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
+                                Box(modifier = Modifier.fillMaxSize().shimmerEffect())
                             },
                             contentScale = ContentScale.Crop,
                         )

@@ -34,13 +34,12 @@ clean architecture, real-time sync, and cross-platform development.
 
 - [x] Email/Password login.
 - [x] Rest Password.
-- [ ] Google OAuth integration.
+- [x] Google OAuth integration.
 
 ### Profile Management
 
 - [x] Update profile name.
-- [ ] Profile picture upload and display.
-- [ ] Real-time profile synchronization via Supabase Realtime.
+- [x] Profile picture upload and display.
 - [ ] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Product Catalog
@@ -53,8 +52,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Sorting options (name, price, rating).
 - [x] Detailed product view with image gallery (using Coil for image loading).
 - [ ] Zoom functionality for product images.
-- [ ] **Desktop Support:** Enhanced product browsing experience with keyboard navigation and
-  larger image displays.
+- [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Shopping Cart
 

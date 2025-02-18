@@ -54,7 +54,6 @@ class ProfileViewModel(
                             _state.update { it.copy(profilePictureLoading = true) }
                         } else {
                             _state.update { it.copy(profilePictureLoading = false) }
-                            snackbarManager.showErrorSnackbar("Profile picture updated successfully")
                         }
                     },
                     onFailure = {

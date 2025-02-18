@@ -129,14 +129,14 @@ class AuthRepoImpl(
 
     override suspend fun updateProfilePicture(
         readBytes: ByteArray,
-        type: String
     ): Flow<Result<Float>> {
         val bucket = storage.from("user_images")
         val currentUser = auth.currentUserOrNull()?.toDomainUser()
         val imageUri = currentUser?.profilePicture
 
         if (imageUri != null) {
-            bucket.delete(imageUri)
+            val url = bucket.publicUrl("")
+            bucket.delete(imageUri.replace(url, ""))
         }
         val randomFileName = "${Clock.System.now().toEpochMilliseconds()}.jpg"
 

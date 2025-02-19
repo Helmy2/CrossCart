@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.home
+package org.example.cross.card.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.product.domain.entity.OrderBy
-import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
-import org.example.cross.card.product.domain.usecase.GetProductsByNameUseCase
+import org.example.cross.card.home.domain.entity.OrderBy
+import org.example.cross.card.home.domain.usecase.GetCategoriesWithProductsUseCase
+import org.example.cross.card.home.domain.usecase.GetProductsByNameUseCase
 
 class HomeViewModel(
     private val getCategoriesWithProductsUseCase: GetCategoriesWithProductsUseCase,

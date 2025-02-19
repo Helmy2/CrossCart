@@ -1,10 +1,10 @@
-package org.example.cross.card.product.domain.repository
+package org.example.cross.card.home.domain.repository
 
 import org.example.cross.card.details.domain.entity.Category
 import org.example.cross.card.details.domain.entity.Product
-import org.example.cross.card.product.domain.entity.OrderBy
+import org.example.cross.card.home.domain.entity.OrderBy
 
-interface ProductRepo {
+interface HomeRepo {
     suspend fun getAllProducts(): Result<List<Product>>
     suspend fun filterProductsByCategory(categoryId: String): Result<List<Product>>
     suspend fun getAllCategories(): Result<List<Category>>

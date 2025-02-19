@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import org.example.cross.card.cart.presentation.cartRoute
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.favorite.presentation.favoriteRoute
-import org.example.cross.card.product.presentation.productRoute
+import org.example.cross.card.home.presentation.homeRoute
 import org.example.cross.card.profile.presentation.profileRoute
 
 @Composable
@@ -21,7 +21,7 @@ fun MainNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        productRoute()
+        homeRoute()
         favoriteRoute()
         cartRoute()
         profileRoute()

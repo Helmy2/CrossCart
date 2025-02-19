@@ -1,8 +1,8 @@
-package org.example.cross.card.product.presentation.home
+package org.example.cross.card.home.presentation
 
 import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.details.domain.entity.Product
-import org.example.cross.card.product.domain.entity.OrderBy
+import org.example.cross.card.home.domain.entity.OrderBy
 
 data class HomeState(
     val query: String = "",

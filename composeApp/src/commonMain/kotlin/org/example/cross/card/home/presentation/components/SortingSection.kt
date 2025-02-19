@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,8 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.example.cross.card.product.domain.entity.Order
-import org.example.cross.card.product.domain.entity.OrderBy
+import org.example.cross.card.home.domain.entity.Order
+import org.example.cross.card.home.domain.entity.OrderBy
 
 @Composable
 fun SortingSection(

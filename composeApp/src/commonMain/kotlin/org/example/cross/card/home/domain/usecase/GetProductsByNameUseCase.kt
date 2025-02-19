@@ -1,11 +1,11 @@
-package org.example.cross.card.product.domain.usecase
+package org.example.cross.card.home.domain.usecase
 
 import org.example.cross.card.details.domain.entity.Product
-import org.example.cross.card.product.domain.entity.OrderBy
-import org.example.cross.card.product.domain.repository.ProductRepo
+import org.example.cross.card.home.domain.entity.OrderBy
+import org.example.cross.card.home.domain.repository.HomeRepo
 
 class GetProductsByNameUseCase(
-    private val productRepo: ProductRepo
+    private val homeRepo: HomeRepo
 ) {
     suspend operator fun invoke(
         query: String,
@@ -14,6 +14,6 @@ class GetProductsByNameUseCase(
         toPrice: Float? = null,
         orderBy: OrderBy = OrderBy.default
     ): Result<List<Product>> {
-        return productRepo.getProductsByName(query, rating, fromPrice, toPrice, orderBy)
+        return homeRepo.getProductsByName(query, rating, fromPrice, toPrice, orderBy)
     }
 }

@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.home
+package org.example.cross.card.home.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
@@ -21,9 +21,9 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.details.domain.entity.Product
 import org.example.cross.card.details.presentation.components.ProductGrid
-import org.example.cross.card.product.presentation.components.CategoryGrid
-import org.example.cross.card.product.presentation.components.FilterDialog
-import org.example.cross.card.product.presentation.components.SearchInputField
+import org.example.cross.card.home.presentation.components.CategoryGrid
+import org.example.cross.card.home.presentation.components.FilterDialog
+import org.example.cross.card.home.presentation.components.SearchInputField
 
 
 @OptIn(ExperimentalMaterial3Api::class)

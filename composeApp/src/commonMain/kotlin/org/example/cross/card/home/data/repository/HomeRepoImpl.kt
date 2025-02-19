@@ -1,4 +1,4 @@
-package org.example.cross.card.product.data.repository
+package org.example.cross.card.home.data.repository
 
 
 import io.github.jan.supabase.SupabaseClient
@@ -16,14 +16,14 @@ import org.example.cross.card.details.data.model.ThumbnailResponse
 import org.example.cross.card.details.data.model.toDomain
 import org.example.cross.card.details.domain.entity.Category
 import org.example.cross.card.details.domain.entity.Product
-import org.example.cross.card.product.domain.entity.OrderBy
-import org.example.cross.card.product.domain.entity.toSupabaseOrder
-import org.example.cross.card.product.domain.repository.ProductRepo
+import org.example.cross.card.home.domain.entity.OrderBy
+import org.example.cross.card.home.domain.entity.toSupabaseOrder
+import org.example.cross.card.home.domain.repository.HomeRepo
 
 
-class ProductRepoImpl(
+class HomeRepoImpl(
     private val supabase: SupabaseClient, private val dispatcher: CoroutineDispatcher
-) : ProductRepo {
+) : HomeRepo {
 
     override suspend fun getAllProducts(): Result<List<Product>> = withContext(dispatcher) {
         runCatching {

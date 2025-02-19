@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import org.example.cross.card.product.domain.entity.OrderBy
-import org.example.cross.card.product.presentation.home.Filter
+import org.example.cross.card.home.domain.entity.OrderBy
+import org.example.cross.card.home.presentation.Filter
 
 @Composable
 fun FilterDialog(

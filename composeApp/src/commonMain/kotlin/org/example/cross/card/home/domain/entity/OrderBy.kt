@@ -1,4 +1,4 @@
-package org.example.cross.card.product.domain.entity
+package org.example.cross.card.home.domain.entity
 
 import io.github.jan.supabase.postgrest.query.Order.ASCENDING
 import io.github.jan.supabase.postgrest.query.Order.DESCENDING

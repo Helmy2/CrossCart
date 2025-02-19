@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.home.presentation.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility

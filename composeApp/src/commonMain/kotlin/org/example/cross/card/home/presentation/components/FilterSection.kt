@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.core.util.format
-import org.example.cross.card.product.presentation.home.Filter
+import org.example.cross.card.home.presentation.Filter
 
 @Composable
 fun FilterSection(filter: Filter, onFilterChange: (Filter) -> Unit, modifier: Modifier = Modifier) {

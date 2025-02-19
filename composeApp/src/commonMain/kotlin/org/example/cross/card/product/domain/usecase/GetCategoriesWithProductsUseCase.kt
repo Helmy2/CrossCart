@@ -3,8 +3,8 @@ package org.example.cross.card.product.domain.usecase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.Category
-import org.example.cross.card.product.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.domain.repository.ProductRepo
 

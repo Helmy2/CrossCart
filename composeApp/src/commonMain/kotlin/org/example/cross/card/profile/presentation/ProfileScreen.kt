@@ -1,4 +1,4 @@
-package org.example.cross.card.profile.presentation.profile
+package org.example.cross.card.profile.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement

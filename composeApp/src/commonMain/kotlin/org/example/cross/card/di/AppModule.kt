@@ -9,4 +9,5 @@ val appModule = module {
     includes(productModule)
     includes(authModule)
     includes(profileModule)
+    includes(cartModule)
 }

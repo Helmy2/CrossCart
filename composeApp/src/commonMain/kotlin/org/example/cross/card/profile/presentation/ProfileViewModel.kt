@@ -1,4 +1,4 @@
-package org.example.cross.card.profile.presentation.profile
+package org.example.cross.card.profile.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

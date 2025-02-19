@@ -2,7 +2,7 @@ package org.example.cross.card.product.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.example.cross.card.product.domain.entity.Image
+import org.example.cross.card.core.domain.entity.Image
 
 @Serializable
 data class ImageResponse(

@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.cart.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.cross.card.cart.domain.entity.CartItem
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.domain.entity.CartItem
+import org.example.cross.card.product.presentation.components.ProductCartItem
 
 @Composable
 fun CartRow(

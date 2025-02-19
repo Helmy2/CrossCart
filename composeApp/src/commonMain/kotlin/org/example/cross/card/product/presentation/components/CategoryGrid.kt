@@ -14,8 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.Product
 
 @Composable

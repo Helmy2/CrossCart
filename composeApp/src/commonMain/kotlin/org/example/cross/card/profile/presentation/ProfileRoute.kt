@@ -8,8 +8,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.example.cross.card.core.domain.navigation.Destination
-import org.example.cross.card.profile.presentation.profile.ProfileScreen
-import org.example.cross.card.profile.presentation.profile.ProfileViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.profileRoute() {

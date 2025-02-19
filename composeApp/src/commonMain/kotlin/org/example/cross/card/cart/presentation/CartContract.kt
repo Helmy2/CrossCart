@@ -1,6 +1,6 @@
-package org.example.cross.card.product.presentation.cart
+package org.example.cross.card.cart.presentation
 
-import org.example.cross.card.product.domain.entity.CartItem
+import org.example.cross.card.cart.domain.entity.CartItem
 
 data class CartState(
     val products: List<CartItem> = emptyList(),

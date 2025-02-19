@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.cart
+package org.example.cross.card.cart.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.cross.card.cart.domain.entity.CartItem
+import org.example.cross.card.cart.domain.usecase.ClearCartUseCase
+import org.example.cross.card.cart.domain.usecase.GetAllItemsInCartUseCase
+import org.example.cross.card.cart.domain.usecase.RemoveFromCartUseCase
+import org.example.cross.card.cart.domain.usecase.UpdateCartQuantityUseCase
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.util.format
-import org.example.cross.card.product.domain.entity.CartItem
-import org.example.cross.card.product.domain.usecase.ClearCartUseCase
-import org.example.cross.card.product.domain.usecase.GetAllItemsInCartUseCase
-import org.example.cross.card.product.domain.usecase.RemoveFromCartUseCase
-import org.example.cross.card.product.domain.usecase.UpdateCartQuantityUseCase
 
 class CartViewModel(
     private val getAllItemsInCartUseCase: GetAllItemsInCartUseCase,

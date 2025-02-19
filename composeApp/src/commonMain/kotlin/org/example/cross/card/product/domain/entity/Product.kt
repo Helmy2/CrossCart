@@ -1,5 +1,7 @@
 package org.example.cross.card.product.domain.entity
 
+import org.example.cross.card.core.domain.entity.Image
+
 data class Product(
     val id: String,
     val categoryId: String,
@@ -8,9 +10,4 @@ data class Product(
     val price: Float,
     val discountPercentage: Float,
     val image: Image
-)
-
-data class CartItem(
-    val product: Product,
-    val quantity: Int,
 )

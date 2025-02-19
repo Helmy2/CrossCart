@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.cross.card.cart.domain.usecase.AddToCartUseCase
+import org.example.cross.card.cart.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.product.domain.usecase.AddToCartUseCase
 import org.example.cross.card.product.domain.usecase.AddToFavoriteUseCase
 import org.example.cross.card.product.domain.usecase.GetProductByIdUseCase
-import org.example.cross.card.product.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.product.domain.usecase.RemoveFromFavoriteUseCase
 
 class DetailViewModel(

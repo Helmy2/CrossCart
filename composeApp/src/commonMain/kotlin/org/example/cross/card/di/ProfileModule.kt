@@ -9,7 +9,7 @@ import org.example.cross.card.profile.domain.usecase.CurrentUserFlowUseCase
 import org.example.cross.card.profile.domain.usecase.LogoutUseCase
 import org.example.cross.card.profile.domain.usecase.UpdateNameUseCase
 import org.example.cross.card.profile.domain.usecase.UpdateProfilePictureUseCase
-import org.example.cross.card.profile.presentation.profile.ProfileViewModel
+import org.example.cross.card.profile.presentation.ProfileViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

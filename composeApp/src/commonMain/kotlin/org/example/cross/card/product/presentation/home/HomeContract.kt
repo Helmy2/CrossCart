@@ -1,6 +1,6 @@
 package org.example.cross.card.product.presentation.home
 
-import org.example.cross.card.product.domain.entity.CategoryWithProducts
+import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.OrderBy
 import org.example.cross.card.product.domain.entity.Product
 

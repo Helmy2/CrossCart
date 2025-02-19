@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.cart
+package org.example.cross.card.cart.presentation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import org.example.cross.card.cart.presentation.components.CartRow
 import org.example.cross.card.product.domain.entity.Product
-import org.example.cross.card.product.presentation.components.CartRow
 
 
 @Composable

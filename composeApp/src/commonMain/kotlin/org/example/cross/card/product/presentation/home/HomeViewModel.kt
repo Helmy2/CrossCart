@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.product.domain.entity.CategoryWithProducts
 import org.example.cross.card.product.domain.entity.OrderBy
 import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
 import org.example.cross.card.product.domain.usecase.GetProductsByNameUseCase

@@ -1,4 +1,4 @@
-package org.example.cross.card.profile.presentation.profile
+package org.example.cross.card.profile.presentation
 
 import io.github.vinceglb.filekit.core.PlatformFile
 import org.example.cross.card.core.domain.entity.User

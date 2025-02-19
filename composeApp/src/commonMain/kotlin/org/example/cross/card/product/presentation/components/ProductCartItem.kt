@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.ic_placeholder
+import org.example.cross.card.cart.domain.entity.CartItem
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.util.format
-import org.example.cross.card.product.domain.entity.CartItem
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 

@@ -1,4 +1,4 @@
-package org.example.cross.card.product.data.model
+package org.example.cross.card.cart.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

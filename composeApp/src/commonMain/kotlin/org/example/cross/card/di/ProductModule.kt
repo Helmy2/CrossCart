@@ -6,6 +6,7 @@ import org.example.cross.card.product.data.repository.ProductRepoImpl
 import org.example.cross.card.product.domain.repository.ProductRepo
 import org.example.cross.card.product.domain.usecase.AddToCartUseCase
 import org.example.cross.card.product.domain.usecase.AddToFavoriteUseCase
+import org.example.cross.card.product.domain.usecase.ClearCartUseCase
 import org.example.cross.card.product.domain.usecase.GetAllItemsInCartUseCase
 import org.example.cross.card.product.domain.usecase.GetCategoriesWithProductsUseCase
 import org.example.cross.card.product.domain.usecase.GetFavoritesUseCase
@@ -41,9 +42,10 @@ val productModule = module {
     factory { AddToCartUseCase(get()) }
     factory { RemoveFromCartUseCase(get()) }
     factory { UpdateCartQuantityUseCase(get()) }
+    factory { ClearCartUseCase(get()) }
 
     viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { DetailViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { FavoriteViewModel(get(), get()) }
-    viewModel { CartViewModel(get(), get(), get(), get()) }
+    viewModel { CartViewModel(get(), get(), get(), get(), get()) }
 }

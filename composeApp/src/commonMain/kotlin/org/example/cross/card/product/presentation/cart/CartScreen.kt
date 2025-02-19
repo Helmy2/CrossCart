@@ -3,9 +3,11 @@ package org.example.cross.card.product.presentation.cart
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
@@ -47,6 +49,12 @@ fun CartScreen(
                 "${state.totalPrice}$",
                 style = MaterialTheme.typography.headlineSmall
             )
+            Spacer(Modifier.weight(1f))
+            if (state.products.isNotEmpty()) {
+                TextButton(onClick = { handleEvent(CartEvent.ClearAll) }) {
+                    Text("Clear Cart")
+                }
+            }
         }
     }
 }

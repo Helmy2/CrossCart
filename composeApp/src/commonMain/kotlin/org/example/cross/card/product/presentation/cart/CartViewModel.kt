@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.util.format
 import org.example.cross.card.product.domain.entity.CartItem
+import org.example.cross.card.product.domain.usecase.ClearCartUseCase
 import org.example.cross.card.product.domain.usecase.GetAllItemsInCartUseCase
 import org.example.cross.card.product.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.product.domain.usecase.UpdateCartQuantityUseCase
@@ -21,6 +22,7 @@ class CartViewModel(
     private val getAllItemsInCartUseCase: GetAllItemsInCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val updateCartQuantityUseCase: UpdateCartQuantityUseCase,
+    private val clearCartUseCase: ClearCartUseCase,
     private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
 
@@ -34,6 +36,17 @@ class CartViewModel(
             is CartEvent.DecreaseQuantity -> decrease(event.item)
             is CartEvent.IncreaseQuantity -> increase(event.item)
             is CartEvent.RemoveFromCart -> remove(event.item)
+            CartEvent.ClearAll -> clearAll()
+        }
+    }
+
+    private fun clearAll() {
+        viewModelScope.launch {
+            _state.update { it.copy(syncing = true) }
+            val result = clearCartUseCase()
+            if (result.isFailure) {
+                snackbarManager.showErrorSnackbar(result.exceptionOrNull()?.message.orEmpty())
+            }
         }
     }
 

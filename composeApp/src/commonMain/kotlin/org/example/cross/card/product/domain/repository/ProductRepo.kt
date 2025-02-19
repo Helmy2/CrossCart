@@ -19,6 +19,7 @@ interface ProductRepo {
     suspend fun removeFromCart(productId: String): Result<Unit>
     suspend fun getAllItemsInCart(): Flow<Result<List<CartItem>>>
     suspend fun updateCartQuantity(productId: String, quantity: Int): Result<Unit>
+    suspend fun clearCart(): Result<Unit>
     suspend fun getProductsByName(
         query: String,
         rating: Float? = null,

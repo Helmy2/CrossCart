@@ -229,6 +229,19 @@ class ProductRepoImpl(
             }
         }
 
+    override suspend fun clearCart(): Result<Unit> = withContext(dispatcher) {
+        runCatching {
+            supabase.auth.currentUserOrNull()?.id?.let { userId ->
+                supabase.from(CART_TABLE).delete {
+                    filter {
+                        FavoriteResponse::userId eq userId
+                    }
+                }
+            }
+            Unit
+        }
+    }
+
     private suspend fun isProductFavorite(productId: String): Result<Boolean> =
         withContext(dispatcher) {
             runCatching {

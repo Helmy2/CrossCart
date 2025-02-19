@@ -60,10 +60,10 @@ clean architecture, real-time sync, and cross-platform development.
 ### Shopping Cart
 
 - [x] Real-time shopping cart synchronization via Supabase Realtime.
-- [ ] Quantity adjustment and item removal.
-- [ ] Clear cart functionality.
+- [x] Quantity adjustment and item removal.
+- [x] Clear cart functionality.
 - [x] Display of cart total.
-- [ ] **Desktop Support:** UI and functionality optimized for desktop browsers.
+- [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Checkout
 

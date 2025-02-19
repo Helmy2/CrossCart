@@ -43,7 +43,7 @@ clean architecture, real-time sync, and cross-platform development.
 
 - [x] Update profile name.
 - [x] Profile picture upload and display.
-- [ ] **Desktop Support:** UI and functionality optimized for desktop browsers.
+- [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Product Catalog
 

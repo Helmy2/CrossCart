@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 
-fun Modifier.shimmerEffect(): Modifier = composed {
+fun Modifier.shimmerEffect(show: Boolean = true): Modifier = composed {
     val colors = listOf(
         MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
         MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
@@ -27,11 +27,15 @@ fun Modifier.shimmerEffect(): Modifier = composed {
         label = "shimmer"
     )
 
-    clip(MaterialTheme.shapes.medium).background(
-        Brush.linearGradient(
-            colors = colors,
-            start = Offset.Zero,
-            end = Offset(x = shimmerAnimation.value, y = shimmerAnimation.value * 2)
+    if (show) {
+        clip(MaterialTheme.shapes.medium).background(
+            Brush.linearGradient(
+                colors = colors,
+                start = Offset.Zero,
+                end = Offset(x = shimmerAnimation.value, y = shimmerAnimation.value * 2)
+            )
         )
-    )
+    } else {
+        this
+    }
 }

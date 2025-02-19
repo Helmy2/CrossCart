@@ -4,7 +4,7 @@ import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.password_requirement_length
 import crosscart.composeapp.generated.resources.password_requirement_special
 import crosscart.composeapp.generated.resources.password_requirement_uppercase
-import org.example.cross.card.auth.domain.entity.Requirement
+import org.example.cross.card.features.auth.domain.entity.Requirement
 
 fun calculatePasswordRequirements(password: String): List<Requirement> {
     return listOf(

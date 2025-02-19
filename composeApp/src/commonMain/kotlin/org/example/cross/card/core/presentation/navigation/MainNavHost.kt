@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import org.example.cross.card.cart.presentation.cartRoute
 import org.example.cross.card.core.domain.navigation.Destination
-import org.example.cross.card.favorite.presentation.favoriteRoute
-import org.example.cross.card.home.presentation.homeRoute
-import org.example.cross.card.profile.presentation.profileRoute
+import org.example.cross.card.features.cart.presentation.cartRoute
+import org.example.cross.card.features.favorite.presentation.favoriteRoute
+import org.example.cross.card.features.home.presentation.homeRoute
+import org.example.cross.card.features.profile.presentation.profileRoute
 
 @Composable
 fun MainNavHost(

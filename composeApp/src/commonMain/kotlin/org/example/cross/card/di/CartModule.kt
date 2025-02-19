@@ -2,14 +2,14 @@ package org.example.cross.card.di
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.example.cross.card.cart.data.repository.CartRepoImpl
-import org.example.cross.card.cart.domain.repository.CartRepo
-import org.example.cross.card.cart.domain.usecase.AddToCartUseCase
-import org.example.cross.card.cart.domain.usecase.ClearCartUseCase
-import org.example.cross.card.cart.domain.usecase.GetAllItemsInCartUseCase
-import org.example.cross.card.cart.domain.usecase.RemoveFromCartUseCase
-import org.example.cross.card.cart.domain.usecase.UpdateCartQuantityUseCase
-import org.example.cross.card.cart.presentation.CartViewModel
+import org.example.cross.card.features.cart.data.repository.CartRepoImpl
+import org.example.cross.card.features.cart.domain.repository.CartRepo
+import org.example.cross.card.features.cart.domain.usecase.AddToCartUseCase
+import org.example.cross.card.features.cart.domain.usecase.ClearCartUseCase
+import org.example.cross.card.features.cart.domain.usecase.GetAllItemsInCartUseCase
+import org.example.cross.card.features.cart.domain.usecase.RemoveFromCartUseCase
+import org.example.cross.card.features.cart.domain.usecase.UpdateCartQuantityUseCase
+import org.example.cross.card.features.cart.presentation.CartViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

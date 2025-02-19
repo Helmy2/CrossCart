@@ -1,6 +1,6 @@
 package org.example.cross.card.core.util
 
-import org.example.cross.card.auth.domain.entity.PasswordStrength
+import org.example.cross.card.features.auth.domain.entity.PasswordStrength
 
 fun calculatePasswordStrength(password: String): PasswordStrength {
     val hasSpecialChar = password.any { !it.isLetterOrDigit() }

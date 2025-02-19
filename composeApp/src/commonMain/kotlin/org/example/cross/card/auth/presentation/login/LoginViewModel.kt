@@ -16,10 +16,10 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.auth.domain.usecase.IsUserLongedInFlowUseCase
 import org.example.cross.card.auth.domain.usecase.LoginUseCase
 import org.example.cross.card.auth.domain.usecase.SignInAnonymouslyUseCase
-import org.example.cross.card.auth.domain.util.isValidEmail
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.core.domain.util.isValidEmail
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,

@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.presentation.profile
+package org.example.cross.card.profile.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.cross.card.auth.domain.usecase.CurrentUserFlowUseCase
-import org.example.cross.card.auth.domain.usecase.LogoutUseCase
-import org.example.cross.card.auth.domain.usecase.UpdateNameUseCase
-import org.example.cross.card.auth.domain.usecase.UpdateProfilePictureUseCase
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.profile.domain.usecase.CurrentUserFlowUseCase
+import org.example.cross.card.profile.domain.usecase.LogoutUseCase
+import org.example.cross.card.profile.domain.usecase.UpdateNameUseCase
+import org.example.cross.card.profile.domain.usecase.UpdateProfilePictureUseCase
 
 class ProfileViewModel(
     private val currentUserFlowUseCase: CurrentUserFlowUseCase,

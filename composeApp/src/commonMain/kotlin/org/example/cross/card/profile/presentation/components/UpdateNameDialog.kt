@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.presentation.components
+package org.example.cross.card.profile.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import org.example.cross.card.auth.presentation.components.AuthTextField
 
 @Composable
 fun UpdateNameDialog(

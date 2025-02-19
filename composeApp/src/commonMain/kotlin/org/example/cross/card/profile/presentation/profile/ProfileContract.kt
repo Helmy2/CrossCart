@@ -1,7 +1,7 @@
-package org.example.cross.card.auth.presentation.profile
+package org.example.cross.card.profile.presentation.profile
 
 import io.github.vinceglb.filekit.core.PlatformFile
-import org.example.cross.card.auth.domain.entity.User
+import org.example.cross.card.core.domain.entity.User
 
 data class ProfileState(
     val user: User? = null,

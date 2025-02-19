@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.domain.util
+package org.example.cross.card.core.domain.util
 
 import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.password_requirement_length

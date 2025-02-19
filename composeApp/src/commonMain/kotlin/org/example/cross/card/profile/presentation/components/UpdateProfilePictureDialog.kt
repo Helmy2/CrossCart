@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.presentation.components
+package org.example.cross.card.profile.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

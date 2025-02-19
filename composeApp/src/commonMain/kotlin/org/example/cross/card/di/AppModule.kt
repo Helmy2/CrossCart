@@ -8,4 +8,5 @@ val appModule = module {
     includes(supabaseModule)
     includes(productModule)
     includes(authModule)
+    includes(profileModule)
 }

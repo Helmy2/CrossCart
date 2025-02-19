@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.domain.entity
+package org.example.cross.card.core.domain.entity
 
 
 data class User(

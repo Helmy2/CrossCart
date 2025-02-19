@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import org.example.cross.card.auth.presentation.profileRoute
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.product.presentation.productRoute
+import org.example.cross.card.profile.presentation.profileRoute
 
 @Composable
 fun MainNavHost(

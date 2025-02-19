@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.auth.domain.entity.PasswordStrength
 import org.example.cross.card.auth.domain.usecase.RegisterUseCase
-import org.example.cross.card.auth.domain.util.calculatePasswordRequirements
-import org.example.cross.card.auth.domain.util.calculatePasswordStrength
-import org.example.cross.card.auth.domain.util.isValidEmail
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.core.domain.util.calculatePasswordRequirements
+import org.example.cross.card.core.domain.util.calculatePasswordStrength
+import org.example.cross.card.core.domain.util.isValidEmail
 import org.jetbrains.compose.resources.getString
 
 class RegisterViewModel(

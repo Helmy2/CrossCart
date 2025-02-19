@@ -1,4 +1,4 @@
-package org.example.cross.card.auth.presentation.profile
+package org.example.cross.card.profile.presentation.profile
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
@@ -29,12 +29,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
-import org.example.cross.card.auth.presentation.components.UpdateNameDialog
-import org.example.cross.card.auth.presentation.components.UpdateProfilePictureDialog
 import org.example.cross.card.core.presentation.components.AdaptivePane
 import org.example.cross.card.core.presentation.components.ThemeSwitch
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.presentation.components.shimmerEffect
+import org.example.cross.card.profile.presentation.components.UpdateNameDialog
+import org.example.cross.card.profile.presentation.components.UpdateProfilePictureDialog
 
 
 @Composable

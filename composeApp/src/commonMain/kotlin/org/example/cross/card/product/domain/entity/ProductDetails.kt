@@ -14,6 +14,7 @@ data class ProductDetails(
     val availability: String,
     val returnPolicy: String,
     val isFavorite: Boolean,
+    val inCart: Boolean,
     val category: Category,
     val images: List<Image>,
 )

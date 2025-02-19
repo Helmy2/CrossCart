@@ -26,6 +26,7 @@ data class ProductDetailsResponse(
 fun ProductDetailsResponse.toDomain(
     imageUrls: List<ImageResponse>,
     isFavorite: Boolean,
+    inCart: Boolean
 ) = ProductDetails(
     id = id,
     title = title ?: "Empty",
@@ -41,5 +42,6 @@ fun ProductDetailsResponse.toDomain(
     shipping = shipping ?: "Empty",
     availability = availability ?: "Empty",
     returnPolicy = returnPolicy ?: "Empty",
-    isFavorite = isFavorite
+    isFavorite = isFavorite,
+    inCart = inCart
 )

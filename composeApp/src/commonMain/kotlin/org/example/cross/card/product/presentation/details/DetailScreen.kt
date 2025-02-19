@@ -41,6 +41,9 @@ fun DetailScreen(
             loading = state.isLoading,
             onFavoriteClick = {
                 onEvent(DetailEvent.ToggleFavorite)
+            },
+            onCartClick = {
+                onEvent(DetailEvent.ToggleInCart)
             }
         )
 

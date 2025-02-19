@@ -102,6 +102,7 @@ fun NavGraphBuilder.productRoute() {
                             ListDetailPaneScaffoldRole.Detail, it.id
                         )
                     },
+                    handleEvent = viewModel::handleEvent,
                     modifier = Modifier.systemBarsPadding(),
                 )
             },

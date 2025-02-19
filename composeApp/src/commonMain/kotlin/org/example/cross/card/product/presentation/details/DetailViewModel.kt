@@ -7,14 +7,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.product.domain.usecase.AddToCartUseCase
 import org.example.cross.card.product.domain.usecase.AddToFavoriteUseCase
 import org.example.cross.card.product.domain.usecase.GetProductByIdUseCase
+import org.example.cross.card.product.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.product.domain.usecase.RemoveFromFavoriteUseCase
 
 class DetailViewModel(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val addToFavoriteUseCase: AddToFavoriteUseCase,
     private val removeFromFavoriteUseCase: RemoveFromFavoriteUseCase,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
 
@@ -25,6 +29,23 @@ class DetailViewModel(
         when (event) {
             is DetailEvent.LoadProduct -> loadProduct(event.productId)
             DetailEvent.ToggleFavorite -> toggleFavorite()
+            DetailEvent.ToggleInCart -> toggleInCart()
+        }
+    }
+
+    private fun toggleInCart() {
+        viewModelScope.launch {
+            val productDetails = state.value.product ?: return@launch
+
+            _state.update {
+                it.copy(product = productDetails.copy(inCart = !productDetails.inCart))
+            }
+
+            if (productDetails.inCart) {
+                removeFromCartUseCase(productDetails.id)
+            } else {
+                addToCartUseCase(productDetails.id)
+            }
         }
     }
 

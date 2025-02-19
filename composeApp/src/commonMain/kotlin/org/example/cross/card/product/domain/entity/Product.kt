@@ -9,3 +9,8 @@ data class Product(
     val discountPercentage: Float,
     val image: Image
 )
+
+data class CartItem(
+    val product: Product,
+    val quantity: Int,
+)

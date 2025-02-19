@@ -16,7 +16,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +42,8 @@ fun ProductDetails(
     product: ProductDetails?,
     loading: Boolean,
     modifier: Modifier = Modifier,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    onCartClick: () -> Unit
 ) {
     val context = LocalPlatformContext.current
 
@@ -94,11 +100,24 @@ fun ProductDetails(
                         }
                     }
                 }
-                FavoriteButton(
-                    isFavorite = product.isFavorite,
-                    onClick = onFavoriteClick,
+                Row(
                     modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
-                )
+                ) {
+                    IconButton(onClick = onCartClick, modifier) {
+                        Icon(
+                            imageVector = if (product.inCart) Icons.Default.Delete
+                            else Icons.Default.ShoppingCart,
+                            contentDescription = "ShoppingCart",
+                            modifier = Modifier.size(48.dp),
+                            tint = if (product.inCart) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    FavoriteButton(
+                        isFavorite = product.isFavorite,
+                        onClick = onFavoriteClick,
+                    )
+                }
             }
 
             Text(

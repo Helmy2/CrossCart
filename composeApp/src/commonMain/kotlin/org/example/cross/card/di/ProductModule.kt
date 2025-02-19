@@ -13,6 +13,7 @@ import org.example.cross.card.product.domain.usecase.GetProductByIdUseCase
 import org.example.cross.card.product.domain.usecase.GetProductsByNameUseCase
 import org.example.cross.card.product.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.product.domain.usecase.RemoveFromFavoriteUseCase
+import org.example.cross.card.product.domain.usecase.UpdateCartQuantityUseCase
 import org.example.cross.card.product.presentation.cart.CartViewModel
 import org.example.cross.card.product.presentation.details.DetailViewModel
 import org.example.cross.card.product.presentation.favorite.FavoriteViewModel
@@ -39,9 +40,10 @@ val productModule = module {
     factory { GetAllItemsInCartUseCase(get()) }
     factory { AddToCartUseCase(get()) }
     factory { RemoveFromCartUseCase(get()) }
+    factory { UpdateCartQuantityUseCase(get()) }
 
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { DetailViewModel(get(), get(), get(), get()) }
+    viewModel { DetailViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { FavoriteViewModel(get(), get()) }
-    viewModel { CartViewModel(get(), get()) }
+    viewModel { CartViewModel(get(), get(), get(), get()) }
 }

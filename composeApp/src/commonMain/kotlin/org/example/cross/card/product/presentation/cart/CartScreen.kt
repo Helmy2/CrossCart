@@ -18,6 +18,7 @@ import org.example.cross.card.product.presentation.components.CartRow
 @Composable
 fun CartScreen(
     state: CartState,
+    handleEvent: (CartEvent) -> Unit,
     onProductClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -29,8 +30,12 @@ fun CartScreen(
     ) {
         CartRow(
             products = state.products,
-            onProductClick = onProductClick,
+            onProductClick = { onProductClick(it.product) },
             loading = state.loading,
+            onDelete = { handleEvent(CartEvent.RemoveFromCart(it)) },
+            onIncrease = { handleEvent(CartEvent.IncreaseQuantity(it)) },
+            onDecrease = { handleEvent(CartEvent.DecreaseQuantity(it)) },
+            syncing = state.syncing,
             modifier = Modifier.weight(1f)
         )
         Row(modifier) {

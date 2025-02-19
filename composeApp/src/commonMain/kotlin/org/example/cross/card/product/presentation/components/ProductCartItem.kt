@@ -1,6 +1,7 @@
 package org.example.cross.card.product.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,15 +11,21 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,20 +35,30 @@ import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.ic_placeholder
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.util.format
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.product.domain.entity.CartItem
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 
 @Composable
-fun ProductCartItem(product: Product, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun ProductCartItem(
+    cartItem: CartItem,
+    syncing: Boolean,
+    onClick: () -> Unit,
+    onDelete: () -> Unit,
+    onIncrease: () -> Unit,
+    onDecrease: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Card(
         modifier = modifier,
         onClick = onClick,
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Box {
                 SubcomposeAsyncImage(
-                    model = product.image.url,
+                    model = cartItem.product.image.url,
                     contentDescription = null,
                     imageLoader = imageLoader(),
                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary.copy(0.5f))
@@ -65,38 +82,73 @@ fun ProductCartItem(product: Product, onClick: () -> Unit, modifier: Modifier = 
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        product.rating.format(1),
+                        cartItem.product.rating.format(1),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
             }
 
-            Column(modifier = Modifier.padding(8.dp)) {
-
+            Column(modifier = Modifier.padding(8.dp).weight(1f)) {
                 Text(
-                    product.title,
+                    cartItem.product.title,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    modifier = Modifier.weight(1f)
                 )
-
-                Text("${product.price}$")
+                Text("${cartItem.product.price}$")
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        "${(product.price * (1 + product.discountPercentage / 100)).roundToInt()}$",
+                        "${(cartItem.product.price * (1 + cartItem.product.discountPercentage / 100)).roundToInt()}$",
                         textDecoration = TextDecoration.LineThrough,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        "${(product.discountPercentage.format(1))}%Off",
+                        "${(cartItem.product.discountPercentage.format(1))}%Off",
                         color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
+            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Increase",
+                    modifier = Modifier.padding(4.dp).clip(CircleShape).clickable(
+                        enabled = !syncing
+                    ) {
+                        onIncrease()
+                    }
+                )
+                Text(
+                    cartItem.quantity.toString(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(4.dp)
+                )
+                Icon(
+                    imageVector = Icons.Default.Remove,
+                    contentDescription = "Decrease",
+                    modifier = Modifier.padding(4.dp).clip(CircleShape).clickable(
+                        enabled = (cartItem.quantity > 1) && !syncing
+                    ) {
+                        onDecrease()
+                    }
+                )
+            }
+            IconButton(onClick = onDelete, enabled = !syncing) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "ShoppingCart",
+                    modifier = Modifier.size(48.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
             }
         }
     }

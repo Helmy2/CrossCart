@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.core.presentation.components
 
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable

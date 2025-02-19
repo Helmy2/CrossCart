@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.cart.domain.usecase.AddToCartUseCase
 import org.example.cross.card.cart.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.product.domain.usecase.AddToFavoriteUseCase
+import org.example.cross.card.favorite.domain.usecase.AddToFavoriteUseCase
+import org.example.cross.card.favorite.domain.usecase.RemoveFromFavoriteUseCase
 import org.example.cross.card.product.domain.usecase.GetProductByIdUseCase
-import org.example.cross.card.product.domain.usecase.RemoveFromFavoriteUseCase
 
 class DetailViewModel(
     private val getProductByIdUseCase: GetProductByIdUseCase,

@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.favorite
+package org.example.cross.card.favorite.presentation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column

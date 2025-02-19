@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -28,11 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.LocalPlatformContext
 import coil3.compose.rememberAsyncImagePainter
+import org.example.cross.card.core.presentation.components.ZoomableContent
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.presentation.components.shimmerEffect
 import org.example.cross.card.product.domain.entity.ProductDetails
@@ -113,10 +116,14 @@ fun ProductDetails(
                         )
                     }
 
-                    FavoriteButton(
-                        isFavorite = product.isFavorite,
-                        onClick = onFavoriteClick,
-                    )
+                    IconButton(onFavoriteClick) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Favorite",
+                            tint = if (product.isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(48.dp)
+                        )
+                    }
                 }
             }
 

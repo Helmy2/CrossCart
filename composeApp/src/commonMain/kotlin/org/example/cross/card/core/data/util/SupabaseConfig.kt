@@ -1,4 +1,4 @@
-package org.example.cross.card.product.data.util
+package org.example.cross.card.core.data.util
 
 object SupabaseConfig {
     const val PRODUCT_TABLE = "products"

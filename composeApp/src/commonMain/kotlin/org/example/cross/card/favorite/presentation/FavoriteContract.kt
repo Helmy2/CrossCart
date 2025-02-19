@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.favorite
+package org.example.cross.card.favorite.presentation
 
 import org.example.cross.card.product.domain.entity.Product
 

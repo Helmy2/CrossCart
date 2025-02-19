@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.favorite
+package org.example.cross.card.favorite.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.product.domain.usecase.GetFavoritesUseCase
+import org.example.cross.card.favorite.domain.usecase.GetFavoritesUseCase
 
 class FavoriteViewModel(
     private val getFavoritesUseCase: GetFavoritesUseCase,

@@ -2,10 +2,10 @@ package org.example.cross.card.core.domain.entity
 
 import io.github.jan.supabase.auth.user.UserInfo
 import kotlinx.serialization.json.jsonPrimitive
-import org.example.cross.card.core.domain.util.ANONYMOUS_USER_EMAIL
-import org.example.cross.card.core.domain.util.ANONYMOUS_USER_NAME
-import org.example.cross.card.core.domain.util.DISPLAY_NAME_KEY
-import org.example.cross.card.core.domain.util.PROFILE_PICTURE_KEY
+import org.example.cross.card.core.util.ANONYMOUS_USER_EMAIL
+import org.example.cross.card.core.util.ANONYMOUS_USER_NAME
+import org.example.cross.card.core.util.DISPLAY_NAME_KEY
+import org.example.cross.card.core.util.PROFILE_PICTURE_KEY
 
 fun UserInfo.toDomainUser(): User = User(
     id = this.id,

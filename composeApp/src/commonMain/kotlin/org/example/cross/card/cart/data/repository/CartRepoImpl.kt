@@ -18,10 +18,10 @@ import kotlinx.serialization.json.put
 import org.example.cross.card.cart.data.model.CartResponse
 import org.example.cross.card.cart.domain.entity.CartItem
 import org.example.cross.card.cart.domain.repository.CartRepo
-import org.example.cross.card.core.data.util.SupabaseConfig.CART_TABLE
-import org.example.cross.card.core.data.util.SupabaseConfig.PRODUCT_COLUMNS
-import org.example.cross.card.core.data.util.SupabaseConfig.PRODUCT_TABLE
-import org.example.cross.card.core.data.util.SupabaseConfig.THUMBNAIL_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.CART_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_COLUMNS
+import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.THUMBNAIL_TABLE
 import org.example.cross.card.favorite.data.model.FavoriteResponse
 import org.example.cross.card.product.data.model.ProductResponse
 import org.example.cross.card.product.data.model.ThumbnailResponse

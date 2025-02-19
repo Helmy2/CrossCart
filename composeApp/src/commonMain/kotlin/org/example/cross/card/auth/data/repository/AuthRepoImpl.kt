@@ -12,7 +12,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.example.cross.card.auth.domain.repository.AuthRepo
 import org.example.cross.card.core.domain.exceptions.ExceptionMapper
-import org.example.cross.card.core.domain.util.DISPLAY_NAME_KEY
+import org.example.cross.card.core.util.DISPLAY_NAME_KEY
 
 class AuthRepoImpl(
     private val auth: Auth,

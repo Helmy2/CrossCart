@@ -14,8 +14,8 @@ import kotlinx.serialization.json.put
 import org.example.cross.card.core.domain.entity.User
 import org.example.cross.card.core.domain.entity.toDomainUser
 import org.example.cross.card.core.domain.exceptions.ExceptionMapper
-import org.example.cross.card.core.domain.util.DISPLAY_NAME_KEY
-import org.example.cross.card.core.domain.util.PROFILE_PICTURE_KEY
+import org.example.cross.card.core.util.DISPLAY_NAME_KEY
+import org.example.cross.card.core.util.PROFILE_PICTURE_KEY
 import org.example.cross.card.profile.domain.repository.ProfileRepo
 
 class ProfileRepoImpl(

@@ -15,10 +15,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import org.example.cross.card.core.data.util.SupabaseConfig.FAVOURITE_TABLE
-import org.example.cross.card.core.data.util.SupabaseConfig.PRODUCT_COLUMNS
-import org.example.cross.card.core.data.util.SupabaseConfig.PRODUCT_TABLE
-import org.example.cross.card.core.data.util.SupabaseConfig.THUMBNAIL_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.FAVOURITE_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_COLUMNS
+import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_TABLE
+import org.example.cross.card.core.util.SupabaseConfig.THUMBNAIL_TABLE
 import org.example.cross.card.favorite.data.model.FavoriteResponse
 import org.example.cross.card.favorite.domain.repository.FavoriteRepo
 import org.example.cross.card.product.data.model.ProductResponse

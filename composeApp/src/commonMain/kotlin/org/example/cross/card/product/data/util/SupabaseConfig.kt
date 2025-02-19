@@ -6,6 +6,7 @@ object SupabaseConfig {
     const val IMAGE_TABLE = "product_images"
     const val THUMBNAIL_TABLE = "product_thumbnails"
     const val FAVOURITE_TABLE = "favorites"
+    const val CART_TABLE = "carts"
 
     const val PRODUCT_COLUMNS = "id, title, price,rating, discount_percentage, category_id"
     const val PRODUCT_DETAILS_COLUMNS =

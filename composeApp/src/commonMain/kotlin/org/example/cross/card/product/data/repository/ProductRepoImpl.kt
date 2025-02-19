@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import org.example.cross.card.product.data.model.CartResponse
 import org.example.cross.card.product.data.model.CategoryResponse
 import org.example.cross.card.product.data.model.FavoriteResponse
 import org.example.cross.card.product.data.model.ImageResponse
@@ -22,6 +23,7 @@ import org.example.cross.card.product.data.model.ProductDetailsResponse
 import org.example.cross.card.product.data.model.ProductResponse
 import org.example.cross.card.product.data.model.ThumbnailResponse
 import org.example.cross.card.product.data.model.toDomain
+import org.example.cross.card.product.data.util.SupabaseConfig.CART_TABLE
 import org.example.cross.card.product.data.util.SupabaseConfig.CATEGORY_TABLE
 import org.example.cross.card.product.data.util.SupabaseConfig.FAVOURITE_COLUMNS
 import org.example.cross.card.product.data.util.SupabaseConfig.FAVOURITE_TABLE
@@ -177,6 +179,32 @@ class ProductRepoImpl(
         }
     }
 
+    @OptIn(SupabaseExperimental::class)
+    override suspend fun getAllItemsInCart(): Flow<Result<List<Product>>> =
+        withContext(dispatcher) {
+            val userId = supabase.auth.currentUserOrNull()?.id
+                ?: throw IllegalStateException("User is not logged in")
+
+            supabase.from(CART_TABLE).selectAsFlow(
+                CartResponse::productId, filter = FilterOperation(
+                    "user_id", FilterOperator.EQ, userId
+                )
+            ).map {
+                runCatching {
+                    val columns = Columns.raw(PRODUCT_COLUMNS)
+                    supabase.from(PRODUCT_TABLE).select(
+                        columns = columns,
+                    ) {
+                        filter {
+                            ProductResponse::id isIn it.map { it.productId }
+                        }
+                    }.decodeList<ProductResponse>().map {
+                        it.toDomain(getProductThumbnails(it.id).getOrNull())
+                    }
+                }
+            }
+        }
+
     private suspend fun isProductFavorite(productId: String): Result<Boolean> =
         withContext(dispatcher) {
             runCatching {
@@ -217,5 +245,32 @@ class ProductRepoImpl(
             Unit
         }
     }
+
+    override suspend fun addToCart(productId: String): Result<Unit> = withContext(dispatcher) {
+        runCatching {
+            supabase.auth.currentUserOrNull()?.id?.let { userId ->
+                supabase.from(CART_TABLE).insert(buildJsonObject {
+                    put("user_id", userId)
+                    put("product_id", productId)
+                })
+            }
+            Unit
+        }
+    }
+
+    override suspend fun removeFromCart(productId: String): Result<Unit> =
+        withContext(dispatcher) {
+            runCatching {
+                supabase.auth.currentUserOrNull()?.id?.let { userId ->
+                    supabase.from(CART_TABLE).delete {
+                        filter {
+                            FavoriteResponse::userId eq userId
+                            FavoriteResponse::productId eq productId
+                        }
+                    }
+                }
+                Unit
+            }
+        }
 }
 

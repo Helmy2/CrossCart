@@ -14,6 +14,9 @@ interface ProductRepo {
     suspend fun addToFavorites(productId: String): Result<Unit>
     suspend fun removeFromFavorites(productId: String): Result<Unit>
     suspend fun getFavorites(): Flow<Result<List<Product>>>
+    suspend fun addToCart(productId: String): Result<Unit>
+    suspend fun removeFromCart(productId: String): Result<Unit>
+    suspend fun getAllItemsInCart(): Flow<Result<List<Product>>>
     suspend fun getProductsByName(
         query: String,
         rating: Float? = null,

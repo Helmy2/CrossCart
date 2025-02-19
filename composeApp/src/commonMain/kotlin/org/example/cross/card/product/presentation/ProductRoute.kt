@@ -10,6 +10,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.example.cross.card.core.domain.navigation.Destination
+import org.example.cross.card.product.presentation.cart.CartScreen
+import org.example.cross.card.product.presentation.cart.CartViewModel
 import org.example.cross.card.product.presentation.details.DetailScreen
 import org.example.cross.card.product.presentation.details.DetailViewModel
 import org.example.cross.card.product.presentation.favorite.FavoriteScreen
@@ -84,5 +86,39 @@ fun NavGraphBuilder.productRoute() {
                     )
                 }
             })
+    }
+
+    composable<Destination.Main.Cart> {
+        val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<String>()
+        ListDetailPaneScaffold(directive = scaffoldNavigator.scaffoldDirective,
+            value = scaffoldNavigator.scaffoldValue,
+            listPane = {
+                val viewModel: CartViewModel = koinViewModel()
+                val state = viewModel.state.collectAsStateWithLifecycle()
+                CartScreen(
+                    state = state.value,
+                    onProductClick = {
+                        scaffoldNavigator.navigateTo(
+                            ListDetailPaneScaffoldRole.Detail, it.id
+                        )
+                    },
+                    modifier = Modifier.systemBarsPadding(),
+                )
+            },
+            detailPane = {
+                val viewModel: DetailViewModel = koinViewModel()
+                val state = viewModel.state.collectAsStateWithLifecycle()
+                scaffoldNavigator.currentDestination?.content?.let {
+                    DetailScreen(
+                        state = state.value,
+                        onEvent = viewModel::handleEvent,
+                        productId = it,
+                        onBackClick = {
+                            scaffoldNavigator.navigateBack()
+                        },
+                    )
+                }
+            }
+        )
     }
 }

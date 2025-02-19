@@ -30,6 +30,9 @@ sealed class Destination {
 
         @Serializable
         data object Profile : Destination()
+
+        @Serializable
+        data object Cart : Destination()
     }
 
     @Serializable

@@ -59,12 +59,11 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Shopping Cart
 
-- [ ] Real-time shopping cart synchronization via Supabase Realtime.
-- [ ] Guest cart persistence using SQLDelight.
+- [x] Real-time shopping cart synchronization via Supabase Realtime.
 - [ ] Quantity adjustment and item removal.
 - [ ] Clear cart functionality.
-- [ ] Display of cart total.
-- [ ] **Desktop Support:** Optimized for mouse and keyboard interaction.
+- [x] Display of cart total.
+- [ ] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Checkout
 

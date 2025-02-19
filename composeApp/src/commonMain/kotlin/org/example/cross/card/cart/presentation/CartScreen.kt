@@ -14,7 +14,7 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.cart.presentation.components.CartRow
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
 
 
 @Composable

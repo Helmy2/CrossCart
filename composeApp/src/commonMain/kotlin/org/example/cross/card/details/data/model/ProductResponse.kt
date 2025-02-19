@@ -1,8 +1,8 @@
-package org.example.cross.card.product.data.model
+package org.example.cross.card.details.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
 
 @Serializable
 data class ProductResponse(

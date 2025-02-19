@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.cart.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

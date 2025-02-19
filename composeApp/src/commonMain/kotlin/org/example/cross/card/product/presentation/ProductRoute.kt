@@ -10,8 +10,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.example.cross.card.core.domain.navigation.Destination
-import org.example.cross.card.product.presentation.details.DetailScreen
-import org.example.cross.card.product.presentation.details.DetailViewModel
+import org.example.cross.card.details.presentation.DetailScreen
+import org.example.cross.card.details.presentation.DetailViewModel
 import org.example.cross.card.product.presentation.home.HomeScreen
 import org.example.cross.card.product.presentation.home.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel

@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.cart.domain.entity.CartItem
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.presentation.components.ProductCartItem
 
 @Composable
 fun CartRow(

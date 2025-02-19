@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
-import org.example.cross.card.product.domain.entity.Product
-import org.example.cross.card.product.presentation.components.ProductGrid
+import org.example.cross.card.details.domain.entity.Product
+import org.example.cross.card.details.presentation.components.ProductGrid
 
 
 @Composable

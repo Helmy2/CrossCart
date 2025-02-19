@@ -22,10 +22,10 @@ import org.example.cross.card.core.util.SupabaseConfig.CART_TABLE
 import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_COLUMNS
 import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_TABLE
 import org.example.cross.card.core.util.SupabaseConfig.THUMBNAIL_TABLE
+import org.example.cross.card.details.data.model.ProductResponse
+import org.example.cross.card.details.data.model.ThumbnailResponse
+import org.example.cross.card.details.data.model.toDomain
 import org.example.cross.card.favorite.data.model.FavoriteResponse
-import org.example.cross.card.product.data.model.ProductResponse
-import org.example.cross.card.product.data.model.ThumbnailResponse
-import org.example.cross.card.product.data.model.toDomain
 
 
 class CartRepoImpl(

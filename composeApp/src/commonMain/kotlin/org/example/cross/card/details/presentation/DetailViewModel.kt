@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.details
+package org.example.cross.card.details.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,12 +9,12 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.cart.domain.usecase.AddToCartUseCase
 import org.example.cross.card.cart.domain.usecase.RemoveFromCartUseCase
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.details.domain.usecase.GetProductDetailsUseCase
 import org.example.cross.card.favorite.domain.usecase.AddToFavoriteUseCase
 import org.example.cross.card.favorite.domain.usecase.RemoveFromFavoriteUseCase
-import org.example.cross.card.product.domain.usecase.GetProductByIdUseCase
 
 class DetailViewModel(
-    private val getProductByIdUseCase: GetProductByIdUseCase,
+    private val getProductByIdUseCase: GetProductDetailsUseCase,
     private val addToFavoriteUseCase: AddToFavoriteUseCase,
     private val removeFromFavoriteUseCase: RemoveFromFavoriteUseCase,
     private val addToCartUseCase: AddToCartUseCase,

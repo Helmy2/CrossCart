@@ -1,4 +1,4 @@
-package org.example.cross.card.product.domain.entity
+package org.example.cross.card.details.domain.entity
 
 import org.example.cross.card.core.domain.entity.Image
 

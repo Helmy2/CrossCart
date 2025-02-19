@@ -19,10 +19,10 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
+import org.example.cross.card.details.presentation.components.ProductGrid
 import org.example.cross.card.product.presentation.components.CategoryGrid
 import org.example.cross.card.product.presentation.components.FilterDialog
-import org.example.cross.card.product.presentation.components.ProductGrid
 import org.example.cross.card.product.presentation.components.SearchInputField
 
 

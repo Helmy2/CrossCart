@@ -1,6 +1,6 @@
-package org.example.cross.card.product.presentation.details
+package org.example.cross.card.details.presentation
 
-import org.example.cross.card.product.domain.entity.ProductDetails
+import org.example.cross.card.details.domain.entity.ProductDetails
 
 data class DetailState(
     val product: ProductDetails? = null,

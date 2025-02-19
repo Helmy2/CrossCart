@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.details.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,7 +38,7 @@ import coil3.compose.rememberAsyncImagePainter
 import org.example.cross.card.core.presentation.components.ZoomableContent
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.domain.entity.ProductDetails
+import org.example.cross.card.details.domain.entity.ProductDetails
 
 @Composable
 fun ProductDetails(

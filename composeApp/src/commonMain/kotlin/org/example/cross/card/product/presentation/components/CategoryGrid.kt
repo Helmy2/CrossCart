@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
+import org.example.cross.card.details.presentation.components.ProductItem
 
 @Composable
 fun CategoryGrid(

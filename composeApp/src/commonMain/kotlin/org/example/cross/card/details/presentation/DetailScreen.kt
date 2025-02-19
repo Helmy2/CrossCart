@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.details
+package org.example.cross.card.details.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -13,7 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.example.cross.card.core.presentation.components.BackHandler
-import org.example.cross.card.product.presentation.components.ProductDetails
+import org.example.cross.card.details.presentation.components.ProductDetails
 
 @Composable
 fun DetailScreen(

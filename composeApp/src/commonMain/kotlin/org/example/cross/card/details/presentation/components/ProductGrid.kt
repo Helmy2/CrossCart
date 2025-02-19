@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.details.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.cross.card.core.presentation.components.shimmerEffect
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
 
 @Composable
 fun ProductGrid(

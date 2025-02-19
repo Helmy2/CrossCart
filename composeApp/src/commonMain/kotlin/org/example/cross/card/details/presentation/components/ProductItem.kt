@@ -1,4 +1,4 @@
-package org.example.cross.card.product.presentation.components
+package org.example.cross.card.details.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +28,7 @@ import crosscart.composeapp.generated.resources.Res
 import crosscart.composeapp.generated.resources.ic_placeholder
 import org.example.cross.card.core.presentation.components.imageLoader
 import org.example.cross.card.core.util.format
-import org.example.cross.card.product.domain.entity.Product
+import org.example.cross.card.details.domain.entity.Product
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 

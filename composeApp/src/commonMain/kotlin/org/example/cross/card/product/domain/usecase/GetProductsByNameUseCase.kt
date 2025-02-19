@@ -1,7 +1,7 @@
 package org.example.cross.card.product.domain.usecase
 
+import org.example.cross.card.details.domain.entity.Product
 import org.example.cross.card.product.domain.entity.OrderBy
-import org.example.cross.card.product.domain.entity.Product
 import org.example.cross.card.product.domain.repository.ProductRepo
 
 class GetProductsByNameUseCase(

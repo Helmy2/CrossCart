@@ -11,4 +11,5 @@ val appModule = module {
     includes(profileModule)
     includes(cartModule)
     includes(favoriteModule)
+    includes(detailsModule)
 }

@@ -8,6 +8,7 @@ pluginManagement {
                 includeGroupAndSubgroups("androidx")
                 includeGroupAndSubgroups("com.android")
                 includeGroupAndSubgroups("com.google")
+                maven("https://packages.jetbrains.team/maven/p/firework/dev")
             }
         }
         mavenCentral()
@@ -22,6 +23,7 @@ dependencyResolutionManagement {
                 includeGroupAndSubgroups("androidx")
                 includeGroupAndSubgroups("com.android")
                 includeGroupAndSubgroups("com.google")
+                maven("https://packages.jetbrains.team/maven/p/firework/dev")
             }
         }
         mavenCentral()
@@ -29,3 +31,7 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}

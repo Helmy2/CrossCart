@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.buildkonfig) apply false
+    alias(libs.plugins.hotReload) apply false
 }

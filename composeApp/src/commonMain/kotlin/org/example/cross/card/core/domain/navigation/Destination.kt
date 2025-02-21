@@ -36,5 +36,5 @@ sealed class Destination {
     }
 
     @Serializable
-    data class Details(val id: String) : Destination()
+    data object Checkout : Destination()
 }

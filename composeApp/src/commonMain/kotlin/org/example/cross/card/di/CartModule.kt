@@ -27,5 +27,5 @@ val cartModule = module {
     factory { UpdateCartQuantityUseCase(get()) }
     factory { ClearCartUseCase(get()) }
 
-    viewModel { CartViewModel(get(), get(), get(), get(), get()) }
+    viewModel { CartViewModel(get(), get(), get(), get(), get(), get()) }
 }

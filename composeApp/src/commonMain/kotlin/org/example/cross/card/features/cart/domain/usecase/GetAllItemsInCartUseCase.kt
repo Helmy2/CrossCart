@@ -7,7 +7,8 @@ import org.example.cross.card.features.cart.domain.repository.CartRepo
 class GetAllItemsInCartUseCase(
     private val repo: CartRepo
 ) {
-    suspend operator fun invoke(): Flow<Result<List<CartItem>>> {
+    suspend operator fun invoke(
+    ): Flow<Result<List<CartItem>>> {
         return repo.getAllItemsInCart()
     }
 }

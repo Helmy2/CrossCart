@@ -79,6 +79,7 @@ kotlin {
             implementation(libs.supabase.postgrest)
             implementation(libs.supabase.realtime)
             implementation(libs.supabase.storage)
+            implementation(libs.supabase.functions)
             implementation(libs.supabase.compose.auth)
 
             implementation(libs.filekit.compose)

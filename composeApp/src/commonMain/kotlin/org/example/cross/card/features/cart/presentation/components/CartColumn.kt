@@ -17,7 +17,7 @@ import org.example.cross.card.core.presentation.components.shimmerEffect
 import org.example.cross.card.features.cart.domain.entity.CartItem
 
 @Composable
-fun CartRow(
+fun CartColumn(
     products: List<CartItem>,
     syncing: Boolean,
     onProductClick: (CartItem) -> Unit,

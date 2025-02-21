@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -13,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import org.example.cross.card.features.cart.presentation.components.CartRow
+import org.example.cross.card.features.cart.presentation.components.CartColumn
 import org.example.cross.card.features.details.domain.entity.Product
 
 
@@ -30,7 +31,7 @@ fun CartScreen(
             .semantics { isTraversalGroup = true }
             .padding(16.dp),
     ) {
-        CartRow(
+        CartColumn(
             products = state.products,
             onProductClick = { onProductClick(it.product) },
             loading = state.loading,
@@ -49,11 +50,17 @@ fun CartScreen(
                 "${state.totalPrice}$",
                 style = MaterialTheme.typography.headlineSmall
             )
-            Spacer(Modifier.weight(1f))
+
+        }
+        Row {
             if (state.products.isNotEmpty()) {
                 TextButton(onClick = { handleEvent(CartEvent.ClearAll) }) {
                     Text("Clear Cart")
                 }
+            }
+            Spacer(Modifier.weight(1f))
+            Button(onClick = { handleEvent(CartEvent.Checkout) }) {
+                Text("Checkout")
             }
         }
     }

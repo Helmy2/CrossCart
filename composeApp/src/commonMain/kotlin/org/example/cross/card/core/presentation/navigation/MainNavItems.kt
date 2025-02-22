@@ -4,16 +4,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.TopLevelRoutes
 
 fun NavigationSuiteScope.mainNavigationItems(
     onDestinationSelected: (destinations: Destination) -> Unit,
-    currentRoute: String
+    navBackStackEntry: NavBackStackEntry?
 ) {
     TopLevelRoutes.routes.forEach { topLevelRoute ->
         val isSelected =
-            currentRoute == topLevelRoute.route.name
+            navBackStackEntry?.destination?.hierarchy?.any { it.hasRoute(topLevelRoute.route::class) } == true
         item(
             icon = {
                 Icon(

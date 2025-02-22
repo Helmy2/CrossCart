@@ -34,7 +34,4 @@ sealed class Destination {
         @Serializable
         data object Cart : Destination()
     }
-
-    @Serializable
-    data object Checkout : Destination()
 }

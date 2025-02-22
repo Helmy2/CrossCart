@@ -11,7 +11,10 @@ import androidx.navigation.compose.navigation
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.features.auth.presentation.authRoute
-import org.example.cross.card.features.checkout.presentation.checkoutRoute
+import org.example.cross.card.features.cart.presentation.cartRoute
+import org.example.cross.card.features.favorite.presentation.favoriteRoute
+import org.example.cross.card.features.home.presentation.homeRoute
+import org.example.cross.card.features.profile.presentation.profileRoute
 import org.koin.compose.koinInject
 
 @Composable
@@ -25,8 +28,13 @@ fun AppNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        composable<Destination.Main> {
-            MainScreen(modifier = Modifier.fillMaxSize())
+        navigation<Destination.Main>(
+            startDestination = Destination.Main.Home
+        ) {
+            homeRoute()
+            favoriteRoute()
+            cartRoute()
+            profileRoute()
         }
 
         navigation<Destination.Auth>(
@@ -40,8 +48,6 @@ fun AppNavHost(
                 Text("Onboarding")
             }
         }
-
-        checkoutRoute()
     }
 }
 

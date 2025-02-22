@@ -165,6 +165,7 @@ buildkonfig {
 
         require(supabaseKey.isNotEmpty())
         require(supabaseUrl.isNotEmpty())
+        require(serverClientId.isNotEmpty())
 
         buildConfigField(STRING, "supabaseKey", supabaseKey)
         buildConfigField(STRING, "supabaseUrl", supabaseUrl)

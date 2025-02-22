@@ -10,8 +10,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.cross.card.core.domain.navigation.Destination
-import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.util.format
 import org.example.cross.card.features.cart.domain.entity.CartItem
@@ -26,7 +24,6 @@ class CartViewModel(
     private val updateCartQuantityUseCase: UpdateCartQuantityUseCase,
     private val clearCartUseCase: ClearCartUseCase,
     private val snackbarManager: SnackbarManager,
-    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CartState())
@@ -40,12 +37,7 @@ class CartViewModel(
             is CartEvent.IncreaseQuantity -> increase(event.item)
             is CartEvent.RemoveFromCart -> remove(event.item)
             CartEvent.ClearAll -> clearAll()
-            CartEvent.Checkout -> checkout()
         }
-    }
-
-    private fun checkout() {
-        navigator.navigate(Destination.Checkout)
     }
 
     private fun clearAll() {

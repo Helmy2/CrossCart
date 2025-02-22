@@ -1,21 +1,28 @@
 package org.example.cross.card.core
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
+import org.example.cross.card.core.domain.navigation.TopLevelRoutes
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
 import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.navigation.AppNavHost
+import org.example.cross.card.core.presentation.navigation.mainNavigationItems
 import org.example.cross.card.di.appModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -38,7 +45,7 @@ fun App() {
 
         val isUserLongedInUseCase = koinInject<IsUserLongedInUseCase>()
 
-        var startDestination by remember { mutableStateOf<Destination>(Destination.Main) }
+        var startDestination by remember { mutableStateOf<Destination>(Destination.Onboarding) }
 
         LaunchedEffect(Unit) {
             startDestination = if (isUserLongedInUseCase()) Destination.Main else Destination.Auth
@@ -55,11 +62,46 @@ fun MainScaffold(
     startDestination: Destination,
 ) {
     val snackbarManager = koinInject<SnackbarManager>()
+    val navigator = koinInject<Navigator>()
+    val navBackStackEntry by navigator.navController.currentBackStackEntryAsState()
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarManager.snackbarHostState) },
     ) {
-        AppNavHost(
-            startDestination = startDestination,
-        )
+        AnimatedContent(
+            targetState = TopLevelRoutes.routes.any {
+                navBackStackEntry?.destination?.hasRoute(it.route::class) == true
+            }
+        ) {
+            if (it) {
+                NavigationSuiteScaffold(
+                    navigationSuiteItems = {
+                        mainNavigationItems(
+                            onDestinationSelected = {
+                                navigator.navController.apply {
+                                    navigate(it) {
+                                        popUpTo(graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                            },
+                            navBackStackEntry = navBackStackEntry
+                        )
+                    },
+                ) {
+                    AppNavHost(
+                        startDestination = startDestination,
+                    )
+                }
+            } else {
+                AppNavHost(
+                    startDestination = startDestination,
+                )
+            }
+        }
     }
 }
+

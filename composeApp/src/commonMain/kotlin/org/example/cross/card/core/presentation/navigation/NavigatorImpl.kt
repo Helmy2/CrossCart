@@ -13,7 +13,7 @@ class NavigatorImpl(
     }
 
     override fun navigateBack() {
-        navController.popBackStack()
+        navController.navigateUp()
     }
 
     override fun navigateAsStart(route: Destination) {

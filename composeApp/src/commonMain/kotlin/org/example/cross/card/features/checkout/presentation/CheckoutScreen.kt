@@ -27,6 +27,7 @@ fun CheckoutScreen(
     state: CheckoutState,
     onEvent: (CheckoutEvent) -> Unit,
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -73,7 +74,7 @@ fun CheckoutScreen(
             }
         }
         IconButton(
-            onClick = { onEvent(CheckoutEvent.NavigateBack) },
+            onClick = onBackClick,
             modifier = Modifier.align(Alignment.TopStart).padding(16.dp)
         ) {
             Icon(

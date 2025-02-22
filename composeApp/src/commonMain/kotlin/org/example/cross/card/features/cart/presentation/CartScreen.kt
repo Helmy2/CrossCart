@@ -24,6 +24,7 @@ fun CartScreen(
     handleEvent: (CartEvent) -> Unit,
     onProductClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
+    onCheckoutClick: () -> Unit,
 ) {
     Column(
         modifier
@@ -59,7 +60,7 @@ fun CartScreen(
                 }
             }
             Spacer(Modifier.weight(1f))
-            Button(onClick = { handleEvent(CartEvent.Checkout) }) {
+            Button(onClick = onCheckoutClick) {
                 Text("Checkout")
             }
         }

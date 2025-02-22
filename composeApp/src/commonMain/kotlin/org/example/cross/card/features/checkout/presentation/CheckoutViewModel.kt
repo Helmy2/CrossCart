@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.features.cart.domain.usecase.GetAllItemsInCartUseCase
@@ -32,7 +31,7 @@ class CheckoutViewModel(
         when (event) {
             is CheckoutEvent.Checkout -> checkout()
             CheckoutEvent.NavigateBack -> {
-                navigator.navigateAsStart(Destination.Main)
+                navigator.navigateBack()
             }
         }
     }

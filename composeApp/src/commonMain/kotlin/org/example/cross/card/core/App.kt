@@ -23,6 +23,7 @@ import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
 import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.navigation.AppNavHost
 import org.example.cross.card.core.presentation.navigation.mainNavigationItems
+import org.example.cross.card.core.util.connectivityState
 import org.example.cross.card.di.appModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -64,6 +65,14 @@ fun MainScaffold(
     val snackbarManager = koinInject<SnackbarManager>()
     val navigator = koinInject<Navigator>()
     val navBackStackEntry by navigator.navController.currentBackStackEntryAsState()
+
+    val connectivity by connectivityState()
+
+    LaunchedEffect(connectivity) {
+        if (connectivity.isDisconnected) {
+            snackbarManager.showSnackbar("No internet connection")
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarManager.snackbarHostState) },

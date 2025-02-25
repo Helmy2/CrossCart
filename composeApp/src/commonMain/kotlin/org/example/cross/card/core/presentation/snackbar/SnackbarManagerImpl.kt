@@ -14,6 +14,11 @@ class SnackbarManagerImpl(
         snackbarHostState.showSnackbar(value)
     }
 
+    override suspend fun showSnackbar(value: String) {
+        dismissSnackbar()
+        snackbarHostState.showSnackbar(value)
+    }
+
     override suspend fun dismissSnackbar() {
         snackbarHostState.currentSnackbarData?.dismiss()
     }

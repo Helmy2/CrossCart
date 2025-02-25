@@ -7,19 +7,23 @@ import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 @Composable
-actual fun rememberConnectivity(): Connectivity {
+actual fun connectivityState(): State<Connectivity.Status> {
     val context = LocalContext.current
-    return remember<Connectivity> {
-        ConnectivityImp(context)
-    }
+
+    return ConnectivityImp(context).statusUpdates.collectAsStateWithLifecycle(
+        Connectivity.Status.Connected(
+            connectionType = Connectivity.ConnectionType.Unknown
+        )
+    )
 }
 
 class ConnectivityImp(
@@ -66,19 +70,21 @@ class ConnectivityImp(
             }
         } ?: Connectivity.Status.Disconnected
     }
+
+    private fun status(
+        capabilities: NetworkCapabilities?,
+    ): Connectivity.Status.Connected {
+        val isWifi = capabilities?.hasTransport(TRANSPORT_WIFI) ?: false
+        val isCellular = capabilities?.hasTransport(TRANSPORT_CELLULAR) ?: false
+        return Connectivity.Status.Connected(
+            connectionType = when {
+                isWifi -> Connectivity.ConnectionType.Wifi
+                isCellular -> Connectivity.ConnectionType.Mobile
+                else -> Connectivity.ConnectionType.Unknown
+            }
+        )
+    }
+
 }
 
-private fun status(
-    capabilities: NetworkCapabilities?,
-): Connectivity.Status.Connected {
-    val isWifi = capabilities?.hasTransport(TRANSPORT_WIFI) ?: false
-    val isCellular = capabilities?.hasTransport(TRANSPORT_CELLULAR) ?: false
-    return Connectivity.Status.Connected(
-        connectionType = when {
-            isWifi -> Connectivity.ConnectionType.Wifi
-            isCellular -> Connectivity.ConnectionType.Mobile
-            else -> Connectivity.ConnectionType.Unknown
-        }
-    )
-}
 

@@ -1,7 +1,8 @@
 package org.example.cross.card.core.util
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.State
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -9,10 +10,12 @@ import java.net.InetAddress
 import java.net.UnknownHostException
 
 @Composable
-actual fun rememberConnectivity(): Connectivity {
-    return remember<Connectivity> {
-        ConnectivityImp()
-    }
+actual fun connectivityState(): State<Connectivity.Status> {
+    return ConnectivityImp().statusUpdates.collectAsStateWithLifecycle(
+        Connectivity.Status.Connected(
+            connectionType = Connectivity.ConnectionType.Unknown
+        )
+    )
 }
 
 class ConnectivityImp(

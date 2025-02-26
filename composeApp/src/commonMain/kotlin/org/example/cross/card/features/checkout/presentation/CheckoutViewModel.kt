@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.features.cart.domain.usecase.GetAllItemsInCartUseCase
+import org.example.cross.card.features.checkout.data.models.OrderItem
+import org.example.cross.card.features.checkout.domain.models.Address
 import org.example.cross.card.features.checkout.domain.usecase.CreateOrderUseCase
 
 class CheckoutViewModel(
@@ -30,15 +32,43 @@ class CheckoutViewModel(
     fun handleEvent(event: CheckoutEvent) {
         when (event) {
             is CheckoutEvent.Checkout -> checkout()
-            CheckoutEvent.NavigateBack -> {
-                navigator.navigateBack()
-            }
+            CheckoutEvent.NavigateBack -> navigateBack()
+            is CheckoutEvent.UpdateAddressDialog -> updateAddressDialog(event.show)
+            is CheckoutEvent.UpdateShippingAddress -> updateShippingAddress(event.address)
         }
     }
 
+    private fun updateAddressDialog(show: Boolean) {
+        _state.update { it.copy(showAddressDialog = show) }
+    }
+
+    private fun updateShippingAddress(address: Address) {
+        _state.update { it.copy(showAddressDialog = false, shippingAddress = address) }
+    }
+
+    private fun navigateBack() {
+        navigator.navigateBack()
+    }
+
     private fun checkout() {
-        viewModelScope.launch {
-            snackbarManager.showErrorSnackbar("Checkout is not implemented yet")
+        state.value.shippingAddress?.let {
+            viewModelScope.launch {
+                val result = createOrderUseCase(
+                    orderItems = state.value.items.map {
+                        OrderItem(it.product.id, it.quantity, itemPrice = it.product.price)
+                    },
+                    shippingAddress = it
+                )
+                result.fold(
+                    onSuccess = {
+                        snackbarManager.showSnackbar("Order placed successfully")
+                        navigateBack()
+                    },
+                    onFailure = {
+                        snackbarManager.showErrorSnackbar(it.message.orEmpty())
+                    }
+                )
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package org.example.cross.card.features.checkout.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.cross.card.features.checkout.presentation.components.AddressDialog
 
 
 @Composable
@@ -65,9 +67,23 @@ fun CheckoutScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     Text("${state.total}")
                 }
-                Text("Shipping Address: ${state.shippingAddress}")
+                AnimatedVisibility(state.shippingAddress != null) {
+                    Row {
+                        Text("Shipping Address: ")
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(
+                            text = "${state.shippingAddress?.street}, ${state.shippingAddress?.city}, ${state.shippingAddress?.state}, ${state.shippingAddress?.country}",
+                        )
+                    }
+                }
+                TextButton(
+                    onClick = { onEvent(CheckoutEvent.UpdateAddressDialog(true)) },
+                ) {
+                    Text(if (state.shippingAddress != null) "Change Address" else "Add Address")
+                }
                 TextButton(
                     onClick = { onEvent(CheckoutEvent.Checkout) },
+                    enabled = state.validOrder
                 ) {
                     Text("Checkout")
                 }
@@ -80,6 +96,13 @@ fun CheckoutScreen(
             Icon(
                 imageVector = Icons.Default.ArrowBackIosNew,
                 contentDescription = "Back",
+            )
+        }
+        AnimatedVisibility(state.showAddressDialog) {
+            AddressDialog(
+                state.shippingAddress,
+                onDismiss = { onEvent(CheckoutEvent.UpdateAddressDialog(false)) },
+                onConfirm = { onEvent(CheckoutEvent.UpdateShippingAddress(it)) },
             )
         }
     }

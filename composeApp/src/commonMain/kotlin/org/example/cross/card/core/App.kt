@@ -67,10 +67,16 @@ fun MainScaffold(
     val navBackStackEntry by navigator.navController.currentBackStackEntryAsState()
 
     val connectivity by connectivityState()
+    var isReconnected by remember { mutableStateOf(false) }
 
     LaunchedEffect(connectivity) {
         if (connectivity.isDisconnected) {
             snackbarManager.showSnackbar("No internet connection")
+            isReconnected = true
+        }
+
+        if (isReconnected && connectivity.isConnected) {
+            snackbarManager.showSnackbar("Back online")
         }
     }
 

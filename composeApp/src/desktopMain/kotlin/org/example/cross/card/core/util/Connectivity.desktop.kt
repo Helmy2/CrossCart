@@ -20,6 +20,8 @@ actual fun connectivityState(): State<Connectivity.Status> {
 class ConnectivityImp(
     private val delay: Long = 5000L,
 ) : Connectivity {
+    private var networkLost: Boolean = false
+
     override val statusUpdates: Flow<Connectivity.Status> = flow {
         while (true) {
             emit(jvmGetNetworkStatus())
@@ -33,20 +35,23 @@ class ConnectivityImp(
 
         return when {
             interfaces.hasInterface("en0", "Wi-Fi", "wlan") ->
-                Connectivity.Status.Connected(Connectivity.ConnectionType.Wifi)
+                Connectivity.Status.Connected(Connectivity.ConnectionType.Wifi, networkLost)
 
             interfaces.hasInterface(
                 "en",
                 "Ethernet",
                 "Local Area Connection"
-            ) -> Connectivity.Status.Connected(Connectivity.ConnectionType.Wifi)
+            ) -> Connectivity.Status.Connected(Connectivity.ConnectionType.Wifi, networkLost)
 
             interfaces.hasInterface(
                 "rmnet",
                 "pdp"
-            ) -> Connectivity.Status.Connected(Connectivity.ConnectionType.Unknown)
+            ) -> Connectivity.Status.Connected(Connectivity.ConnectionType.Unknown, networkLost)
 
-            else -> Connectivity.Status.Disconnected
+            else -> {
+                networkLost = true
+                Connectivity.Status.Disconnected
+            }
         }
     }
 

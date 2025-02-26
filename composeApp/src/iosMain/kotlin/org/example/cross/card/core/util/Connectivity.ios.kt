@@ -30,6 +30,8 @@ actual fun connectivityState(): State<Connectivity.Status> {
 }
 
 class ConnectivityImp : Connectivity {
+    private var networkLost: Boolean = false
+
     override val statusUpdates: Flow<Connectivity.Status> = callbackFlow {
         val monitor = nw_path_monitor_create()
         val queue = dispatch_queue_create(
@@ -50,12 +52,16 @@ class ConnectivityImp : Connectivity {
                                 isWifi -> Connectivity.ConnectionType.Wifi
                                 isExpensive -> Connectivity.ConnectionType.Mobile
                                 else -> Connectivity.ConnectionType.Unknown
-                            }
+                            },
+                            networkLost
                         ),
                     )
                 }
 
-                else -> trySend(Connectivity.Status.Disconnected)
+                else -> {
+                    networkLost = true
+                    trySend(Connectivity.Status.Disconnected)
+                }
             }
         }
 

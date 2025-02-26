@@ -18,10 +18,17 @@ interface Connectivity {
         val isConnected: Boolean
             get() = this is Connected
 
+        val isReconnecting: Boolean
+            get() = (this as? Connected)?.reconnecting ?: false
+
         val isDisconnected: Boolean
             get() = this is Disconnected
 
-        data class Connected(val connectionType: ConnectionType) : Status
+        data class Connected(
+            val connectionType: ConnectionType,
+            val reconnecting: Boolean = false
+        ) :
+            Status
 
         data object Disconnected : Status
     }

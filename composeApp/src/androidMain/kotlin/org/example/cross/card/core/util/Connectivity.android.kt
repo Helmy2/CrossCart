@@ -29,6 +29,8 @@ actual fun connectivityState(): State<Connectivity.Status> {
 class ConnectivityImp(
     private val context: Context,
 ) : Connectivity {
+    private var networkLost: Boolean = false
+
     override val statusUpdates: Flow<Connectivity.Status> = callbackFlow {
         val manager = context.getSystemService<ConnectivityManager>()
             ?: throw Exception("Could not get connectivity manager")
@@ -36,17 +38,18 @@ class ConnectivityImp(
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 val capabilities = manager.getNetworkCapabilities(network)
-                trySend(status(capabilities))
+                trySend(status(capabilities, networkLost))
             }
 
             override fun onCapabilitiesChanged(
                 network: Network,
                 networkCapabilities: NetworkCapabilities,
             ) {
-                trySend(status(networkCapabilities))
+                trySend(status(networkCapabilities, networkLost))
             }
 
             override fun onLost(network: Network) {
+                networkLost = true
                 trySend(Connectivity.Status.Disconnected)
             }
         }
@@ -64,16 +67,18 @@ class ConnectivityImp(
     }
 
     private fun ConnectivityManager.initialStatus(): Connectivity.Status {
-        return activeNetwork?.let { network ->
-            getNetworkCapabilities(network)?.let { capabilities ->
-                status(capabilities)
-            }
-        } ?: Connectivity.Status.Disconnected
+        return if (activeNetwork != null) {
+            status(getNetworkCapabilities(activeNetwork), networkLost)
+        } else {
+            networkLost = true
+            Connectivity.Status.Disconnected
+        }
     }
 
     private fun status(
         capabilities: NetworkCapabilities?,
-    ): Connectivity.Status.Connected {
+        reconnected: Boolean,
+    ): Connectivity.Status {
         val isWifi = capabilities?.hasTransport(TRANSPORT_WIFI) ?: false
         val isCellular = capabilities?.hasTransport(TRANSPORT_CELLULAR) ?: false
         return Connectivity.Status.Connected(
@@ -81,7 +86,8 @@ class ConnectivityImp(
                 isWifi -> Connectivity.ConnectionType.Wifi
                 isCellular -> Connectivity.ConnectionType.Mobile
                 else -> Connectivity.ConnectionType.Unknown
-            }
+            },
+            reconnected
         )
     }
 

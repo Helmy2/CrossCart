@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.buildkonfig)
     alias(libs.plugins.hotReload)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -43,6 +44,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.sqldelight.android)
         }
 
         commonMain.dependencies {
@@ -83,16 +85,20 @@ kotlin {
             implementation(libs.supabase.compose.auth)
 
             implementation(libs.filekit.compose)
+
+            implementation(libs.sqldelight.coroutines)
         }
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.sqldelight.jvm)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.native)
         }
     }
 }
@@ -170,5 +176,13 @@ buildkonfig {
         buildConfigField(STRING, "supabaseKey", supabaseKey)
         buildConfigField(STRING, "supabaseUrl", supabaseUrl)
         buildConfigField(STRING, "serverClientId", serverClientId)
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "org.example.cross.card.db"
+        }
     }
 }

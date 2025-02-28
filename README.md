@@ -55,6 +55,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Sorting options (name, price, rating).
 - [x] Detailed product view with image gallery (using Coil for image loading).
 - [x] Zoom functionality for product images.
+- [ ] Offline Support
 - [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Shopping Cart
@@ -67,20 +68,9 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Checkout
 
-- [ ] Address selection (with potential for address management).
-- [ ] Secure payment processing integration (Stripe).
-- [ ] Order confirmation with detailed summary.
-- [ ] Order history tracking.
-- [ ] **Desktop Support:** Streamlined checkout process for larger screens.
-
-### Order Management
-
-- [ ] Real-time order status updates via Supabase Realtime.
-- [ ] Guest order persistence using SQLDelight.
-- [ ] Order cancellation (with applicable conditions).
-- [ ] Detailed order view with product information and tracking.
-- [ ] **Desktop Support:** Comprehensive order management features, including printing or
-  downloading order details.
+- [x] Address selection (with potential for address management).
+- [x] Order confirmation with detailed summary.
+- [x] **Desktop Support:** Streamlined checkout process for larger screens.
 
 ### Future Enhancements
 
@@ -107,10 +97,11 @@ clean architecture, real-time sync, and cross-platform development.
 
 1. **Create `local.properties`:** In the root of your project, create a file named
    `local.properties`.
-2. **Add Supabase Credentials:** Add your Supabase URL and anonymous key to `local.properties`:
+2. **Add Supabase Credentials and google server client id:** Add to `local.properties`:
    ```properties
    supabaseKey=your_actual_supabase_key
    supabaseUrl=your_actual_supabase_url
+   serverClientId=your_actual_server_client_id
    ```
 3. **Run the buildkonfig plugin:** Run the buildkonfig plugin to generate the `BuildConfig.kt` file:
 

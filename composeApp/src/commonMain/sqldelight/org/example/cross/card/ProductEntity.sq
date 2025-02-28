@@ -1,0 +1,20 @@
+CREATE TABLE ProductEntity (
+    id TEXT NOT NULL,
+    title text NOT NULL,
+    rating real NOT NULL,
+    price real NOT NULL,
+    discountPercentage real NOT NULL,
+    image text NOT NULL,
+    category text NOT NULL,
+    PRIMARY KEY (id)
+);
+
+insert:
+INSERT OR REPLACE INTO ProductEntity (id, title, rating, price, discountPercentage, image, category)
+VALUES (:id, :title, :rating, :price, :discountPercentage, :image, :category);
+
+getAll:
+SELECT * FROM ProductEntity;
+
+deleteAll:
+DELETE FROM ProductEntity;

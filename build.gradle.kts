@@ -9,4 +9,5 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.buildkonfig) apply false
     alias(libs.plugins.hotReload) apply false
+    alias(libs.plugins.sqlDelight) apply false
 }

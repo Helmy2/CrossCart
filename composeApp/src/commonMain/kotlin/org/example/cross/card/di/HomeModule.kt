@@ -21,5 +21,5 @@ val homeModule = module {
     factory { GetCategoriesWithProductsUseCase(get()) }
     factory { GetProductsByNameUseCase(get()) }
 
-    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get()) }
 }

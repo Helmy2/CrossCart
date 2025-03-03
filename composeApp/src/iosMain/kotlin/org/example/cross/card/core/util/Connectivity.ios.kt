@@ -1,8 +1,5 @@
 package org.example.cross.card.core.util
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -18,16 +15,6 @@ import platform.Network.nw_path_status_satisfied
 import platform.Network.nw_path_uses_interface_type
 import platform.darwin.DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL
 import platform.darwin.dispatch_queue_create
-
-
-@Composable
-actual fun connectivityState(): State<Connectivity.Status> {
-    return ConnectivityImp().statusUpdates.collectAsStateWithLifecycle(
-        Connectivity.Status.Connected(
-            connectionType = Connectivity.ConnectionType.Unknown
-        )
-    )
-}
 
 class ConnectivityImp : Connectivity {
     private var networkLost: Boolean = false

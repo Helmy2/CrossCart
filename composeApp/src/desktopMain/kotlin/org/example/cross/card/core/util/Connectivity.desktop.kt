@@ -1,21 +1,10 @@
 package org.example.cross.card.core.util
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.net.NetworkInterface
 
-@Composable
-actual fun connectivityState(): State<Connectivity.Status> {
-    return ConnectivityImp().statusUpdates.collectAsStateWithLifecycle(
-        Connectivity.Status.Connected(
-            connectionType = Connectivity.ConnectionType.Unknown
-        )
-    )
-}
 
 class ConnectivityImp(
     private val delay: Long = 5000L,

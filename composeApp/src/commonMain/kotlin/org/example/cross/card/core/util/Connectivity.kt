@@ -1,12 +1,6 @@
 package org.example.cross.card.core.util
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import kotlinx.coroutines.flow.Flow
-import org.example.cross.card.core.util.Connectivity.Status
-
-@Composable
-expect fun connectivityState(): State<Status>
 
 
 interface Connectivity {

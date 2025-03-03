@@ -11,7 +11,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +19,6 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
-import org.example.cross.card.core.util.connectivityState
 import org.example.cross.card.features.details.domain.entity.Product
 import org.example.cross.card.features.details.presentation.components.ProductGrid
 import org.example.cross.card.features.home.presentation.components.CategoryGrid
@@ -39,12 +37,6 @@ fun HomeScreen(
     val animatedPadding by animateDpAsState(
         targetValue = if (state.expandedSearch) 0.dp else 16.dp
     )
-    val connectivity by connectivityState()
-    LaunchedEffect(connectivity) {
-        if (connectivity.isReconnecting) {
-            onEvent(HomeEvent.Refresh)
-        }
-    }
 
     Column(
         modifier.semantics { isTraversalGroup = true },

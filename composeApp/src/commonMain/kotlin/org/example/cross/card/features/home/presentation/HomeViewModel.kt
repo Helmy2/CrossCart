@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
+import org.example.cross.card.core.util.Connectivity
 import org.example.cross.card.features.cart.domain.entity.CategoryWithProducts
 import org.example.cross.card.features.home.domain.entity.OrderBy
 import org.example.cross.card.features.home.domain.usecase.GetCategoriesWithProductsUseCase
@@ -20,11 +21,19 @@ class HomeViewModel(
     private val getCategoriesWithProductsUseCase: GetCategoriesWithProductsUseCase,
     private val getProductsByNameUseCase: GetProductsByNameUseCase,
     private val snackbarManager: SnackbarManager,
+    private val connectivity: Connectivity
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
     val state: StateFlow<HomeState> = _state.onStart {
-        refresh()
+        onEvent(HomeEvent.Refresh)
+        viewModelScope.launch {
+            connectivity.statusUpdates.collectLatest {
+                if (it.isConnected) {
+                    onEvent(HomeEvent.Refresh)
+                }
+            }
+        }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), HomeState())
 
     fun onEvent(event: HomeEvent) {

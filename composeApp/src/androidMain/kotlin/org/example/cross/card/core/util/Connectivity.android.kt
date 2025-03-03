@@ -6,25 +6,11 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-@Composable
-actual fun connectivityState(): State<Connectivity.Status> {
-    val context = LocalContext.current
-
-    return ConnectivityImp(context).statusUpdates.collectAsStateWithLifecycle(
-        Connectivity.Status.Connected(
-            connectionType = Connectivity.ConnectionType.Unknown
-        )
-    )
-}
 
 class ConnectivityImp(
     private val context: Context,

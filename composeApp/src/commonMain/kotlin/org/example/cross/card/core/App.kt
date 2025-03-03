@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -23,7 +24,7 @@ import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
 import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.navigation.AppNavHost
 import org.example.cross.card.core.presentation.navigation.mainNavigationItems
-import org.example.cross.card.core.util.connectivityState
+import org.example.cross.card.core.util.Connectivity
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -57,16 +58,22 @@ fun MainScaffold(
     val navigator = koinInject<Navigator>()
     val navBackStackEntry by navigator.navController.currentBackStackEntryAsState()
 
-    val connectivity by connectivityState()
+    val connectivity: Connectivity = koinInject()
+    val state by connectivity.statusUpdates.collectAsStateWithLifecycle(
+        Connectivity.Status.Connected(
+            connectionType = Connectivity.ConnectionType.Unknown
+        )
+    )
+
     var isReconnected by remember { mutableStateOf(false) }
 
-    LaunchedEffect(connectivity) {
-        if (connectivity.isDisconnected) {
+    LaunchedEffect(state) {
+        if (state.isDisconnected) {
             snackbarManager.showSnackbar("No internet connection")
             isReconnected = true
         }
 
-        if (isReconnected && connectivity.isConnected) {
+        if (isReconnected && state.isConnected) {
             snackbarManager.showSnackbar("Back online")
         }
     }

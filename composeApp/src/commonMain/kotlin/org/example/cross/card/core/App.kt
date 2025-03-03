@@ -24,21 +24,13 @@ import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.navigation.AppNavHost
 import org.example.cross.card.core.presentation.navigation.mainNavigationItems
 import org.example.cross.card.core.util.connectivityState
-import org.example.cross.card.di.appModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
 @Composable
 @Preview
 fun App() {
-    KoinApplication(
-        application = {
-            modules(appModule)
-            printLogger()
-        },
-    ) {
         val navController = rememberNavController()
         val snackbarHostState = remember { SnackbarHostState() }
         koinInject<Navigator>(parameters = { parametersOf(navController) })
@@ -55,7 +47,6 @@ fun App() {
         CrossCartTheme {
             MainScaffold(startDestination)
         }
-    }
 }
 
 @Composable

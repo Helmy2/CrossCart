@@ -46,7 +46,7 @@ fun CategoryGrid(
                     span = StaggeredGridItemSpan.FullLine
                 ) {
                     Text(
-                        categories.category.name,
+                        categories.categoryName,
                         modifier = Modifier.padding(horizontal = 8.dp),
                         style = MaterialTheme.typography.titleLarge,
                     )

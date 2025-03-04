@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -67,15 +68,18 @@ class HomeViewModel(
 
     private fun refresh() {
         viewModelScope.launch {
-            getCategoriesWithProductsUseCase().collectLatest { result ->
-                result.fold(onSuccess = { categories ->
-                    _state.update { it.copy(categories = categories, loading = false) }
-                    updatePriceRange(categories)
-                    updateRatingRange(categories)
-                }, onFailure = { snackbarManager.showErrorSnackbar(it.message.orEmpty()) })
-            }
+            getCategoriesWithProductsUseCase()
+                .catch {
+                    snackbarManager.showErrorSnackbar(it.message.orEmpty())
+                }
+                .collectLatest { categoryWithProducts ->
+                    _state.update { it.copy(categories = categoryWithProducts, loading = false) }
+                    updatePriceRange(categoryWithProducts)
+                    updateRatingRange(categoryWithProducts)
+                }
         }
     }
+
 
     private fun updateRatingRange(categories: List<CategoryWithProducts>) {
         val minRating =

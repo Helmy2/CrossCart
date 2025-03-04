@@ -5,6 +5,9 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import org.example.cross.card.core.util.SupabaseConfig.CATEGORY_TABLE
 import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_COLUMNS
@@ -14,24 +17,43 @@ import org.example.cross.card.features.details.data.model.CategoryResponse
 import org.example.cross.card.features.details.data.model.ProductResponse
 import org.example.cross.card.features.details.data.model.ThumbnailResponse
 import org.example.cross.card.features.details.data.model.toDomain
+import org.example.cross.card.features.details.data.model.toLocal
 import org.example.cross.card.features.details.domain.entity.Category
 import org.example.cross.card.features.details.domain.entity.Product
+import org.example.cross.card.features.home.data.local.dao.ProductDao
+import org.example.cross.card.features.home.data.local.entity.toDomain
 import org.example.cross.card.features.home.domain.entity.OrderBy
 import org.example.cross.card.features.home.domain.entity.toSupabaseOrder
 import org.example.cross.card.features.home.domain.repository.HomeRepo
 
 
 class HomeRepoImpl(
-    private val supabase: SupabaseClient, private val dispatcher: CoroutineDispatcher
+    private val supabase: SupabaseClient,
+    private val productDao: ProductDao,
+    private val dispatcher: CoroutineDispatcher
 ) : HomeRepo {
+    override fun getAllProducts(): Flow<List<Product>> {
+        return productDao.getAllProducts().map { list ->
+            list.map { it.toDomain() }
+        }.onStart {
+            try {
+                val columns = Columns.raw(PRODUCT_COLUMNS)
+                val result = supabase.from(PRODUCT_TABLE).select(
+                    columns = columns,
+                ).decodeList<ProductResponse>()
 
-    override suspend fun getAllProducts(): Result<List<Product>> = withContext(dispatcher) {
-        runCatching {
-            val columns = Columns.raw(PRODUCT_COLUMNS)
-            supabase.from(PRODUCT_TABLE).select(
-                columns = columns,
-            ).decodeList<ProductResponse>().map {
-                it.toDomain(getProductThumbnails(it.id).getOrNull())
+                val allCategories = getAllCategories().getOrThrow()
+
+                productDao.insert(
+                    result.map {
+                        it.toLocal(
+                            getProductThumbnails(it.id).getOrNull(),
+                            allCategories.find { category -> category.id == it.categoryId }?.name
+                        )
+                    }
+                )
+            } catch (e: Exception) {
+                println("Error fetching products: $e")
             }
         }
     }

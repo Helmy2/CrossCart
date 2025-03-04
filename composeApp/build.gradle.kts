@@ -13,6 +13,8 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.buildkonfig)
     alias(libs.plugins.hotReload)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -84,6 +86,9 @@ kotlin {
             implementation(libs.supabase.compose.auth)
 
             implementation(libs.filekit.compose)
+
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
 
         desktopMain.dependencies {
@@ -126,7 +131,12 @@ android {
 }
 
 dependencies {
+    ksp(libs.androidx.room.compiler)
     debugImplementation(compose.uiTooling)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 compose.desktop {

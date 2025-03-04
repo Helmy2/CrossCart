@@ -17,7 +17,7 @@ clean architecture, real-time sync, and cross-platform development.
 - **Platform Support:** Android, iOS, and Desktop (fully supported)
 - **Modern Architecture:** Built with Jetpack Compose for UI, leveraging Kotlin Multiplatform for
   shared logic, ensuring a consistent experience across platforms.
-- **Data Persistence:** Utilizes SQLDelight for local data storage, enabling offline functionality
+- **Data Persistence:** Utilizes Room for local data storage, enabling offline functionality
   and guest user features.
 - **Real-time Synchronization:** Integrates with Supabase Realtime for live updates of data across
   devices, providing a dynamic and interactive experience.
@@ -55,7 +55,7 @@ clean architecture, real-time sync, and cross-platform development.
 - [x] Sorting options (name, price, rating).
 - [x] Detailed product view with image gallery (using Coil for image loading).
 - [x] Zoom functionality for product images.
-- [ ] Offline Support
+- [x] Offline Support
 - [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Shopping Cart
@@ -88,7 +88,7 @@ clean architecture, real-time sync, and cross-platform development.
 - **Frontend**: Jetpack Compose Multiplatform
 - **Backend**: Supabase (Auth, Database, Storage)
 - **State Management**: Kotlin Flows + MVI
-- **Local Caching**: SQLDelight
+- **Local Caching**: Room
 - **Dependency Injection**: Koin
 
 ## Run the application

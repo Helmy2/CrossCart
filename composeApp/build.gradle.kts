@@ -146,9 +146,17 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.example.cross.card"
+
             packageVersion = "1.0.0"
             linux {
+                iconFile.set(project.file("desktopAppIcons/AppIcon.png"))
                 modules("jdk.security.auth")
+            }
+            windows {
+                iconFile.set(project.file("desktopAppIcons/AppIcon.ico"))
+            }
+            macOS {
+                iconFile.set(project.file("desktopAppIcons/AppIcon.icns"))
             }
         }
     }

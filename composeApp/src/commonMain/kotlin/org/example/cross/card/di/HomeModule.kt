@@ -2,8 +2,6 @@ package org.example.cross.card.di
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.example.cross.card.features.home.data.local.ProductDatabase
-import org.example.cross.card.features.home.data.local.dao.ProductDao
 import org.example.cross.card.features.home.data.repository.HomeRepoImpl
 import org.example.cross.card.features.home.domain.repository.HomeRepo
 import org.example.cross.card.features.home.domain.usecase.GetCategoriesWithProductsUseCase
@@ -19,10 +17,6 @@ val homeModule = module {
             productDao = get(),
             dispatcher = Dispatchers.IO
         )
-    }
-
-    factory<ProductDao> {
-        get<ProductDatabase>().productDao()
     }
 
     factory { GetCategoriesWithProductsUseCase(get()) }

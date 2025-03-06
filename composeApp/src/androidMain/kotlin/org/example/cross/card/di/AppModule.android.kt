@@ -3,9 +3,9 @@ package org.example.cross.card.di
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
+import org.example.cross.card.core.data.local.ProductDatabase
 import org.example.cross.card.core.util.Connectivity
 import org.example.cross.card.core.util.ConnectivityImp
-import org.example.cross.card.features.home.data.local.ProductDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module

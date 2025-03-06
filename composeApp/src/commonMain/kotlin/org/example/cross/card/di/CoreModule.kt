@@ -2,6 +2,8 @@ package org.example.cross.card.di
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavHostController
+import org.example.cross.card.core.data.local.ProductDatabase
+import org.example.cross.card.core.data.local.dao.ProductDao
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
 import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
@@ -16,6 +18,10 @@ val coreModule = module {
     }
     single<SnackbarManager> { (snackbarHostState: SnackbarHostState) ->
         SnackbarManagerImpl(snackbarHostState)
+    }
+
+    factory<ProductDao> {
+        get<ProductDatabase>().productDao()
     }
 
     factory { IsUserLongedInUseCase(get()) }

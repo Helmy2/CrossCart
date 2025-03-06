@@ -15,6 +15,7 @@ val favoriteModule = module {
     single<FavoriteRepo> {
         FavoriteRepoImpl(
             supabase = get(),
+            productDao = get(),
             dispatcher = Dispatchers.IO
         )
     }

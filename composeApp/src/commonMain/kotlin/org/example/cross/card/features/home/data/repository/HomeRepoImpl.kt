@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
+import org.example.cross.card.core.data.local.dao.ProductDao
+import org.example.cross.card.core.data.local.entity.toDomain
 import org.example.cross.card.core.util.SupabaseConfig.CATEGORY_TABLE
 import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_COLUMNS
 import org.example.cross.card.core.util.SupabaseConfig.PRODUCT_TABLE
@@ -20,8 +22,6 @@ import org.example.cross.card.features.details.data.model.toDomain
 import org.example.cross.card.features.details.data.model.toLocal
 import org.example.cross.card.features.details.domain.entity.Category
 import org.example.cross.card.features.details.domain.entity.Product
-import org.example.cross.card.features.home.data.local.dao.ProductDao
-import org.example.cross.card.features.home.data.local.entity.toDomain
 import org.example.cross.card.features.home.domain.entity.OrderBy
 import org.example.cross.card.features.home.domain.entity.toSupabaseOrder
 import org.example.cross.card.features.home.domain.repository.HomeRepo

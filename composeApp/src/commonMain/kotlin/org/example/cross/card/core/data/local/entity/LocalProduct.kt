@@ -1,4 +1,4 @@
-package org.example.cross.card.features.home.data.local.entity
+package org.example.cross.card.core.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

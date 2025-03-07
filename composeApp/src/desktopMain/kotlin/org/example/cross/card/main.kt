@@ -37,7 +37,7 @@ fun main() {
 
                 LaunchedEffect(Unit) {
                     startDestination =
-                        if (isUserLongedInUseCase()) Destination.Main else Destination.Auth
+                        if (isUserLongedInUseCase()) Destination.Main else Destination.Onboarding
                 }
 
                 CrossCartTheme {

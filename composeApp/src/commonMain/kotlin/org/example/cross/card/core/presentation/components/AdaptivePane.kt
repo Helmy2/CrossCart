@@ -4,10 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -24,15 +25,21 @@ fun AdaptivePane(
 ) {
     val size = currentWindowAdaptiveInfo()
 
+    val cards = remember {
+        movableContentOf {
+            firstPane()
+            Spacer(Modifier.size(spacing))
+            secondPane()
+        }
+    }
+
     when (size.windowSizeClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> Column(
             modifier,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            firstPane()
-            Spacer(Modifier.height(spacing))
-            secondPane()
+            cards()
         }
 
         else -> Row(
@@ -40,9 +47,7 @@ fun AdaptivePane(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            firstPane()
-            Spacer(Modifier.width(spacing))
-            secondPane()
+            cards()
         }
     }
 }

@@ -27,7 +27,7 @@ fun MainViewController() = ComposeUIViewController(
     var startDestination by remember { mutableStateOf<Destination?>(null) }
 
     LaunchedEffect(Unit) {
-        startDestination = if (isUserLongedInUseCase()) Destination.Main else Destination.Auth
+        startDestination = if (isUserLongedInUseCase()) Destination.Main else Destination.Onboarding
     }
     CrossCartTheme {
         AnimatedContent(startDestination != null) {

@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             isUserLongedInUseCase().also {
-                startDestination.value = if (it) Destination.Main else Destination.Auth
+                startDestination.value = if (it) Destination.Main else Destination.Onboarding
             }
         }
 

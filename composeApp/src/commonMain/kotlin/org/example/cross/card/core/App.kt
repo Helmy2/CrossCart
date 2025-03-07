@@ -20,8 +20,6 @@ import org.example.cross.card.core.domain.navigation.Destination
 import org.example.cross.card.core.domain.navigation.Navigator
 import org.example.cross.card.core.domain.navigation.TopLevelRoutes
 import org.example.cross.card.core.domain.snackbar.SnackbarManager
-import org.example.cross.card.core.domain.usecase.IsUserLongedInUseCase
-import org.example.cross.card.core.presentation.CrossCartTheme
 import org.example.cross.card.core.presentation.navigation.AppNavHost
 import org.example.cross.card.core.presentation.navigation.mainNavigationItems
 import org.example.cross.card.core.util.Connectivity
@@ -31,23 +29,13 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 @Preview
-fun App() {
-        val navController = rememberNavController()
-        val snackbarHostState = remember { SnackbarHostState() }
-        koinInject<Navigator>(parameters = { parametersOf(navController) })
-        koinInject<SnackbarManager>(parameters = { parametersOf(snackbarHostState) })
+fun App(startDestination: Destination = Destination.Main) {
+    val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
+    koinInject<Navigator>(parameters = { parametersOf(navController) })
+    koinInject<SnackbarManager>(parameters = { parametersOf(snackbarHostState) })
 
-        val isUserLongedInUseCase = koinInject<IsUserLongedInUseCase>()
-
-        var startDestination by remember { mutableStateOf<Destination>(Destination.Onboarding) }
-
-        LaunchedEffect(Unit) {
-            startDestination = if (isUserLongedInUseCase()) Destination.Main else Destination.Auth
-        }
-
-        CrossCartTheme {
-            MainScaffold(startDestination)
-        }
+    MainScaffold(startDestination)
 }
 
 @Composable

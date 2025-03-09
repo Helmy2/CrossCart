@@ -1,11 +1,11 @@
-# 🛒 CrossCart
+# <img src="composeApp/desktopAppIcons/AppIcon.png" alt="drawing" width="30"/>  CrossCart
 
 **Android | iOS | Desktop**
 
 A **multiplatform e-commerce app** built with Jetpack Compose Multiplatform and Supabase, showcasing
 clean architecture, real-time sync, and cross-platform development.
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-blue.svg)](https://kotlinlang.org)  
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.20-blue.svg)](https://kotlinlang.org)  
 [![Supabase](https://img.shields.io/badge/Supabase-Powered-green.svg)](https://supabase.com)  
 [![Platforms](https://img.shields.io/badge/Platforms-Android_iOS_Desktop-blue.svg)](https://kotlinlang.org/lp/multiplatform/)  
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
@@ -25,10 +25,15 @@ clean architecture, real-time sync, and cross-platform development.
 ### UI/UX
 
 - **Theme:**
-  - [x] Dark/Light mode switching.
+    - [x] Dark/Light mode switching.
 - **Responsive Design:** UI adapts seamlessly to different screen sizes (mobile, tablet, desktop).
 - **Navigation:** Intuitive navigation between screens using Jetpack Compose Navigation.
 - **Animations:** Smooth and engaging UI transitions and animations.
+
+### Onboarding
+
+- [x] Onboarding flow for new users.
+- [x] **Desktop Support:** UI and functionality optimized for desktop browsers.
 
 ### Authentication
 
@@ -78,7 +83,8 @@ clean architecture, real-time sync, and cross-platform development.
 - [ ]  **Promotional Offers:** Integrate support for discounts and promotions.
 - [ ]  **Push Notifications:** Send notifications for order updates, and promotions (mobile
   platforms).
-- [ ]  **Accessibility:**  Ensure the app is accessible to users with disabilities across all platforms.
+- [ ]  **Accessibility:**  Ensure the app is accessible to users with disabilities across all
+  platforms.
 - [ ]  **Testing:** Comprehensive unit and integration tests for all features.
 
 ---
@@ -90,6 +96,48 @@ clean architecture, real-time sync, and cross-platform development.
 - **State Management**: Kotlin Flows + MVI
 - **Local Caching**: Room
 - **Dependency Injection**: Koin
+
+## UI/UX
+
+### Demo
+
+[![Watch the video](image/onboarding_desktop_1.webp)](image/demo.mp4)
+
+### Onboarding
+
+<img src="image/onboarding_desktop_1.webp" alt="onboarding" height="300" /> <img src="image/onboarding_iphone_1.webp" alt="onboarding"  height="300"/>
+<img src="image/onboarding_desktop_2.webp" alt="onboarding" height="300" /> <img src="image/onboarding_iphone_2.webp" alt="onboarding"  height="300"/>
+<img src="image/onboarding_desktop_3.webp" alt="onboarding" height="300" /> <img src="image/onboarding_iphone_3.webp" alt="onboarding" height="300" />
+<img src="image/onboarding_desktop_4.webp" alt="onboarding" height="300" />  <img src="image/onboarding_iphone_4.webp" alt="onboarding" height="300" />
+<img src="image/onboarding_desktop_5.webp" alt="onboarding" height="300" /> <img src="image/onboarding_iphone_5.webp" alt="onboarding" height="300"/>
+
+### Authentication
+
+<img src="image/auth_desktop_1.webp" alt="auth" height="300" /> <img src="image/auth_iphone_1.webp" alt="auth" height="300" />
+<img src="image/auth_desktop_2.webp" alt="auth" height="300" /> <img src="image/auth_iphone_2.webp" alt="auth" height="300" />
+<img src="image/auth_desktop_3.webp" alt="auth" height="300" /> <img src="image/auth_iphone_3.webp" alt="auth" height="300" />
+
+### Home
+
+<img src="image/home_desktop_1.webp" alt="home" height="300" /> <img src="image/home_iphone_1.webp" alt="home" height="300" />
+<img src="image/home_desktop_2.webp" alt="home" height="300" /> <img src="image/home_iphone_2.webp" alt="home" height="300" />
+<img src="image/home_desktop_3.webp" alt="home" height="300" /> <img src="image/home_iphone_3.webp" alt="home" height="300" />
+<img src="image/home_desktop_4.webp" alt="home" height="300" /> <img src="image/home_iphone_4.webp" alt="home" height="300" />
+<img src="image/home_desktop_5.webp" alt="home" height="300" /> <img src="image/home_iphone_5.webp" alt="home" height="300" />
+
+### Favorites
+
+<img src="image/favorite_desktop_1.webp" alt="favorites" height="300" /> <img src="image/favorite_iphone_1.webp" alt="favorites" height="300" />
+
+### Cart
+
+<img src="image/cart_desktop_1.webp" alt="cart" height="300" /> <img src="image/cart_iphone_1.webp" alt="cart" height="300" />
+<img src="image/cart_desktop_2.webp" alt="cart" height="300" /> <img src="image/cart_iphone_2.webp" alt="cart" height="300" />
+<img src="image/cart_desktop_3.webp" alt="cart" height="300" /> <img src="image/cart_iphone_3.webp" alt="cart" height="300" />
+
+### Profile
+
+<img src="image/profile_desktop_1.webp" alt="profile" height="300" /> <img src="image/profile_iphone_1.webp" alt="profile" height="300" />
 
 ## Run the application
 
@@ -138,4 +186,5 @@ Built with ❤️ by **Helmy**
 
 [LinkedIn](https://www.linkedin.com/in/mo-helmy/)
 
-This README will be continuously updated as the app evolves.  Stay tuned for more features and improvements!
+This README will be continuously updated as the app evolves. Stay tuned for more features and
+improvements!

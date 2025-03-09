@@ -101,7 +101,8 @@ clean architecture, real-time sync, and cross-platform development.
 
 ### Demo
 
-[![Watch the video](image/onboarding_desktop_1.webp)](image/demo.mp4)
+[![Demo](https://img.youtube.com/vi/jt1kWnJ4aLg/0.jpg)](https://www.youtube.com/watch?v=jt1kWnJ4aLg)
+
 
 ### Onboarding
 
